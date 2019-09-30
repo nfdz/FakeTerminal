@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:terminal_resume_app/utils/constants.dart';
 
@@ -57,12 +58,32 @@ class FlutterExperimentWarning extends StatelessWidget {
         Align(
           alignment: Alignment.topRight,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(9.0),
             child: Opacity(
-              opacity: 0.50,
+              opacity: 0.70,
               child: FlatButton(
-                child: Text("Warning! This is a Flutter experiment v1.10.5"),
+                child: Text("Warning! This is a Flutter experiment v1.10.6"),
                 onPressed: () => _showWarning(context),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(9.0),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: FloatingActionButton(
+              key: null,
+              mini: true,
+              backgroundColor: kAccentColor,
+              onPressed: () {
+                _kLogger.info("On back pressed");
+                // TODO
+              },
+              tooltip: 'Back',
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
               ),
             ),
           ),
@@ -76,7 +97,7 @@ class FlutterExperimentWarning extends StatelessWidget {
         context: ctx,
         builder: (context) {
           List<Widget> _actions = <Widget>[
-            FlatButton(highlightColor: kPrimaryColor, onPressed: () => Navigator.pop(ctx), child: Text("Ok"))
+            FlatButton(highlightColor: kAccentColor, onPressed: () => Navigator.pop(ctx), child: Text("Ok"))
           ];
           return AlertDialog(title: Text("Warning"), content: Text("Experiment"), actions: _actions);
         });
@@ -89,10 +110,40 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  void _incrementCounter() {
+  final List<TerminalLine> _content = [
+    ResultLine("\n\n"),
+  ];
+  TextEditingController _cmdTextController = TextEditingController();
+  FocusNode _inputNode = FocusNode();
+  FocusNode _keyInputNode = FocusNode();
+
+  void _executeCmd() {
+    FocusScope.of(context).unfocus();
+    String cmd = _cmdTextController.text;
+    _cmdTextController.clear();
+    _kLogger.info("Executing command: $cmd");
+    _content.insert(0, CommandLine(cmd));
+    if (cmd.isNotEmpty == true) {
+      _content.insert(0, ResultLine(_getResult(cmd)));
+    }
     setState(() {
-      _kLogger.warning("message");
+      _inputNode.requestFocus();
     });
+  }
+
+  String _getResult(String cmd) {
+    switch (cmd) {
+      default:
+        return kCmdNotFound.replaceFirst("{cmd}", cmd.split(" ").first);
+    }
+  }
+
+  @override
+  void dispose() {
+    _inputNode.dispose();
+    _keyInputNode.dispose();
+    _cmdTextController.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,21 +153,103 @@ class _MainPageState extends State<MainPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Expanded(
+              child: Scrollbar(
+                child: ListView.builder(
+                    reverse: true,
+                    padding: const EdgeInsets.fromLTRB(9, 0, 9, 9),
+                    itemCount: _content.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final entry = _content[index];
+                      bool isCmd = entry is CommandLine;
+                      if (isCmd) {
+                        return RichText(
+                          text: TextSpan(
+                            style: kDefaultTextStyle.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: kTerminalAccentColor,
+                            ),
+                            text: kTerminalPrefix,
+                            children: <TextSpan>[
+                              TextSpan(text: entry.line, style: kDefaultTextStyle.copyWith(color: Colors.white)),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Text(
+                          entry.line,
+                          style: kDefaultTextStyle,
+                        );
+                      }
+                    }),
+              ),
             ),
-            Text(
-              '23',
-              style: Theme.of(context).textTheme.display1,
+            Container(
+              width: double.infinity,
+              height: 70,
+              color: kLightPrimaryColor,
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 9),
+                  Text(
+                    kTerminalPrefix,
+                    style: kDefaultTextStyle.copyWith(color: kTerminalAccentColor, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 9),
+                  Expanded(
+                    child: RawKeyboardListener(
+                      focusNode: _keyInputNode,
+                      onKey: (event) {
+                        if (event.runtimeType == RawKeyDownEvent && (event.logicalKey.keyId == 54)) {
+                          _kLogger.fine("Enter key down");
+                          _executeCmd();
+                        }
+                      },
+                      child: TextField(
+                        focusNode: _inputNode,
+                        maxLines: 1,
+                        controller: _cmdTextController,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.newline,
+                        style: kDefaultTextStyle,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter a command...',
+                        ),
+                        onEditingComplete: () => _executeCmd(),
+                        onSubmitted: (text) => _executeCmd(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 9),
+                  FloatingActionButton(
+                    key: null,
+                    backgroundColor: kPrimaryColor,
+                    onPressed: _executeCmd,
+                    mini: true,
+                    tooltip: 'Execute command',
+                    child: Icon(Icons.send, color: Colors.white),
+                  ),
+                  SizedBox(width: 9),
+                ],
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class TerminalLine {
+  final String line;
+  TerminalLine(this.line);
+}
+
+class CommandLine extends TerminalLine {
+  CommandLine(String line) : super(line);
+}
+
+class ResultLine extends TerminalLine {
+  ResultLine(String line) : super(line);
 }
