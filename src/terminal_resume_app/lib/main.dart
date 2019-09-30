@@ -62,7 +62,7 @@ class FlutterExperimentWarning extends StatelessWidget {
             child: Opacity(
               opacity: 0.70,
               child: FlatButton(
-                child: Text("Warning! This is a Flutter experiment v1.10.6"),
+                child: Text("Warning! This is a Flutter experiment v1.10.6", style: kSmallestTextStyle),
                 onPressed: () => _showWarning(context),
               ),
             ),
@@ -111,7 +111,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final List<TerminalLine> _content = [
-    ResultLine("\n\n"),
+    ResultLine(kWelcomeText),
+    ResultLine("\n\n\n"),
   ];
   TextEditingController _cmdTextController = TextEditingController();
   FocusNode _inputNode = FocusNode();
@@ -123,18 +124,78 @@ class _MainPageState extends State<MainPage> {
     _cmdTextController.clear();
     _kLogger.info("Executing command: $cmd");
     _content.insert(0, CommandLine(cmd));
-    if (cmd.isNotEmpty == true) {
-      _content.insert(0, ResultLine(_getResult(cmd)));
-    }
+    _processOutput(cmd);
     setState(() {
       _inputNode.requestFocus();
     });
   }
 
-  String _getResult(String cmd) {
-    switch (cmd) {
+  void _processOutput(String fullCmd) {
+    if (fullCmd.isNotEmpty == false) {
+      return;
+    }
+    final cmdArray = fullCmd.split(" ");
+    var command = cmdArray.first;
+    // Force man if user type -h arg
+    if (cmdArray.length > 1 && cmdArray[1] == kHelpArg) {
+      command = kCmdMan;
+    }
+    switch (command) {
+      case kCmdHelp:
+        if (cmdArray.length > 1) {
+          _content.insert(0, ResultLine(kCmdIgnoredArgs));
+        }
+        _content.insert(0, ResultLine(kCmdHelpOutput));
+        return;
+      case kCmdLs:
+        if (cmdArray.length > 1) {
+          _content.insert(0, ResultLine(kCmdIgnoredArgs));
+        }
+        _content.insert(0, ResultLine(kCmdLsOutput));
+        return;
+      case kCmdClear:
+        _content.clear();
+        return;
+      case kCmdMan:
+        if (cmdArray.length < 2) {
+          _content.insert(0, ResultLine(kCmdInvalidArgs + kCmdMan));
+        } else {
+          if (cmdArray.length > 2) {
+            _content.insert(0, ResultLine(kCmdIgnoredArgs));
+          }
+          String manArg = cmdArray[1];
+          if (manArg == kHelpArg) {
+            manArg = cmdArray.first;
+          }
+          _content.insert(0, ResultLine(_getManFor(manArg)));
+        }
+        return;
       default:
-        return kCmdNotFound.replaceFirst("{cmd}", cmd.split(" ").first);
+        _content.insert(0, ResultLine(kCmdNotFound.replaceFirst("{cmd}", command)));
+        return;
+    }
+  }
+
+  String _getManFor(String manArg) {
+    switch (manArg) {
+      case kCmdHelp:
+        return kCmdHelpManEntry;
+      case kCmdLs:
+        return kCmdLsManEntry;
+      case kCmdClear:
+        return kCmdClearManEntry;
+      case kCmdMan:
+        return kCmdManManEntry;
+      case kCmdCat:
+        return kCmdCatManEntry;
+      case kCmdExit:
+        return kCmdExitManEntry;
+      case kCmdFlutter:
+        return kCmdFlutterManEntry;
+      case kCmdNfdz:
+        return kCmdNfdzManEntry;
+      default:
+        return kCmdManNotFound + manArg;
     }
   }
 
@@ -148,6 +209,10 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final TextStyle responsiveTextStyle = width > kSmallerToBigWidth
+        ? kDefaultTextStyle
+        : width > kSmallestToSmallerWidth ? kSmallerTextStyle : kSmallestTextStyle;
     return Scaffold(
       body: Center(
         child: Column(
@@ -165,20 +230,20 @@ class _MainPageState extends State<MainPage> {
                       if (isCmd) {
                         return RichText(
                           text: TextSpan(
-                            style: kDefaultTextStyle.copyWith(
+                            style: responsiveTextStyle.copyWith(
                               fontWeight: FontWeight.bold,
                               color: kTerminalAccentColor,
                             ),
                             text: kTerminalPrefix,
                             children: <TextSpan>[
-                              TextSpan(text: entry.line, style: kDefaultTextStyle.copyWith(color: Colors.white)),
+                              TextSpan(text: entry.line, style: responsiveTextStyle.copyWith(color: Colors.white)),
                             ],
                           ),
                         );
                       } else {
                         return Text(
                           entry.line,
-                          style: kDefaultTextStyle,
+                          style: responsiveTextStyle,
                         );
                       }
                     }),
@@ -193,7 +258,7 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(width: 9),
                   Text(
                     kTerminalPrefix,
-                    style: kDefaultTextStyle.copyWith(color: kTerminalAccentColor, fontWeight: FontWeight.bold),
+                    style: responsiveTextStyle.copyWith(color: kTerminalAccentColor, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(width: 9),
                   Expanded(
@@ -211,7 +276,7 @@ class _MainPageState extends State<MainPage> {
                         controller: _cmdTextController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.newline,
-                        style: kDefaultTextStyle,
+                        style: responsiveTextStyle,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Enter a command...',
