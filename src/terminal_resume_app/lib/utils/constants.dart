@@ -12,7 +12,12 @@ const double kSmallerToBigWidth = 850.0;
 const double kSmallestToSmallerWidth = 700.0;
 
 // Texts
-const String kAppName = 'Terminal - nfdz';
+const String kAppName = "Terminal - nfdz";
+const String kCommandBoxHint = "Enter a command...";
+const String kSendCommandTooltip = "Execute command";
+const String kBackTooltip = "Exit terminal";
+const String kWarningDialogTitle = "TODO";
+const String kWarningDialogContent = "TODO";
 const String kTerminalPrefix = "[nfdz@github.io ~]\$ ";
 const String kCmdNotFound = "bash: {cmd}: command not found";
 const String kHelpArg = "-h";
