@@ -22,3 +22,29 @@ class HelpCommand extends Command {
     output.insert(0, ResultLine(kCmdHelpOutput));
   }
 }
+
+const String kCmdHelp = "help";
+const String kCmdHelpOutput = """
+The commands that are enabled are the following:
+ cat     - Concatenate FILE(s) to standard output
+ clear   - Clear the terminal screen
+ exit    - Log off and close the app
+ flutter - Flutter app development
+ help    - Show help information about terminal
+ ls      - List directory contents
+ man     - An interface to the on-line reference manuals
+ nfdz    - Processes the json files with information about me""";
+const String kCmdHelpManEntry = """
+HELP(1)
+
+NAME
+       help - Print help for working enviroment.
+
+SYNOPSIS
+       help
+
+DESCRIPTION
+       List information about the work options of current working enviroment.
+
+OPTIONS
+       None.""";

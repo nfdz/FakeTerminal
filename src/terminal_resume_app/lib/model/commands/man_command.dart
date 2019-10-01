@@ -17,7 +17,7 @@ class ManCommand extends Command {
   @override
   void execute(List<String> args, List<TerminalLine> output) {
     if (args.length < 2) {
-      output.insert(0, ResultLine(kCmdInvalidArgs + kCmdMan));
+      output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
     } else {
       if (args.length > 2) {
         output.insert(0, ResultLine(kCmdIgnoredArgs));
@@ -36,3 +36,24 @@ class ManCommand extends Command {
     return command != null ? command.manEntry : "$kCmdManNotFound$cmd";
   }
 }
+
+const String kCmdMan = "man";
+const String kCmdManNotFound = "No manual entry for ";
+const String kCmdManManEntry = """
+MAN(1)
+
+NAME
+       man - an interface to the on-line reference manuals
+
+SYNOPSIS
+       man [CMD]
+
+DESCRIPTION
+       man is the system's manual pager.  Each page argument given to man is normally the name of a program, utility or function. The manual page associated with each of these arguments is then found and displayed.
+
+EXAMPLES
+       man ls
+           Display the manual page for the item (program) ls.
+
+DEFAULTS
+       man will search for the desired manual pages within the index database caches.""";

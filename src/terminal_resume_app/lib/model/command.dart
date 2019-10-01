@@ -15,7 +15,7 @@ abstract class Command {
   void execute(List<String> args, List<TerminalLine> output);
 }
 
-final List<Command> _kAvailableCommands = [
+final List<Command> kAvailableCommands = [
   CatCommand(),
   ClearCommand(),
   ExitCommand(),
@@ -27,7 +27,7 @@ final List<Command> _kAvailableCommands = [
 ];
 
 Command parseCommand(String cmd) {
-  for (Command availableCommand in _kAvailableCommands) {
+  for (Command availableCommand in kAvailableCommands) {
     if (availableCommand.cmd == cmd) {
       return availableCommand;
     }

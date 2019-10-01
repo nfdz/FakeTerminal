@@ -20,7 +20,7 @@ class WarningExitWrapper extends StatelessWidget {
             child: Opacity(
               opacity: 0.70,
               child: FlatButton(
-                child: Text("Warning! This is a Flutter experiment v1.10.6", style: kSmallestTextStyle),
+                child: Text(kWarningButton, style: kSmallestTextStyle),
                 onPressed: () => _showWarning(context),
               ),
             ),

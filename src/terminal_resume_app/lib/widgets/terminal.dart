@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
+import 'package:terminal_resume_app/model/command.dart';
 import 'package:terminal_resume_app/utils/constants.dart';
 import 'package:terminal_resume_app/utils/terminal_brain.dart';
 import 'package:terminal_resume_app/widgets/terminal_entry.dart';
@@ -14,6 +15,8 @@ class Terminal extends StatefulWidget {
 
 class _TerminalState extends State<Terminal> {
   final TerminalBrain _terminalBrain = TerminalBrain();
+  final List<String> _history = [];
+  int _historyPointer = -1;
 
   TextEditingController _cmdTextController = TextEditingController();
   FocusNode _inputNode = FocusNode();
@@ -65,9 +68,25 @@ class _TerminalState extends State<Terminal> {
                     child: RawKeyboardListener(
                       focusNode: _keyInputNode,
                       onKey: (event) {
-                        if (event.runtimeType == RawKeyDownEvent && (event.logicalKey.keyId == 54)) {
-                          _kLogger.fine("Enter key down");
-                          _sendCommand();
+                        if (event.runtimeType == RawKeyDownEvent) {
+                          switch (event.logicalKey.keyId) {
+                            case kKeyCodeEnter:
+                              _kLogger.fine("Enter key down");
+                              _sendCommand();
+                              break;
+                            case kKeyCodeUp:
+                              _kLogger.fine("Up key down");
+                              _navigateHistoryUp();
+                              break;
+                            case kKeyCodeDown:
+                              _kLogger.fine("Down key down");
+                              _navigateHistoryDown();
+                              break;
+                            case kKeyCodeTab:
+                              _kLogger.fine("Tab key down");
+                              _tryToAutocomplete();
+                              break;
+                          }
                         }
                       },
                       child: TextField(
@@ -109,8 +128,68 @@ class _TerminalState extends State<Terminal> {
     setState(() {
       FocusScope.of(context).unfocus();
       String cmd = _cmdTextController.text;
+      if (cmd.isNotEmpty) {
+        _history.add(cmd);
+      }
+      _historyPointer = -1;
       _cmdTextController.clear();
       _terminalBrain.executeCommand(cmd);
+      _inputNode.requestFocus();
+    });
+  }
+
+  void _navigateHistoryUp() {
+    _kLogger.fine("_navigateHistoryUp(_historyPointer:$_historyPointer)");
+    if (_history.length > 0) {
+      if (_historyPointer < 0) {
+        _historyPointer = _history.length;
+      }
+      if (_historyPointer >= 0) {
+        if (_historyPointer > 0) {
+          _historyPointer--;
+        }
+        setState(() {
+          FocusScope.of(context).unfocus();
+          _cmdTextController.text = _history[_historyPointer];
+          _inputNode.requestFocus();
+        });
+      }
+    }
+  }
+
+  void _navigateHistoryDown() {
+    _kLogger.fine("_navigateHistoryDown(_historyPointer:$_historyPointer)");
+    if (_history.length > 0) {
+      if (_historyPointer < 0) {
+        return;
+      }
+      if (_historyPointer >= _history.length - 1) {
+        FocusScope.of(context).unfocus();
+        _cmdTextController.clear();
+        _inputNode.requestFocus();
+      } else {
+        _historyPointer++;
+        setState(() {
+          FocusScope.of(context).unfocus();
+          _cmdTextController.text = _history[_historyPointer];
+          _inputNode.requestFocus();
+        });
+      }
+    }
+  }
+
+  void _tryToAutocomplete() {
+    setState(() {
+      FocusScope.of(context).unfocus();
+      String cmd = _cmdTextController.text;
+      if (cmd.isNotEmpty) {
+        for (Command availableCommand in kAvailableCommands) {
+          if (availableCommand.cmd.startsWith(cmd)) {
+            _cmdTextController.text = availableCommand.cmd;
+            break;
+          }
+        }
+      }
       _inputNode.requestFocus();
     });
   }

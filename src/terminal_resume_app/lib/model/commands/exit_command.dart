@@ -1,6 +1,5 @@
 import 'package:terminal_resume_app/model/command.dart';
 import 'package:terminal_resume_app/model/terminal_content.dart';
-import 'package:terminal_resume_app/utils/constants.dart';
 
 class ExitCommand extends Command {
   static ExitCommand _instance;
@@ -19,3 +18,19 @@ class ExitCommand extends Command {
     // TODO: implement execute
   }
 }
+
+const String kCmdExit = "exit";
+const String kCmdExitManEntry = """
+EXIT(1)
+
+NAME
+       exit - cause the shell to exit
+
+SYNOPSIS
+       exit
+
+DESCRIPTION
+       The exit utility shall cause the shell to exit with the exit status specified by the unsigned decimal integer n.  If n is specified, but its value is not between 0 and 255 inclusively, the exit status is undefined.
+
+OPTIONS
+       None.""";
