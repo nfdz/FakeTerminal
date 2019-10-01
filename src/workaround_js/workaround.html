@@ -1,0 +1,50 @@
+ 
+<script type="text/javascript">
+// Disable TAB key
+var KEYCODE_TAB = 9;
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab' || e.keyCode === KEYCODE_TAB) {
+                e.preventDefault();
+    }
+});
+
+// Communication throug stdout
+var GO_BACK_CODE = "[GO_BACK]";
+var GO_GITHUB_CODE = "[GO_GITHUB]";
+var githubUrl = "https://github.com/nfdz/TerminalResumeWeb";
+
+var _log = console.log,
+    _warn = console.warn,
+    _error = console.error;
+
+console.log = function() {
+    if (arguments[0] == GO_BACK_CODE) {
+        window.history.back();
+    } else if (arguments[0] == GO_GITHUB_CODE) {
+        var win = window.open(githubUrl, '_blank');
+        win.focus();
+    }
+    return _log.apply(console, arguments);
+};
+
+console.warn = function() {
+    if (arguments[0] == GO_BACK_CODE) {
+        window.history.back();
+    } else if (arguments[0] == GO_GITHUB_CODE) {
+        var win = window.open(githubUrl, '_blank');
+        win.focus();
+    }
+    return _warn.apply(console, arguments);
+};
+
+console.error = function() {
+    if (arguments[0] == GO_BACK_CODE) {
+        window.history.back();
+    } else if (arguments[0] == GO_GITHUB_CODE) {
+        var win = window.open(githubUrl, '_blank');
+        win.focus();
+    }
+    return _error.apply(console, arguments);
+};
+</script>

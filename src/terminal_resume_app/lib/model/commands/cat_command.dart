@@ -15,7 +15,7 @@ class CatCommand extends Command {
   CatCommand._() : super(kCmdCat, kCmdCatManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     if (args.length < 2) {
       output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
     } else {

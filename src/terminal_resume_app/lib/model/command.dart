@@ -3,6 +3,7 @@ import 'package:terminal_resume_app/model/commands/clear_command.dart';
 import 'package:terminal_resume_app/model/commands/exit_command.dart';
 import 'package:terminal_resume_app/model/commands/flutter_command.dart';
 import 'package:terminal_resume_app/model/commands/help_command.dart';
+import 'package:terminal_resume_app/model/commands/history_command.dart';
 import 'package:terminal_resume_app/model/commands/ls_command.dart';
 import 'package:terminal_resume_app/model/commands/man_command.dart';
 import 'package:terminal_resume_app/model/commands/nfdz_command.dart';
@@ -12,18 +13,19 @@ abstract class Command {
   final String cmd;
   final String manEntry;
   Command(this.cmd, this.manEntry);
-  void execute(List<String> args, List<TerminalLine> output);
+  void execute(List<String> args, List<TerminalLine> output, List<String> history);
 }
 
 final List<Command> kAvailableCommands = [
+  HelpCommand(),
+  NfdzCommand(),
+  FlutterCommand(),
+  ManCommand(),
   CatCommand(),
   ClearCommand(),
   ExitCommand(),
-  FlutterCommand(),
-  HelpCommand(),
   LsCommand(),
-  ManCommand(),
-  NfdzCommand(),
+  HistoryCommand(),
 ];
 
 Command parseCommand(String cmd) {

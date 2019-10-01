@@ -14,7 +14,7 @@ class ClearCommand extends Command {
   ClearCommand._() : super(kCmdClear, kCmdClearManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     output.clear();
   }
 }

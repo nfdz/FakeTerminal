@@ -2,7 +2,7 @@ import 'package:terminal_resume_app/utils/constants.dart';
 
 List<TerminalLine> getTerminalInitContent() => [
       ResultLine(kWelcomeText),
-      ResultLine("\n\n\n"),
+      ResultLine("\n\n\n\n"),
     ];
 
 class TerminalLine {

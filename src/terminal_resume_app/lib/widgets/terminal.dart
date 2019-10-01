@@ -15,8 +15,6 @@ class Terminal extends StatefulWidget {
 
 class _TerminalState extends State<Terminal> {
   final TerminalBrain _terminalBrain = TerminalBrain();
-  final List<String> _history = [];
-  int _historyPointer = -1;
 
   TextEditingController _cmdTextController = TextEditingController();
   FocusNode _inputNode = FocusNode();
@@ -93,6 +91,7 @@ class _TerminalState extends State<Terminal> {
                         focusNode: _inputNode,
                         maxLines: 1,
                         controller: _cmdTextController,
+                        textCapitalization: TextCapitalization.none,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.newline,
                         style: responsiveTextStyle,
@@ -128,10 +127,6 @@ class _TerminalState extends State<Terminal> {
     setState(() {
       FocusScope.of(context).unfocus();
       String cmd = _cmdTextController.text;
-      if (cmd.isNotEmpty) {
-        _history.add(cmd);
-      }
-      _historyPointer = -1;
       _cmdTextController.clear();
       _terminalBrain.executeCommand(cmd);
       _inputNode.requestFocus();
@@ -139,58 +134,46 @@ class _TerminalState extends State<Terminal> {
   }
 
   void _navigateHistoryUp() {
-    _kLogger.fine("_navigateHistoryUp(_historyPointer:$_historyPointer)");
-    if (_history.length > 0) {
-      if (_historyPointer < 0) {
-        _historyPointer = _history.length;
-      }
-      if (_historyPointer >= 0) {
-        if (_historyPointer > 0) {
-          _historyPointer--;
-        }
-        setState(() {
-          FocusScope.of(context).unfocus();
-          _cmdTextController.text = _history[_historyPointer];
-          _inputNode.requestFocus();
-        });
-      }
+    String upCmd = _terminalBrain.getHistoryUp();
+    if (upCmd != null) {
+      setState(() {
+        FocusScope.of(context).unfocus();
+        _cmdTextController.text = upCmd;
+        _inputNode.requestFocus();
+      });
     }
   }
 
   void _navigateHistoryDown() {
-    _kLogger.fine("_navigateHistoryDown(_historyPointer:$_historyPointer)");
-    if (_history.length > 0) {
-      if (_historyPointer < 0) {
-        return;
-      }
-      if (_historyPointer >= _history.length - 1) {
+    String downCmd = _terminalBrain.getHistoryDown();
+    if (downCmd != null) {
+      setState(() {
         FocusScope.of(context).unfocus();
-        _cmdTextController.clear();
+        _cmdTextController.text = downCmd;
         _inputNode.requestFocus();
-      } else {
-        _historyPointer++;
-        setState(() {
-          FocusScope.of(context).unfocus();
-          _cmdTextController.text = _history[_historyPointer];
-          _inputNode.requestFocus();
-        });
-      }
+      });
     }
   }
 
   void _tryToAutocomplete() {
-    setState(() {
-      FocusScope.of(context).unfocus();
-      String cmd = _cmdTextController.text;
-      if (cmd.isNotEmpty) {
-        for (Command availableCommand in kAvailableCommands) {
-          if (availableCommand.cmd.startsWith(cmd)) {
-            _cmdTextController.text = availableCommand.cmd;
-            break;
+    String cmd = _cmdTextController.text;
+    String fullCmd = "";
+    if (cmd.isNotEmpty) {
+      for (Command availableCommand in kAvailableCommands) {
+        if (availableCommand.cmd.startsWith(cmd)) {
+          if (availableCommand.cmd != cmd) {
+            fullCmd = availableCommand.cmd;
           }
+          break;
         }
       }
-      _inputNode.requestFocus();
-    });
+    }
+    if (fullCmd.isNotEmpty) {
+      setState(() {
+        FocusScope.of(context).unfocus();
+        _cmdTextController.text = fullCmd;
+        _inputNode.requestFocus();
+      });
+    }
   }
 }

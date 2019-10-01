@@ -1,5 +1,6 @@
 import 'package:terminal_resume_app/model/command.dart';
 import 'package:terminal_resume_app/model/terminal_content.dart';
+import 'package:terminal_resume_app/utils/html_comm_workaround.dart';
 
 class ExitCommand extends Command {
   static ExitCommand _instance;
@@ -14,8 +15,8 @@ class ExitCommand extends Command {
   ExitCommand._() : super(kCmdExit, kCmdExitManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
-    // TODO: implement execute
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
+    HtmlCommWorkAround.goBackHistory();
   }
 }
 

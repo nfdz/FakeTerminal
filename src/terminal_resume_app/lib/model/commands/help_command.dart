@@ -15,7 +15,7 @@ class HelpCommand extends Command {
   HelpCommand._() : super(kCmdHelp, kCmdHelpManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     if (args.length > 1) {
       output.insert(0, ResultLine(kCmdIgnoredArgs));
     }
@@ -31,6 +31,7 @@ The commands that are enabled are the following:
  exit    - Log off and close the app
  flutter - Flutter app development
  help    - Show help information about terminal
+ history - Show the history command list
  ls      - List directory contents
  man     - An interface to the on-line reference manuals
  nfdz    - Processes the json files with information about me""";

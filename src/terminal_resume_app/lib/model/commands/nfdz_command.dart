@@ -14,7 +14,7 @@ class NfdzCommand extends Command {
   NfdzCommand._() : super(kCmdNfdz, kCmdNfdzManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     // TODO: implement execute
   }
 }

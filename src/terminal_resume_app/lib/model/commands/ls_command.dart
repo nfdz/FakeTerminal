@@ -15,7 +15,7 @@ class LsCommand extends Command {
   LsCommand._() : super(kCmdLs, kCmdLsManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     if (args.length > 1) {
       output.insert(0, ResultLine(kCmdIgnoredArgs));
     }

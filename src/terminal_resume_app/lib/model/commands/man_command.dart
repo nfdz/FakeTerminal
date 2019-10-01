@@ -15,7 +15,7 @@ class ManCommand extends Command {
   ManCommand._() : super(kCmdMan, kCmdManManEntry);
 
   @override
-  void execute(List<String> args, List<TerminalLine> output) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     if (args.length < 2) {
       output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
     } else {
