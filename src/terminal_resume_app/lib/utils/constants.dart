@@ -34,7 +34,7 @@ const String kWelcomeText = """
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  nfdz@github.io
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  --------------
 MMMm .oMMMMMMMN: sMMMM+----------/MMM  OS: Manjaro Juhraya 18.1.0
-MMMh   -dMMMMMN  /MMMN  `MMMMMMMMMMMM  Kernel: x86_64 Linux 4.10.0-30
+MMMh   -dMMMMMN  /MMMN  `MMMMMMMMMMMM  Kernel: x86_64 Linux 4.10.0-3
 MMMh  `  oMMMMN  /MMMN  .MMMMMMMMMMMM  Uptime: 168h 16m
 MMMh  oy` .dMMN  /MMMN  `yyhhhhhNMMMM  Packages: 2048
 MMMh  oMN+  +NN  /MMMN   .......-MMMM  Shell: bash 4.4.7
@@ -50,8 +50,8 @@ MMMm  .MMMMMMMMo  oMMMMMMN:  sMMMMMMM  You will have access to a few
 MMMm  .MMMMMMMM-  hMMMMMh` -mMMMMMMMM  programs and files so you 
 MMMm  .MMMMMMd:  /MMMMN/  +MMMMMMMMMM  can know about me easly.
 MMMm  `::::-`  -yMMMMN.  .:::::::/dMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  Start with a hello 'nfdz hello'
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  If you need help execute 'help'.
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  Start the fun with 'man nfdz'
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  For global help type 'help'.
 """;
 const String kCmdIgnoredArgs = "(Some input arguments were ignored)";
 const String kCmdInvalidArgs = "Input argument required, to learn about this command use: man ";
