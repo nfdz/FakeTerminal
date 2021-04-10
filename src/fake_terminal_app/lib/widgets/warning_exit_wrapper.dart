@@ -21,7 +21,7 @@ class WarningExitWrapper extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(9.0),
             child: FlatButton(
-              color: kLightPrimaryColor,
+              color: Theme.of(context).bottomAppBarColor,
               child: Text(kWarningButton, style: kSmallestTextStyle),
               onPressed: () => _showWarning(context),
             ),
@@ -34,7 +34,7 @@ class WarningExitWrapper extends StatelessWidget {
             child: FloatingActionButton(
               key: null,
               mini: true,
-              backgroundColor: kAccentColor,
+              backgroundColor: Theme.of(context).accentColor,
               onPressed: () {
                 _kLogger.info("On back pressed");
                 HtmlCommWorkAround.goBackHistory();
@@ -71,15 +71,14 @@ class WarningExitWrapper extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: InkWell(
-                        highlightColor: kAccentColor,
+                        highlightColor: Theme.of(context).accentColor,
                         onTap: () => Navigator.pop(context),
                         child: Icon(Icons.close),
                       ),
                     ),
                     Text(
                       kWarningDialogTitle,
-                      style: kDefaultTextStyle.copyWith(
-                          fontWeight: FontWeight.bold),
+                      style: kDefaultTextStyle.copyWith(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 9),
                     Text(
@@ -90,7 +89,7 @@ class WarningExitWrapper extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: FlatButton(
-                        highlightColor: kAccentColor,
+                        highlightColor: Theme.of(context).accentColor,
                         onPressed: () => HtmlCommWorkAround.goGithub(),
                         child: Text(kWarningDialogGithub),
                       ),

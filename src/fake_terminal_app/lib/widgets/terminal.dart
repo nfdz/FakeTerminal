@@ -48,23 +48,21 @@ class _TerminalState extends State<Terminal> {
                   padding: const EdgeInsets.fromLTRB(9, 0, 9, 9),
                   itemCount: _terminalBrain.contentCount,
                   itemBuilder: (BuildContext context, int index) =>
-                      TerminalEntry(_terminalBrain.entryAt(index),
-                          textStyle: responsiveTextStyle),
+                      TerminalEntry(_terminalBrain.entryAt(index), textStyle: responsiveTextStyle),
                 ),
               ),
             ),
             Container(
               width: double.infinity,
               height: 70,
-              color: kLightPrimaryColor,
+              color: Theme.of(context).bottomAppBarColor,
               child: Row(
                 children: <Widget>[
                   SizedBox(width: 9),
                   Text(
                     kTerminalPrefix,
                     style: responsiveTextStyle.copyWith(
-                        color: kTerminalAccentColor,
-                        fontWeight: FontWeight.bold),
+                        color: Theme.of(context).highlightColor, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(width: 9),
                   Expanded(
@@ -112,7 +110,7 @@ class _TerminalState extends State<Terminal> {
                   SizedBox(width: 9),
                   FloatingActionButton(
                     key: null,
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: Theme.of(context).primaryColor,
                     onPressed: _sendCommand,
                     mini: true,
                     tooltip: kSendCommandTooltip,

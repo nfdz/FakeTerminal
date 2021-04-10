@@ -1,5 +1,5 @@
 name: fake_terminal_app
-description: A new Flutter project.
+description: This is a fake terminal application. It has a predefined command list and simulates executing input as a Bash interpreter.
 version: 2.0.0+1
 
 environment:

@@ -15,13 +15,11 @@ class TerminalEntry extends StatelessWidget {
         text: TextSpan(
           style: textStyle.copyWith(
             fontWeight: FontWeight.bold,
-            color: kTerminalAccentColor,
+            color: Theme.of(context).highlightColor,
           ),
           text: kTerminalPrefix,
           children: <TextSpan>[
-            TextSpan(
-                text: entry.line,
-                style: textStyle.copyWith(color: Colors.white)),
+            TextSpan(text: entry.line, style: textStyle.copyWith(color: Colors.white)),
           ],
         ),
       );
