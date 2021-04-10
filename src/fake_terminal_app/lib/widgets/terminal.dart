@@ -30,12 +30,6 @@ class _TerminalState extends State<Terminal> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final TextStyle responsiveTextStyle = width > kSmallerToBigWidth
-        ? kDefaultTextStyle
-        : width > kSmallestToSmallerWidth
-            ? kSmallerTextStyle
-            : kSmallestTextStyle;
     return Scaffold(
       body: Center(
         child: Column(
@@ -47,22 +41,20 @@ class _TerminalState extends State<Terminal> {
                   reverse: true,
                   padding: const EdgeInsets.fromLTRB(9, 0, 9, 9),
                   itemCount: _terminalBrain.contentCount,
-                  itemBuilder: (BuildContext context, int index) =>
-                      TerminalEntry(_terminalBrain.entryAt(index), textStyle: responsiveTextStyle),
+                  itemBuilder: (BuildContext context, int index) => TerminalEntry(_terminalBrain.entryAt(index)),
                 ),
               ),
             ),
             Container(
               width: double.infinity,
               height: 70,
-              color: Theme.of(context).bottomAppBarColor,
+              color: Theme.of(context).cardColor,
               child: Row(
                 children: <Widget>[
                   SizedBox(width: 9),
                   Text(
                     kTerminalPrefix,
-                    style: responsiveTextStyle.copyWith(
-                        color: Theme.of(context).highlightColor, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).accentTextTheme.bodyText1,
                   ),
                   SizedBox(width: 9),
                   Expanded(
@@ -97,7 +89,7 @@ class _TerminalState extends State<Terminal> {
                         textCapitalization: TextCapitalization.none,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.newline,
-                        style: responsiveTextStyle,
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: kCommandBoxHint,

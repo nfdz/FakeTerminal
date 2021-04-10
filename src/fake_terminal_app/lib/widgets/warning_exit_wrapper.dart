@@ -21,8 +21,8 @@ class WarningExitWrapper extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(9.0),
             child: FlatButton(
-              color: Theme.of(context).bottomAppBarColor,
-              child: Text(kWarningButton, style: kSmallestTextStyle),
+              color: Theme.of(context).cardColor,
+              child: Text(kWarningButton),
               onPressed: () => _showWarning(context),
             ),
           ),
@@ -78,12 +78,12 @@ class WarningExitWrapper extends StatelessWidget {
                     ),
                     Text(
                       kWarningDialogTitle,
-                      style: kDefaultTextStyle.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     SizedBox(height: 9),
                     Text(
                       kWarningDialogContent,
-                      style: kSmallerTextStyle,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     SizedBox(height: 6),
                     Align(

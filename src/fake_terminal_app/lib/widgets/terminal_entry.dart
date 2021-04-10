@@ -4,8 +4,7 @@ import 'package:fake_terminal_app/utils/constants.dart';
 
 class TerminalEntry extends StatelessWidget {
   final TerminalLine entry;
-  final TextStyle textStyle;
-  TerminalEntry(this.entry, {this.textStyle = kDefaultTextStyle});
+  TerminalEntry(this.entry);
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +12,15 @@ class TerminalEntry extends StatelessWidget {
     if (isCmd) {
       return RichText(
         text: TextSpan(
-          style: textStyle.copyWith(
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).highlightColor,
-          ),
+          style: Theme.of(context).accentTextTheme.bodyText2,
           text: kTerminalPrefix,
           children: <TextSpan>[
-            TextSpan(text: entry.line, style: textStyle.copyWith(color: Colors.white)),
+            TextSpan(text: entry.line, style: Theme.of(context).textTheme.bodyText2),
           ],
         ),
       );
     } else {
-      return Text(entry.line, style: textStyle);
+      return Text(entry.line, style: Theme.of(context).textTheme.bodyText1);
     }
   }
 }

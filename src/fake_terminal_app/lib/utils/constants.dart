@@ -1,20 +1,7 @@
-import 'package:flutter/material.dart';
-
 const int kKeyCodeEnter = 54;
 const int kKeyCodeUp = 106;
 const int kKeyCodeDown = 108;
 const int kKeyCodeTab = 50;
-
-// Personalization
-const Color kPrimaryColor = Color(0xFF242424);
-const Color kLightPrimaryColor = Color(0xff424242);
-const Color kAccentColor = Color(0xff1e90ff);
-const Color kTerminalAccentColor = Color(0xff72d5a3);
-const TextStyle kDefaultTextStyle = TextStyle(fontFamily: 'FiraCode', fontSize: 16, color: Colors.white);
-const TextStyle kSmallerTextStyle = TextStyle(fontFamily: 'FiraCode', fontSize: 14, color: Colors.white);
-const TextStyle kSmallestTextStyle = TextStyle(fontFamily: 'FiraCode', fontSize: 9, color: Colors.white);
-const double kSmallerToBigWidth = 850.0;
-const double kSmallestToSmallerWidth = 700.0;
 
 // Texts (Command texts are located in each command data class)
 const String kAppName = "Terminal - nfdz";
