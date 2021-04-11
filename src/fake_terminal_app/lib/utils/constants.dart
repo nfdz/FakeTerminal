@@ -1,8 +1,3 @@
-const int kKeyCodeEnter = 54;
-const int kKeyCodeUp = 106;
-const int kKeyCodeDown = 108;
-const int kKeyCodeTab = 50;
-
 // Texts (Command texts are located in each command data class)
 const String kAppName = "Terminal - nfdz";
 const String kCommandBoxHint = "Enter a command...";

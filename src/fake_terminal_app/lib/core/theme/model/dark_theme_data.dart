@@ -29,7 +29,9 @@ ThemeData _createDarkTheme() {
             bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: 16, fontWeight: FontWeight.bold))
         .apply(fontFamily: 'FiraCode', bodyColor: textColor),
     accentTextTheme: baseTheme.textTheme
-        .copyWith(bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: 16, fontWeight: FontWeight.bold))
+        .copyWith(
+            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: 16),
+            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: 16, fontWeight: FontWeight.bold))
         .apply(fontFamily: 'FiraCode', bodyColor: accentTextColor),
   );
 }

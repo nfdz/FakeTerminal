@@ -1,14 +1,16 @@
-import 'package:fake_terminal_app/core/theme/dark_theme_data.dart';
+import 'package:fake_terminal_app/core/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:fake_terminal_app/utils/constants.dart';
-import 'package:fake_terminal_app/widgets/terminal.dart';
 import 'package:fake_terminal_app/widgets/warning_exit_wrapper.dart';
 
 void main() {
   _setupLogger();
-  runApp(FakeTerminalApp());
+  runApp(
+    const ProviderScope(child: FakeTerminalApp()),
+  );
 }
 
 void _setupLogger() {
@@ -22,12 +24,15 @@ void _setupLogger() {
   }
 }
 
-class FakeTerminalApp extends StatelessWidget {
+class FakeTerminalApp extends ConsumerWidget {
+  const FakeTerminalApp({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    final theme = watch(themeProvider);
     return MaterialApp(
       title: kAppName,
-      theme: darkThemeData,
+      theme: theme.data,
       home: MainPage(),
     );
   }
@@ -36,6 +41,6 @@ class FakeTerminalApp extends StatelessWidget {
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WarningExitWrapper(child: Terminal());
+    return WarningExitWrapper(child: TerminalWidget());
   }
 }

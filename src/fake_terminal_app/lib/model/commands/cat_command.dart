@@ -1,5 +1,4 @@
 import 'package:fake_terminal_app/model/command.dart';
-import 'package:fake_terminal_app/model/terminal_content.dart';
 import 'package:fake_terminal_app/utils/constants.dart';
 
 class CatCommand extends Command {
@@ -15,8 +14,7 @@ class CatCommand extends Command {
   CatCommand._() : super(kCmdCat, kCmdCatManEntry);
 
   @override
-  void execute(
-      List<String> args, List<TerminalLine> output, List<String> history) {
+  void execute(List<String> args, List<TerminalLine> output, List<String> history) {
     if (args.length < 2) {
       output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
     } else {
@@ -42,8 +40,7 @@ class CatCommand extends Command {
           output.insert(0, ResultLine(kCmdCatExperienceFileContent));
           break;
         default:
-          output.insert(
-              0, ResultLine(kCmdCatInvalidFile.replaceFirst("{file}", file)));
+          output.insert(0, ResultLine(kCmdCatInvalidFile.replaceFirst("{file}", file)));
       }
     }
   }
