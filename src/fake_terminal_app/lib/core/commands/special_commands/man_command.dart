@@ -1,15 +1,20 @@
 import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
 
 class ManCommand extends TerminalCommand {
-  final List<TerminalCommand> Function() getAllCommands;
-  ManCommand(this.getAllCommands) : super(name: _kCommandName, manual: _kCommandManual);
+  final List<TerminalCommand> Function() _getAllCommands;
+  ManCommand(this._getAllCommands)
+      : super(
+          name: _kCommandName,
+          description: _kCommandDescription,
+          manual: _kCommandManual,
+        );
 
   @override
-  List<String> execute(List<String> arguments) {
+  Future<List<String>> execute(List<String> arguments) async {
     if (arguments.isEmpty) {
       return [_kCommandInvalid];
     }
-    final allCommands = getAllCommands();
+    final allCommands = _getAllCommands();
     return arguments.map((argument) => _getManFor(argument, allCommands)).toList();
   }
 
@@ -24,7 +29,7 @@ class ManCommand extends TerminalCommand {
 
   @override
   String? autocomplete(String argument) {
-    final matches = getAllCommands().where((command) => command.name == argument);
+    final matches = _getAllCommands().where((command) => command.name == argument);
     if (matches.isNotEmpty) {
       return matches.first.name;
     } else {
@@ -34,11 +39,12 @@ class ManCommand extends TerminalCommand {
 }
 
 const String _kCommandName = "man";
+const String _kCommandDescription = "An interface to the reference manuals";
 const String _kCommandManual = """
 MAN(1)
 
 NAME
-       man - an interface to the on-line reference manuals
+       man - an interface to the reference manuals
 
 SYNOPSIS
        man [CMD]

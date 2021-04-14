@@ -8,6 +8,7 @@ part of 'terminal_line.dart';
 
 TerminalLine _$TerminalLineFromJson(Map<String, dynamic> json) {
   return TerminalLine(
+    prefix: json['prefix'] as String?,
     line: json['line'] as String,
     type: _$enumDecode(_$LineTypeEnumMap, json['type']),
   );
@@ -15,6 +16,7 @@ TerminalLine _$TerminalLineFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TerminalLineToJson(TerminalLine instance) =>
     <String, dynamic>{
+      'prefix': instance.prefix,
       'line': instance.line,
       'type': _$LineTypeEnumMap[instance.type],
     };

@@ -1,17 +1,22 @@
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
 
 class HelpCommand extends TerminalCommand {
-  final List<TerminalCommand> Function() getAllCommands;
-  HelpCommand(this.getAllCommands) : super(name: _kCommandName, manual: _kCommandManual);
+  final List<TerminalCommand> Function() _getAllCommands;
+  HelpCommand(this._getAllCommands)
+      : super(
+          name: _kCommandName,
+          description: _kCommandDescription,
+          manual: _kCommandManual,
+        );
 
   @override
-  List<String> execute(List<String> arguments) {
+  Future<List<String>> execute(List<String> arguments) async {
     final List<String> output = [_kHelpStart];
-    final allCommands = getAllCommands();
+    final allCommands = _getAllCommands();
     allCommands.sort((a, b) => a.name.compareTo(b.name));
-    final commandMaxLength = allCommands.map((command) => command.name.length).reduce(Math.max);
+    final commandMaxLength = allCommands.map((command) => command.name.length).reduce(math.max);
     for (final command in allCommands) {
       output.add(_getCommandHelp(command, commandMaxLength));
     }
@@ -23,7 +28,7 @@ class HelpCommand extends TerminalCommand {
     buffer.write(command.name);
     buffer.write(" " * (commandMaxLength - command.name.length));
     buffer.write(" - ");
-    buffer.write(command.manual);
+    buffer.write(command.description);
     return buffer.toString();
   }
 
@@ -34,6 +39,7 @@ class HelpCommand extends TerminalCommand {
 }
 
 const String _kCommandName = "help";
+const String _kCommandDescription = "Show help information";
 const String _kCommandManual = """
 HELP(1)
 

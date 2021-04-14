@@ -1,5 +1,7 @@
+import 'package:fake_terminal_app/core/terminal/model/terminal_state.dart';
 import 'package:fake_terminal_app/core/terminal/presentation/terminal_input_keyboard_listener.dart';
 import 'package:fake_terminal_app/core/terminal/provider/terminal_provider.dart';
+import 'package:fake_terminal_app/core/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,54 +20,65 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final terminalNotifier = context.read(terminalProvider.notifier);
-    return Container(
-      width: double.infinity,
-      height: 60,
-      color: Theme.of(context).cardColor,
-      child: Row(
-        children: <Widget>[
-          SizedBox(width: 9),
-          Text(
-            terminalNotifier.terminalInputPrefix,
-            style: Theme.of(context).accentTextTheme.bodyText2,
-          ),
-          SizedBox(width: 9),
-          Expanded(
-            child: TerminalInputKeyboardListener(
-              focusNode: _keyInputNode,
-              onExecuteCommand: _sendCommand,
-              onNavigateHistoryBack: _navigateHistoryUp,
-              onNavigateHistoryForward: _navigateHistoryDown,
-              onAutocomplete: _tryToAutocomplete,
-              child: TerminalInputTextField(
-                focusNode: _inputNode,
-                controller: _cmdTextController,
-                hintText: terminalNotifier.terminalInputHint,
-                onExecuteCommand: _sendCommand,
+    return ProviderListener(
+      provider: terminalProvider,
+      onChange: (context, TerminalState state) {
+        final newInput = state.input;
+        if (newInput != null) {
+          setState(() {
+            _cmdTextController.text = newInput;
+          });
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: 55,
+        color: Theme.of(context).cardColor,
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 9),
+            Text(
+              TerminalTexts.terminalInputPrefix,
+              style: Theme.of(context).accentTextTheme.bodyText2,
+            ),
+            SizedBox(width: 9),
+            Expanded(
+              child: TerminalInputKeyboardListener(
+                focusNode: _keyInputNode,
+                onExecuteCommand: _onExecuteCommand,
+                onNavigateHistoryBack: _navigateHistoryUp,
+                onNavigateHistoryForward: _navigateHistoryDown,
+                onAutocomplete: _tryToAutocomplete,
+                child: TerminalInputTextField(
+                  focusNode: _inputNode,
+                  controller: _cmdTextController,
+                  hintText: TerminalTexts.terminalInputHint,
+                  onExecuteCommand: _onExecuteCommand,
+                ),
               ),
             ),
-          ),
-          SizedBox(width: 9),
-          FloatingActionButton(
-            key: null,
-            backgroundColor: Theme.of(context).primaryColor,
-            onPressed: _sendCommand,
-            mini: true,
-            tooltip: terminalNotifier.executeCommandTooltip,
-            child: Icon(Icons.send, color: Colors.white),
-          ),
-          SizedBox(width: 9),
-        ],
+            SizedBox(width: 9),
+            FloatingActionButton(
+              key: null,
+              backgroundColor: Theme.of(context).primaryColor,
+              onPressed: _onExecuteCommand,
+              mini: true,
+              tooltip: TerminalTexts.executeCommandTooltip,
+              child: Icon(Icons.play_arrow, color: Colors.white),
+            ),
+            SizedBox(width: 9),
+          ],
+        ),
       ),
     );
   }
 
-  void _sendCommand() {
+  void _onExecuteCommand() {
     setState(() {
       FocusScope.of(context).unfocus();
-      String cmd = _cmdTextController.text;
+      String commandLine = _cmdTextController.text;
       _cmdTextController.clear();
+      context.read(terminalProvider.notifier).executeCommand(commandLine);
       //_terminalBrain.executeCommand(cmd);
       _inputNode.requestFocus();
     });
@@ -145,7 +158,6 @@ class TerminalInputTextField extends StatelessWidget {
         hintText: this.hintText,
       ),
       onEditingComplete: () => this.onExecuteCommand(),
-      onSubmitted: (text) => this.onExecuteCommand(),
     );
   }
 }

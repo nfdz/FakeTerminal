@@ -1,57 +1,53 @@
-import 'package:fake_terminal_app/model/command.dart';
-import 'package:fake_terminal_app/model/terminal_content.dart';
-import 'package:fake_terminal_app/utils/constants.dart';
+// class NfdzCommand extends Command {
+//   static NfdzCommand? _instance;
 
-class NfdzCommand extends Command {
-  static NfdzCommand? _instance;
+//   factory NfdzCommand() {
+//     if (_instance == null) {
+//       _instance = NfdzCommand._();
+//     }
+//     return _instance!;
+//   }
 
-  factory NfdzCommand() {
-    if (_instance == null) {
-      _instance = NfdzCommand._();
-    }
-    return _instance!;
-  }
+//   NfdzCommand._() : super(kCmdNfdz, kCmdNfdzManEntry);
 
-  NfdzCommand._() : super(kCmdNfdz, kCmdNfdzManEntry);
-
-  @override
-  void execute(
-      List<String> args, List<TerminalLine> output, List<String> history) {
-    if (args.length < 2) {
-      output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
-    } else {
-      if (args.length > 2) {
-        output.insert(0, ResultLine(kCmdIgnoredArgs));
-      }
-      String nfdzArg = args[1];
-      switch (nfdzArg) {
-        case kCmdNfdzAboutArg:
-          output.insert(0, ResultLine(kCmdNfdzAboutOutput));
-          break;
-        case kCmdNfdzEducationArg:
-          output.insert(0, ResultLine(kCmdNfdzEducationOutput));
-          break;
-        case kCmdNfdzExperienceArg:
-          output.insert(0, ResultLine(kCmdNfdzExperienceOutput));
-          break;
-        case kCmdNfdzHelloArg:
-          output.insert(0, ResultLine(kCmdNfdzHelloOutput));
-          break;
-        case kCmdNfdzObjectivesArg:
-          output.insert(0, ResultLine(kCmdNfdzObjectivesOutput));
-          break;
-        case kCmdNfdzSkillsArg:
-          output.insert(0, ResultLine(kCmdNfdzSkillsOutput));
-          break;
-        case kCmdNfdzVersionArg:
-          output.insert(0, ResultLine(kCmdNfdzVersionOutput));
-          break;
-        default:
-          output.insert(0, ResultLine(kCmdInvalidArg + cmd));
-      }
-    }
-  }
-}
+//   @override
+//   void execute(
+//       List<String> args, List<TerminalLine> output, List<String> history) {
+//     if (args.length < 2) {
+//       output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
+//     } else {
+//       if (args.length > 2) {
+//         output.insert(0, ResultLine(kCmdIgnoredArgs));
+//       }
+//       String nfdzArg = args[1];
+//       switch (nfdzArg) {
+//         case kCmdNfdzAboutArg:
+//           output.insert(0, ResultLine(kCmdNfdzAboutOutput));
+//           break;
+//         case kCmdNfdzEducationArg:
+//           output.insert(0, ResultLine(kCmdNfdzEducationOutput));
+//           break;
+//         case kCmdNfdzExperienceArg:
+//           output.insert(0, ResultLine(kCmdNfdzExperienceOutput));
+//           break;
+//         case kCmdNfdzHelloArg:
+//           output.insert(0, ResultLine(kCmdNfdzHelloOutput));
+//           break;
+//         case kCmdNfdzObjectivesArg:
+//           output.insert(0, ResultLine(kCmdNfdzObjectivesOutput));
+//           break;
+//         case kCmdNfdzSkillsArg:
+//           output.insert(0, ResultLine(kCmdNfdzSkillsOutput));
+//           break;
+//         case kCmdNfdzVersionArg:
+//           output.insert(0, ResultLine(kCmdNfdzVersionOutput));
+//           break;
+//         default:
+//           output.insert(0, ResultLine(kCmdInvalidArg + cmd));
+//       }
+//     }
+//   }
+// }
 
 const String kCmdNfdz = "nfdz";
 const String kCmdNfdzManEntry = """

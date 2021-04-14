@@ -1,13 +1,16 @@
 import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
 
 class ClearCommand extends TerminalCommand {
-  final Function onClearTerminal;
-  ClearCommand(this.onClearTerminal) : super(name: _kCommandName, manual: _kCommandManual);
+  ClearCommand()
+      : super(
+          name: _kCommandName,
+          description: _kCommandDescription,
+          manual: _kCommandManual,
+        );
 
   @override
-  List<String> execute(List<String> arguments) {
-    onClearTerminal();
-    return [];
+  Future<List<String>> execute(List<String> arguments) async {
+    throw new ExecuteClearCommand();
   }
 
   @override
@@ -16,7 +19,10 @@ class ClearCommand extends TerminalCommand {
   }
 }
 
+class ExecuteClearCommand implements Exception {}
+
 const String _kCommandName = "clear";
+const String _kCommandDescription = "Clear the terminal screen";
 const String _kCommandManual = """
 CLEAR(1)
 

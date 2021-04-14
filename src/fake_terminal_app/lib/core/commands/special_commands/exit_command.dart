@@ -1,12 +1,17 @@
 import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
 
 class ExitCommand extends TerminalCommand {
-  final Function onExitTerminal;
-  ExitCommand(this.onExitTerminal) : super(name: _kCommandName, manual: _kCommandManual);
+  final Function _onExitTerminal;
+  ExitCommand(this._onExitTerminal)
+      : super(
+          name: _kCommandName,
+          description: _kCommandDescription,
+          manual: _kCommandManual,
+        );
 
   @override
-  List<String> execute(List<String> arguments) {
-    onExitTerminal();
+  Future<List<String>> execute(List<String> arguments) async {
+    _onExitTerminal();
     return [];
   }
 
@@ -16,6 +21,7 @@ class ExitCommand extends TerminalCommand {
 }
 
 const String _kCommandName = "exit";
+const String _kCommandDescription = "Log off and close the shell";
 const String _kCommandManual = """
 EXIT(1)
 

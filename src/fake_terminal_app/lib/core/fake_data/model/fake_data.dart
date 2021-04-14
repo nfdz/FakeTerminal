@@ -1,4 +1,3 @@
-import 'package:fake_terminal_app/core/terminal/model/terminal_line.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'fake_data.g.dart';
@@ -30,9 +29,9 @@ class FakeFile {
 @JsonSerializable()
 class FakeCommand {
   final String name;
-  final String manual;
+  final String description;
   final List<FakeArgument> arguments;
-  FakeCommand({required this.name, required this.manual, required this.arguments});
+  FakeCommand({required this.name, required this.description, required this.arguments});
 
   factory FakeCommand.fromJson(Map<String, dynamic> json) => _$FakeCommandFromJson(json);
   Map<String, dynamic> toJson() => _$FakeCommandToJson(this);

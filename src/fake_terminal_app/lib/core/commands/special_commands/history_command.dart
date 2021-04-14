@@ -1,13 +1,18 @@
 import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
 
 class HistoryCommand extends TerminalCommand {
-  final List<String> Function() getHistory;
-  HistoryCommand(this.getHistory) : super(name: _kCommandName, manual: _kCommandManual);
+  final List<String> Function() _getHistory;
+  HistoryCommand(this._getHistory)
+      : super(
+          name: _kCommandName,
+          description: _kCommandDescription,
+          manual: _kCommandManual,
+        );
 
   @override
-  List<String> execute(List<String> arguments) {
+  Future<List<String>> execute(List<String> arguments) async {
     final List<String> output = [];
-    final history = getHistory();
+    final history = _getHistory();
     int historyLength = history.length;
     for (int i = 0; i < history.length; i++) {
       final index = _formatIndex(i, historyLength);
@@ -32,6 +37,7 @@ class HistoryCommand extends TerminalCommand {
 }
 
 const String _kCommandName = "history";
+const String _kCommandDescription = "Show the history command list";
 const String _kCommandManual = """
 HISTORY(1)
 

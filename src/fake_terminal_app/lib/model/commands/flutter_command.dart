@@ -1,45 +1,41 @@
-import 'package:fake_terminal_app/model/command.dart';
-import 'package:fake_terminal_app/model/terminal_content.dart';
-import 'package:fake_terminal_app/utils/constants.dart';
+// class FlutterCommand extends Command {
+//   static FlutterCommand? _instance;
 
-class FlutterCommand extends Command {
-  static FlutterCommand? _instance;
+//   factory FlutterCommand() {
+//     if (_instance == null) {
+//       _instance = FlutterCommand._();
+//     }
+//     return _instance!;
+//   }
 
-  factory FlutterCommand() {
-    if (_instance == null) {
-      _instance = FlutterCommand._();
-    }
-    return _instance!;
-  }
+//   FlutterCommand._() : super(kCmdFlutter, kCmdFlutterManEntry);
 
-  FlutterCommand._() : super(kCmdFlutter, kCmdFlutterManEntry);
-
-  @override
-  void execute(
-      List<String> args, List<TerminalLine> output, List<String> history) {
-    if (args.length < 2) {
-      output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
-    } else {
-      if (args.length > 2) {
-        output.insert(0, ResultLine(kCmdIgnoredArgs));
-      }
-      String arg = args[1];
-      switch (arg) {
-        case kCmdFlutterChannelArg:
-          output.insert(0, ResultLine(kCmdFlutterChannelArgOutput));
-          break;
-        case kCmdFlutterDoctorArg:
-          output.insert(0, ResultLine(kCmdFlutterDoctorArgOutput));
-          break;
-        case kCmdFlutterVersionArg:
-          output.insert(0, ResultLine(kCmdFlutterVersionArgOutput));
-          break;
-        default:
-          output.insert(0, ResultLine(kCmdInvalidArg + cmd));
-      }
-    }
-  }
-}
+//   @override
+//   void execute(
+//       List<String> args, List<TerminalLine> output, List<String> history) {
+//     if (args.length < 2) {
+//       output.insert(0, ResultLine(kCmdInvalidArgs + cmd));
+//     } else {
+//       if (args.length > 2) {
+//         output.insert(0, ResultLine(kCmdIgnoredArgs));
+//       }
+//       String arg = args[1];
+//       switch (arg) {
+//         case kCmdFlutterChannelArg:
+//           output.insert(0, ResultLine(kCmdFlutterChannelArgOutput));
+//           break;
+//         case kCmdFlutterDoctorArg:
+//           output.insert(0, ResultLine(kCmdFlutterDoctorArgOutput));
+//           break;
+//         case kCmdFlutterVersionArg:
+//           output.insert(0, ResultLine(kCmdFlutterVersionArgOutput));
+//           break;
+//         default:
+//           output.insert(0, ResultLine(kCmdInvalidArg + cmd));
+//       }
+//     }
+//   }
+// }
 
 const String kCmdFlutter = "flutter";
 const String kCmdFlutterManEntry = """

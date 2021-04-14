@@ -21,4 +21,5 @@ class TerminalLine {
 enum LineType {
   command,
   result,
+  timestamp,
 }

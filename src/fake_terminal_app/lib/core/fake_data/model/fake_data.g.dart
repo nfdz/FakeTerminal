@@ -9,10 +9,10 @@ part of 'fake_data.dart';
 FakeData _$FakeDataFromJson(Map<String, dynamic> json) {
   return FakeData(
     fakeFiles: (json['fake_files'] as List<dynamic>)
-        .map((e) => TerminalLine.fromJson(e as Map<String, dynamic>))
+        .map((e) => FakeFile.fromJson(e as Map<String, dynamic>))
         .toList(),
     fakeCommands: (json['fake_commands'] as List<dynamic>)
-        .map((e) => TerminalLine.fromJson(e as Map<String, dynamic>))
+        .map((e) => FakeCommand.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
@@ -37,7 +37,7 @@ Map<String, dynamic> _$FakeFileToJson(FakeFile instance) => <String, dynamic>{
 FakeCommand _$FakeCommandFromJson(Map<String, dynamic> json) {
   return FakeCommand(
     name: json['name'] as String,
-    manual: json['manual'] as String,
+    description: json['description'] as String,
     arguments: (json['arguments'] as List<dynamic>)
         .map((e) => FakeArgument.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -47,7 +47,7 @@ FakeCommand _$FakeCommandFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'manual': instance.manual,
+      'description': instance.description,
       'arguments': instance.arguments,
     };
 

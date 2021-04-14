@@ -1,0 +1,67 @@
+{
+    "fake_files": [
+        {
+            "name": "about.md",
+            "content_url": "TODO"
+        },
+        {
+            "name": "education.md",
+            "content_url": "TODO"
+        },
+        {
+            "name": "skills.md",
+            "content_url": "TODO"
+        },
+        {
+            "name": "experience.md",
+            "content_url": "TODO"
+        },
+        {
+            "name": "goals.md",
+            "content_url": "TODO"
+        }
+    ],
+    "fake_commands": [
+        {
+            "name": "nfdz",
+            "description": "TODO",
+            "arguments": [
+                {
+                    "name": "about",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                },
+                {
+                    "name": "education",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                },
+                {
+                    "name": "experience",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                },
+                {
+                    "name": "hello",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                },
+                {
+                    "name": "goals",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                },
+                {
+                    "name": "skills",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                },
+                {
+                    "name": "version",
+                    "manual": "TODO",
+                    "output_url": "TODO"
+                }
+            ]
+        }
+    ]
+}

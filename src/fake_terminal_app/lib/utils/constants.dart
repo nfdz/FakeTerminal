@@ -1,15 +1,11 @@
 // Texts (Command texts are located in each command data class)
 const String kAppName = "Terminal - nfdz";
-const String kCommandBoxHint = "Enter a command...";
-const String kSendCommandTooltip = "Execute command";
 const String kBackTooltip = "Exit terminal";
 const String kWarningButton = "Warning! This is a Flutter experiment v1.10.6";
 const String kWarningDialogTitle = "Flutter Web Experiment";
 const String kWarningDialogContent =
     "Flutter web is currently in experimental state. The project progress is very fast and the roadmap looks amazing. This app is a test field to see how everything works, how is the performance and find bugs. I hope to be able to report something and contribute as much as I can to the project. You can take a look to the code in the repository, it is software libre GPLv3. Have fun!";
 const String kWarningDialogGithub = "Github";
-const String kTerminalPrefix = "[nfdz@github.io ~]\$ ";
-const String kCmdNotFound = "bash: {cmd}: command not found";
 const String kHelpArg = "-h";
 
 const String kWelcomeText = """

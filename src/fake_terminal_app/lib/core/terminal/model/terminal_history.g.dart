@@ -11,12 +11,16 @@ TerminalHistory _$TerminalHistoryFromJson(Map<String, dynamic> json) {
     output: (json['output'] as List<dynamic>)
         .map((e) => TerminalLine.fromJson(e as Map<String, dynamic>))
         .toList(),
-    timestamp: json['timestamp'] as int,
+    historyInput: (json['historyInput'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList(),
+    timestampMillis: json['timestampMillis'] as int,
   );
 }
 
 Map<String, dynamic> _$TerminalHistoryToJson(TerminalHistory instance) =>
     <String, dynamic>{
       'output': instance.output,
-      'timestamp': instance.timestamp,
+      'historyInput': instance.historyInput,
+      'timestampMillis': instance.timestampMillis,
     };

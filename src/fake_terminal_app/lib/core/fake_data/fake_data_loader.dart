@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fake_terminal_app/core/commands/local/fake_data.dart';
+import 'package:fake_terminal_app/core/fake_data/model/fake_data.dart';
 import 'package:flutter/services.dart';
 
 abstract class FakeDataLoader {

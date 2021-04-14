@@ -1,3 +1,4 @@
+import 'package:fake_terminal_app/core/terminal/presentation/terminal_widget.dart';
 import 'package:fake_terminal_app/core/theme/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

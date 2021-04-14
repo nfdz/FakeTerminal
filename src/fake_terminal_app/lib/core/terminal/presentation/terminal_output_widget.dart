@@ -8,7 +8,7 @@ class TerminalOutputWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final output = watch(terminalProvider).output;
+    final output = watch(terminalProvider).output.reversed.toList();
     return Scrollbar(
       child: ListView.builder(
         reverse: true,
