@@ -99,4 +99,9 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
   void _onExitTerminal() {
     _kLogger.fine("Exit Terminal invoked");
   }
+
+  String? autocomplete(String commandLine) {
+    _kLogger.fine("Autocomplete command invoked with commandLine=$commandLine");
+    final commandWithArguments = commandLine.split(" ").map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+  }
 }

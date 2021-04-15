@@ -3,6 +3,7 @@ import 'package:fake_terminal_app/core/terminal/presentation/terminal_input_keyb
 import 'package:fake_terminal_app/core/terminal/provider/terminal_provider.dart';
 import 'package:fake_terminal_app/core/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -79,12 +80,12 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
       String commandLine = _cmdTextController.text;
       _cmdTextController.clear();
       context.read(terminalProvider.notifier).executeCommand(commandLine);
-      //_terminalBrain.executeCommand(cmd);
       _inputNode.requestFocus();
     });
   }
 
   void _navigateHistoryUp() {
+    // final historyInput = context.read(terminalProvider.notifier).state.historyInput;
     // String? upCmd = _terminalBrain.getHistoryUp();
     // if (upCmd != null) {
     //   setState(() {
@@ -107,7 +108,12 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
   }
 
   void _tryToAutocomplete() {
-    // String cmd = _cmdTextController.text;
+    String commandLine = _cmdTextController.text;
+    context.read(terminalProvider.notifier).autocomplete(commandLine);
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
+      _inputNode.requestFocus();
+    });
+
     // String fullCmd = "";
     // if (cmd.isNotEmpty) {
     //   for (Command availableCommand in kAvailableCommands) {

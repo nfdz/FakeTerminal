@@ -5,7 +5,7 @@ import 'package:logging/logging.dart';
 const int _kKeyCodeEnter = 54;
 const int _kKeyCodeUp = 106;
 const int _kKeyCodeDown = 108;
-const int _kKeyCodeTab = 50;
+const int _kKeyCodeTab = 0x10007002b;
 
 final Logger _kLogger = Logger("TerminalInputKeyboardListener");
 
