@@ -52,6 +52,7 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
   void executeCommand(String commandLine) async {
     _kLogger.fine("Execute command invoked with commandLine=$commandLine");
     var newState = state;
+    newState.historyInput.add(commandLine);
     final commandWithArguments = commandLine.split(" ").map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
     if (commandWithArguments.isEmpty) {
       newState.output.add(_emptyOutputLine());
@@ -101,7 +102,71 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
   }
 
   String? autocomplete(String commandLine) {
-    _kLogger.fine("Autocomplete command invoked with commandLine=$commandLine");
+    _kLogger.fine("Autocomplete invoked with commandLine=$commandLine");
     final commandWithArguments = commandLine.split(" ").map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+    if (commandWithArguments.isNotEmpty) {
+      final commandName = commandWithArguments[0];
+      final matches = _commands.where((command) => command.name.startsWith(commandName));
+      if (matches.isNotEmpty) {
+        final command = matches.first;
+        commandWithArguments.removeAt(0);
+        if (commandWithArguments.isNotEmpty) {
+          final lastArgument = commandWithArguments.last;
+          final lastArgumentComplete = command.autocomplete(lastArgument);
+          if (lastArgumentComplete == null || lastArgumentComplete == lastArgument) {
+            return null;
+          }
+          commandWithArguments.removeLast();
+          commandWithArguments.add(lastArgumentComplete);
+        } else if (commandName == command.name) {
+          return null;
+        }
+        final result =
+            commandWithArguments.fold<String>(command.name, (previousValue, element) => previousValue + " " + element);
+        _kLogger.fine("Autocomplete result=$result");
+        return result;
+      }
+    }
+    return null;
+  }
+
+  String? navigateHistoryBack(String commandLine) {
+    _kLogger.fine("NavigateHistoryBack invoked with commandLine=$commandLine");
+    final historyMap = _getHistoryMap();
+    if (historyMap.isEmpty) {
+      return null;
+    }
+    final currentEntryMatches = historyMap.entries.where((e) => commandLine == e.value);
+    if (currentEntryMatches.isNotEmpty) {
+      final nextBackIndex = currentEntryMatches.first.key + 1;
+      return historyMap[nextBackIndex];
+    } else {
+      return historyMap.values.first;
+    }
+  }
+
+  String? navigateHistoryForward(String commandLine) {
+    _kLogger.fine("NavigateHistoryForward invoked with commandLine=$commandLine");
+    final historyMap = _getHistoryMap();
+    if (historyMap.isEmpty) {
+      return null;
+    }
+    final currentEntryMatches = historyMap.entries.where((e) => commandLine == e.value);
+    if (currentEntryMatches.isNotEmpty) {
+      final nextForwardIndex = currentEntryMatches.first.key - 1;
+      return historyMap[nextForwardIndex];
+    } else {
+      return null;
+    }
+  }
+
+  Map<int, String> _getHistoryMap() {
+    final Map<int, String> historyMap = {};
+    int index = 0;
+    for (final historyEntry in state.historyInput.reversed) {
+      historyMap[index] = historyEntry;
+      index++;
+    }
+    return historyMap;
   }
 }

@@ -18,7 +18,7 @@ class LsCommand extends TerminalCommand {
   }
 
   String _mapFile(FakeFile file) {
-    final fileSize = file.contentUrl.length.toString().substring(0, 1);
+    final fileSize = String.fromCharCode(file.contentUrl.length.toString().runes.last);
     return "$_kPermission $_kUser ${fileSize}K $_currentMonth ${file.name}";
   }
 

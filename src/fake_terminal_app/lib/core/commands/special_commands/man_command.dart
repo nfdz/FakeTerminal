@@ -29,7 +29,7 @@ class ManCommand extends TerminalCommand {
 
   @override
   String? autocomplete(String argument) {
-    final matches = _getAllCommands().where((command) => command.name == argument);
+    final matches = _getAllCommands().where((command) => command.name.startsWith(argument));
     if (matches.isNotEmpty) {
       return matches.first.name;
     } else {

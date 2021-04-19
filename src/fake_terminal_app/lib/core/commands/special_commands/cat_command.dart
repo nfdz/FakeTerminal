@@ -40,7 +40,7 @@ class CatCommand extends TerminalCommand {
 
   @override
   String? autocomplete(String argument) {
-    final matches = _fakeFiles.where((file) => file.name == argument);
+    final matches = _fakeFiles.where((file) => file.name.startsWith(argument));
     if (matches.isNotEmpty) {
       return matches.first.name;
     } else {

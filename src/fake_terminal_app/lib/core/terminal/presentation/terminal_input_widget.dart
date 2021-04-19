@@ -47,9 +47,10 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
               child: TerminalInputKeyboardListener(
                 focusNode: _keyInputNode,
                 onExecuteCommand: _onExecuteCommand,
-                onNavigateHistoryBack: _navigateHistoryUp,
-                onNavigateHistoryForward: _navigateHistoryDown,
-                onAutocomplete: _tryToAutocomplete,
+                onNavigateHistoryBack: () => _processInput(context.read(terminalProvider.notifier).navigateHistoryBack),
+                onNavigateHistoryForward: () =>
+                    _processInput(context.read(terminalProvider.notifier).navigateHistoryForward),
+                onAutocomplete: () => _processInput(context.read(terminalProvider.notifier).autocomplete),
                 child: TerminalInputTextField(
                   focusNode: _inputNode,
                   controller: _cmdTextController,
@@ -84,54 +85,18 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
     });
   }
 
-  void _navigateHistoryUp() {
-    // final historyInput = context.read(terminalProvider.notifier).state.historyInput;
-    // String? upCmd = _terminalBrain.getHistoryUp();
-    // if (upCmd != null) {
-    //   setState(() {
-    //     FocusScope.of(context).unfocus();
-    //     _cmdTextController.text = upCmd;
-    //     _inputNode.requestFocus();
-    //   });
-    // }
-  }
-
-  void _navigateHistoryDown() {
-    // String? downCmd = _terminalBrain.getHistoryDown();
-    // if (downCmd != null) {
-    //   setState(() {
-    //     FocusScope.of(context).unfocus();
-    //     _cmdTextController.text = downCmd;
-    //     _inputNode.requestFocus();
-    //   });
-    // }
-  }
-
-  void _tryToAutocomplete() {
+  void _processInput(String? Function(String) process) {
     String commandLine = _cmdTextController.text;
-    context.read(terminalProvider.notifier).autocomplete(commandLine);
+    final result = process(commandLine);
+    if (result != null && result.isNotEmpty) {
+      setState(() {
+        _cmdTextController.text = result;
+      });
+    }
     SchedulerBinding.instance?.addPostFrameCallback((_) {
       _inputNode.requestFocus();
+      _cmdTextController.selection = TextSelection.fromPosition(TextPosition(offset: _cmdTextController.text.length));
     });
-
-    // String fullCmd = "";
-    // if (cmd.isNotEmpty) {
-    //   for (Command availableCommand in kAvailableCommands) {
-    //     if (availableCommand.cmd.startsWith(cmd)) {
-    //       if (availableCommand.cmd != cmd) {
-    //         fullCmd = availableCommand.cmd;
-    //       }
-    //       break;
-    //     }
-    //   }
-    // }
-    // if (fullCmd.isNotEmpty) {
-    //   setState(() {
-    //     FocusScope.of(context).unfocus();
-    //     _cmdTextController.text = fullCmd;
-    //     _inputNode.requestFocus();
-    //   });
-    // }
   }
 }
 
@@ -154,10 +119,12 @@ class TerminalInputTextField extends StatelessWidget {
     return TextField(
       focusNode: this.focusNode,
       maxLines: 1,
+      autocorrect: false,
       controller: this.controller,
+      enableSuggestions: false,
       textCapitalization: TextCapitalization.none,
       keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.newline,
+      textInputAction: TextInputAction.done,
       style: Theme.of(context).textTheme.bodyText1,
       decoration: InputDecoration(
         border: InputBorder.none,
