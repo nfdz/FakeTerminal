@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:fake_terminal_app/utils/constants.dart';
-import 'package:fake_terminal_app/widgets/warning_exit_wrapper.dart';
 
 void main() {
   _setupLogger();
@@ -42,6 +41,6 @@ class FakeTerminalApp extends ConsumerWidget {
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WarningExitWrapper(child: TerminalWidget());
+    return TerminalWidget();
   }
 }

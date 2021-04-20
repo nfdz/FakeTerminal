@@ -2,6 +2,9 @@ class TerminalTexts {
   static const String terminalInputPrefix = "[nfdz@github.io ~]\$ ";
   static const String terminalInputHint = "Enter a command...";
   static const String executeCommandTooltip = "Execute command";
+  static const String exitTooltip = "Exit terminal";
+  static const String infoTooltip = "More information";
+  static const String toggleThemeTooltip = "Toggle theme";
 
   static String lastLoginMessage(int timestampMillis) {
     final time = DateTime.fromMillisecondsSinceEpoch(timestampMillis);

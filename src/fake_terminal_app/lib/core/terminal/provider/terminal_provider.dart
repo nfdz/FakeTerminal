@@ -28,7 +28,7 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
   void _initState() async {
     _commands = await _commandsLoader.load(
       getHistory: () => state.historyInput,
-      onExitTerminal: _onExitTerminal,
+      onExitTerminal: exitTerminal,
     );
     final history = await _persistence.fetchTerminalHistory();
     if (history != null) {
@@ -97,8 +97,15 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
       );
   String _commandNotFound(String commandName) => "bash: $commandName: command not found";
 
-  void _onExitTerminal() {
+  bool canExitTerminal() {
+    // TODO
+    return true;
+  }
+
+  void exitTerminal() {
     _kLogger.fine("Exit Terminal invoked");
+    // TODO
+    if (canExitTerminal()) {}
   }
 
   String? autocomplete(String commandLine) {

@@ -1,6 +1,5 @@
 // Texts (Command texts are located in each command data class)
 const String kAppName = "Terminal - nfdz";
-const String kBackTooltip = "Exit terminal";
 const String kWarningButton = "Warning! This is a Flutter experiment v1.10.6";
 const String kWarningDialogTitle = "Flutter Web Experiment";
 const String kWarningDialogContent =

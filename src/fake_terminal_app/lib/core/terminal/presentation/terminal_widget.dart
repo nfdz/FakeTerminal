@@ -4,27 +4,37 @@ import 'package:fake_terminal_app/core/terminal/presentation/top_back_widget.dar
 import 'package:fake_terminal_app/core/terminal/presentation/top_menu_widget.dart';
 import 'package:flutter/material.dart';
 
+const _kTopIconsPadding = EdgeInsets.all(8);
+
 class TerminalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Column(children: <Widget>[
-            Expanded(
-              child: const TerminalOutputWidget(),
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Column(children: <Widget>[
+              Expanded(
+                child: const TerminalOutputWidget(),
+              ),
+              const TerminalInputWidget(),
+            ]),
+            Align(
+              alignment: Alignment.topLeft,
+              child: const Padding(
+                padding: _kTopIconsPadding,
+                child: const TopBackWidget(),
+              ),
             ),
-            const TerminalInputWidget(),
-          ]),
-          Align(
-            alignment: Alignment.topLeft,
-            child: const TopBackWidget(),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: TopMenuWidget(),
-          )
-        ],
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: _kTopIconsPadding,
+                child: const TopMenuWidget(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

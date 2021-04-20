@@ -23,6 +23,9 @@ ThemeData _createLightTheme() {
       selectionColor: accentColor,
       selectionHandleColor: accentColor,
     ),
+    floatingActionButtonTheme: baseTheme.floatingActionButtonTheme.copyWith(
+      backgroundColor: accentColor,
+    ),
     textTheme: baseTheme.textTheme
         .copyWith(
             bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: 16),

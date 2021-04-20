@@ -50,4 +50,5 @@ K _$enumDecode<K, V>(
 const _$LineTypeEnumMap = {
   LineType.command: 'command',
   LineType.result: 'result',
+  LineType.timestamp: 'timestamp',
 };
