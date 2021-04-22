@@ -1,7 +1,16 @@
-# Terminal Resume Web
-Flutter web app that emulates a terminal with information about your resume.
+<p>
+  <img src="dev/terminal_icon.png?raw=true" alt="Fake Terminal"/>
+</p>
 
-## Flutter Web Experiment
-Flutter web is currently in experimental state. The project progress is very fast and the roadmap looks amazing. This app is a test field to see how everything works, how is the performance and find bugs. I hope to be able to report something and contribute as much as I can to the project. It is software libre GPLv3. 
 
-Have fun!
+# Fake Terminal
+
+Interactive terminal with fake data made with Flutter.
+
+## The Idea
+
+The application tries to simulate a classic terminal with a Bash shell on a Linux machine. In order to give the user this feeling, it implements a set of typical commands that every terminal user has ever used: `cat`, `ls`, `man`, and so on.
+
+To provide a custom experience with specific content, the application allows to inject content through a JSON file. Through it, it is possible to add:
+- Fake files to interact with them from the shell.
+- Fake commands that can be executed.
