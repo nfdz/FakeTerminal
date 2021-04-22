@@ -4,7 +4,7 @@ import 'package:fake_terminal_app/core/terminal/presentation/top_back_widget.dar
 import 'package:fake_terminal_app/core/terminal/presentation/top_menu_widget.dart';
 import 'package:flutter/material.dart';
 
-const _kTopIconsPadding = EdgeInsets.all(8);
+const _kTopIconsPadding = EdgeInsets.all(16);
 
 class TerminalWidget extends StatelessWidget {
   @override

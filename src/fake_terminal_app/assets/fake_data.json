@@ -28,37 +28,37 @@
             "arguments": [
                 {
                     "name": "about",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 },
                 {
                     "name": "education",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 },
                 {
                     "name": "experience",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 },
                 {
                     "name": "hello",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 },
                 {
                     "name": "goals",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 },
                 {
                     "name": "skills",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 },
                 {
                     "name": "version",
-                    "manual": "TODO",
+                    "description": "TODO",
                     "output_url": "TODO"
                 }
             ]

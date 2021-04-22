@@ -40,10 +40,10 @@ class FakeCommand {
 @JsonSerializable()
 class FakeArgument {
   final String name;
-  final String manual;
+  final String description;
   @JsonKey(name: "output_url")
   final String outputUrl;
-  FakeArgument({required this.name, required this.manual, required this.outputUrl});
+  FakeArgument({required this.name, required this.description, required this.outputUrl});
 
   factory FakeArgument.fromJson(Map<String, dynamic> json) => _$FakeArgumentFromJson(json);
   Map<String, dynamic> toJson() => _$FakeArgumentToJson(this);

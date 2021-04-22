@@ -24,5 +24,6 @@ class ThemeNotifier extends StateNotifier<ThemeSettings> {
 
   void toggleTheme() {
     state = state == ThemeSettings.dark ? ThemeSettings.light : ThemeSettings.dark;
+    _persistence.saveThemeSettings(state);
   }
 }
