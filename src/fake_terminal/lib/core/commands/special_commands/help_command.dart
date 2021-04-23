@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
+import 'package:fake_terminal/core/commands/model/terminal_command.dart';
 
 class HelpCommand extends TerminalCommand {
   final List<TerminalCommand> Function() _getAllCommands;

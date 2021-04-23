@@ -1,14 +1,14 @@
-import 'package:fake_terminal_app/core/command_url/command_url_loader.dart';
-import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/cat_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/clear_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/exit_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/help_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/history_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/ls_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/man_command.dart';
-import 'package:fake_terminal_app/core/fake_data/fake_data_loader.dart';
-import 'package:fake_terminal_app/core/fake_data/model/fake_data.dart';
+import 'package:fake_terminal/core/command_url/command_url_loader.dart';
+import 'package:fake_terminal/core/commands/model/terminal_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/cat_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/clear_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/exit_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/help_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/history_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/ls_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/man_command.dart';
+import 'package:fake_terminal/core/fake_data/fake_data_loader.dart';
+import 'package:fake_terminal/core/fake_data/model/fake_data.dart';
 
 abstract class CommandsLoader {
   Future<List<TerminalCommand>> load({

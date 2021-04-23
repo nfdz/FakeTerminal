@@ -1,5 +1,5 @@
-import 'package:fake_terminal_app/core/terminal/model/terminal_history.dart';
-import 'package:fake_terminal_app/core/terminal/model/terminal_line.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_history.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_line.dart';
 
 class TerminalState {
   final List<TerminalLine> output;

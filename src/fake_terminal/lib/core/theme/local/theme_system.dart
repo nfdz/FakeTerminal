@@ -1,4 +1,4 @@
-import 'package:fake_terminal_app/core/theme/model/theme_settings.dart';
+import 'package:fake_terminal/core/theme/model/theme_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:logging/logging.dart';

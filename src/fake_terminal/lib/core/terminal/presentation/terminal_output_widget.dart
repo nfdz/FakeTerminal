@@ -1,5 +1,5 @@
-import 'package:fake_terminal_app/core/terminal/presentation/terminal_entry_widget.dart';
-import 'package:fake_terminal_app/core/terminal/provider/terminal_provider.dart';
+import 'package:fake_terminal/core/terminal/presentation/terminal_entry_widget.dart';
+import 'package:fake_terminal/core/terminal/provider/terminal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,6 +1,6 @@
-import 'package:fake_terminal_app/core/terminal/presentation/terminal_input_keyboard_listener.dart';
-import 'package:fake_terminal_app/core/terminal/provider/terminal_provider.dart';
-import 'package:fake_terminal_app/core/texts/terminal_texts.dart';
+import 'package:fake_terminal/core/terminal/presentation/terminal_input_keyboard_listener.dart';
+import 'package:fake_terminal/core/terminal/provider/terminal_provider.dart';
+import 'package:fake_terminal/core/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';

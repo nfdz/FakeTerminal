@@ -1,7 +1,7 @@
-import 'package:fake_terminal_app/core/terminal/presentation/terminal_input_widget.dart';
-import 'package:fake_terminal_app/core/terminal/presentation/terminal_output_widget.dart';
-import 'package:fake_terminal_app/core/terminal/presentation/top_back_widget.dart';
-import 'package:fake_terminal_app/core/terminal/presentation/top_menu_widget.dart';
+import 'package:fake_terminal/core/terminal/presentation/terminal_input_widget.dart';
+import 'package:fake_terminal/core/terminal/presentation/terminal_output_widget.dart';
+import 'package:fake_terminal/core/terminal/presentation/top_back_widget.dart';
+import 'package:fake_terminal/core/terminal/presentation/top_menu_widget.dart';
 import 'package:flutter/material.dart';
 
 const _kTopIconsPadding = EdgeInsets.all(16);

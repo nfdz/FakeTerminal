@@ -1,6 +1,6 @@
-import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
-import 'package:fake_terminal_app/core/fake_data/model/fake_data.dart';
-import 'package:fake_terminal_app/core/texts/terminal_texts.dart';
+import 'package:fake_terminal/core/commands/model/terminal_command.dart';
+import 'package:fake_terminal/core/fake_data/model/fake_data.dart';
+import 'package:fake_terminal/core/texts/terminal_texts.dart';
 
 class LsCommand extends TerminalCommand {
   final List<FakeFile> _fakeFiles;

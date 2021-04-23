@@ -1,6 +1,6 @@
-import 'package:fake_terminal_app/core/theme/local/theme_persistence.dart';
-import 'package:fake_terminal_app/core/theme/local/theme_system.dart';
-import 'package:fake_terminal_app/core/theme/model/theme_settings.dart';
+import 'package:fake_terminal/core/theme/local/theme_persistence.dart';
+import 'package:fake_terminal/core/theme/local/theme_system.dart';
+import 'package:fake_terminal/core/theme/model/theme_settings.dart';
 import 'package:riverpod/riverpod.dart';
 
 final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeSettings>((ref) {

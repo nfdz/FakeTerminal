@@ -1,5 +1,5 @@
-import 'package:fake_terminal_app/core/theme/local/theme_system.dart';
-import 'package:fake_terminal_app/core/theme/model/theme_settings.dart';
+import 'package:fake_terminal/core/theme/local/theme_system.dart';
+import 'package:fake_terminal/core/theme/model/theme_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ThemePersistence {

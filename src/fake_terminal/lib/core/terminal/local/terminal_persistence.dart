@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fake_terminal_app/core/terminal/model/terminal_history.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class TerminalPersistence {

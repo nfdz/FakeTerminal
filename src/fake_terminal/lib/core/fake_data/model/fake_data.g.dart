@@ -54,7 +54,7 @@ Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) =>
 FakeArgument _$FakeArgumentFromJson(Map<String, dynamic> json) {
   return FakeArgument(
     name: json['name'] as String,
-    manual: json['manual'] as String,
+    description: json['description'] as String,
     outputUrl: json['output_url'] as String,
   );
 }
@@ -62,6 +62,6 @@ FakeArgument _$FakeArgumentFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$FakeArgumentToJson(FakeArgument instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'manual': instance.manual,
+      'description': instance.description,
       'output_url': instance.outputUrl,
     };

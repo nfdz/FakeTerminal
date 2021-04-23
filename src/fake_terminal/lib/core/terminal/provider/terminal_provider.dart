@@ -1,12 +1,12 @@
-import 'package:fake_terminal_app/core/commands/commands_loader.dart';
-import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
-import 'package:fake_terminal_app/core/commands/special_commands/clear_command.dart';
-import 'package:fake_terminal_app/core/terminal/local/terminal_persistence.dart';
-import 'package:fake_terminal_app/core/terminal/local/terminal_system.dart';
-import 'package:fake_terminal_app/core/terminal/model/terminal_history.dart';
-import 'package:fake_terminal_app/core/terminal/model/terminal_line.dart';
-import 'package:fake_terminal_app/core/terminal/model/terminal_state.dart';
-import 'package:fake_terminal_app/core/texts/terminal_texts.dart';
+import 'package:fake_terminal/core/commands/commands_loader.dart';
+import 'package:fake_terminal/core/commands/model/terminal_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/clear_command.dart';
+import 'package:fake_terminal/core/terminal/local/terminal_persistence.dart';
+import 'package:fake_terminal/core/terminal/local/terminal_system.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_history.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_line.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_state.dart';
+import 'package:fake_terminal/core/texts/terminal_texts.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod/riverpod.dart';
 

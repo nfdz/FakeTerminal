@@ -1,4 +1,4 @@
-import 'package:fake_terminal_app/core/commands/model/terminal_command.dart';
+import 'package:fake_terminal/core/commands/model/terminal_command.dart';
 
 class ExitCommand extends TerminalCommand {
   final Function _onExitTerminal;

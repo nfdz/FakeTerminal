@@ -1,4 +1,4 @@
-import 'package:fake_terminal_app/core/terminal/model/terminal_line.dart';
+import 'package:fake_terminal/core/terminal/model/terminal_line.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'terminal_history.g.dart';
