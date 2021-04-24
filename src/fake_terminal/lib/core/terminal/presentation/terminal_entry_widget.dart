@@ -12,8 +12,7 @@ class TerminalEntryWidget extends StatelessWidget {
     if (entry.prefix?.isNotEmpty == true) {
       return RichText(
         text: TextSpan(
-          style:
-              isCommandType ? Theme.of(context).accentTextTheme.bodyText2 : Theme.of(context).accentTextTheme.bodyText1,
+          style: Theme.of(context).accentTextTheme.bodyText2,
           text: entry.prefix,
           children: <TextSpan>[
             TextSpan(

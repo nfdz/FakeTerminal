@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sizer/sizer.dart';
 
 class TerminalInputWidget extends StatefulWidget {
-  const TerminalInputWidget({Key? key}) : super(key: key);
-
   @override
   _TerminalInputWidgetState createState() => _TerminalInputWidgetState();
 }
@@ -22,16 +21,16 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 55,
+      height: 25.sp,
       color: Theme.of(context).cardColor,
       child: Row(
         children: <Widget>[
-          SizedBox(width: 9),
+          SizedBox(width: 4.sp),
           Text(
             TerminalTexts.terminalInputPrefix,
             style: Theme.of(context).accentTextTheme.bodyText2,
           ),
-          SizedBox(width: 9),
+          SizedBox(width: 4.sp),
           Expanded(
             child: TerminalInputKeyboardListener(
               focusNode: _keyInputNode,
@@ -48,16 +47,24 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
               ),
             ),
           ),
-          SizedBox(width: 9),
-          FloatingActionButton(
-            key: null,
-            backgroundColor: Theme.of(context).primaryColor,
-            onPressed: _onExecuteCommand,
-            mini: true,
-            tooltip: TerminalTexts.executeCommandTooltip,
-            child: Icon(Icons.play_arrow, color: Theme.of(context).textTheme.bodyText1?.color),
+          SizedBox(width: 4.sp),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.sp),
+            child: FloatingActionButton(
+              key: null,
+              backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: Theme.of(context).primaryColor,
+              onPressed: _onExecuteCommand,
+              mini: true,
+              tooltip: TerminalTexts.executeCommandTooltip,
+              child: Icon(
+                Icons.play_arrow,
+                color: Theme.of(context).textTheme.bodyText1?.color,
+                size: 10.sp,
+              ),
+            ),
           ),
-          SizedBox(width: 9),
+          SizedBox(width: 4.sp),
         ],
       ),
     );
@@ -94,7 +101,7 @@ class TerminalInputTextField extends StatelessWidget {
   final String hintText;
   final Function onExecuteCommand;
 
-  const TerminalInputTextField({
+  TerminalInputTextField({
     Key? key,
     required this.focusNode,
     required this.controller,
@@ -117,6 +124,8 @@ class TerminalInputTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: this.hintText,
+        isCollapsed: true,
+        contentPadding: EdgeInsets.zero,
       ),
       onEditingComplete: () => this.onExecuteCommand(),
     );

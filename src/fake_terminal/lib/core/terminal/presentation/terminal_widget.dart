@@ -17,7 +17,7 @@ class TerminalWidget extends StatelessWidget {
               Expanded(
                 child: const TerminalOutputWidget(),
               ),
-              const TerminalInputWidget(),
+              TerminalInputWidget(),
             ]),
             Align(
               alignment: Alignment.topLeft,
@@ -30,7 +30,7 @@ class TerminalWidget extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: _kTopIconsPadding,
-                child: const TopMenuWidget(),
+                child: TopMenuWidget(),
               ),
             )
           ],

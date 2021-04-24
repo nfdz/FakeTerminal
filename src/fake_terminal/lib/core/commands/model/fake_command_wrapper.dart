@@ -1,5 +1,6 @@
 import 'package:fake_terminal/core/commands/model/terminal_command.dart';
 import 'package:fake_terminal/core/fake_data/model/fake_data.dart';
+import 'package:fake_terminal/core/command_url/command_url_loader.dart';
 
 class FakeCommandWrapper extends TerminalCommand {
   final FakeCommand _fakeCommand;

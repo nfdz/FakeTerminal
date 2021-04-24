@@ -1,5 +1,4 @@
 import 'package:fake_terminal/core/theme/local/theme_persistence.dart';
-import 'package:fake_terminal/core/theme/local/theme_system.dart';
 import 'package:fake_terminal/core/theme/model/theme_settings.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -8,14 +7,19 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeSettings>((ref) 
 });
 
 class ThemeNotifier extends StateNotifier<ThemeSettings> {
+  static const _kDefaultTheme = ThemeSettings.dark;
+
   final ThemePersistence _persistence;
 
-  ThemeNotifier(this._persistence) : super(getDefaultThemeFromSystem()) {
+  ThemeNotifier(this._persistence) : super(_kDefaultTheme) {
     _initState();
   }
 
   void _initState() async {
-    state = await _persistence.fetchThemeSettings();
+    final savedTheme = await _persistence.fetchThemeSettings();
+    if (savedTheme != null) {
+      state = savedTheme;
+    }
   }
 
   ThemeSettings get theme {

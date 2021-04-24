@@ -2,10 +2,9 @@ import 'package:fake_terminal/core/texts/terminal_texts.dart';
 import 'package:fake_terminal/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sizer/sizer.dart';
 
 class TopMenuWidget extends ConsumerWidget {
-  const TopMenuWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
@@ -19,10 +18,9 @@ class TopMenuWidget extends ConsumerWidget {
           tooltip: TerminalTexts.toggleThemeTooltip,
           child: Icon(
             theme == ThemeSettings.dark ? Icons.nights_stay : Icons.wb_sunny,
-            color: Theme.of(context).textTheme.bodyText1?.color,
           ),
         ),
-        SizedBox(width: 8.0),
+        SizedBox(width: 4.sp),
         FloatingActionButton(
           key: null,
           mini: true,
@@ -30,7 +28,6 @@ class TopMenuWidget extends ConsumerWidget {
           tooltip: TerminalTexts.infoTooltip,
           child: Icon(
             Icons.announcement,
-            color: Theme.of(context).textTheme.bodyText1?.color,
           ),
         ),
       ],

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-final darkThemeData = _createDarkTheme();
+part of 'theme_settings.dart';
 
 ThemeData _createDarkTheme() {
   final baseTheme = ThemeData.dark();
@@ -9,6 +7,7 @@ ThemeData _createDarkTheme() {
   final accentColor = Color(0xff1e90ff);
   final accentTextColor = Color(0xff72d5a3);
   final textColor = Colors.white;
+  final fontSizeBody = 6.8.sp;
 
   return baseTheme.copyWith(
     accentColor: accentColor,
@@ -25,16 +24,17 @@ ThemeData _createDarkTheme() {
     ),
     floatingActionButtonTheme: baseTheme.floatingActionButtonTheme.copyWith(
       backgroundColor: accentColor,
+      foregroundColor: Colors.white,
     ),
     textTheme: baseTheme.textTheme
         .copyWith(
-            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: 16),
-            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: 16, fontWeight: FontWeight.bold))
+            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody),
+            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold))
         .apply(fontFamily: 'FiraCode', bodyColor: textColor),
     accentTextTheme: baseTheme.textTheme
         .copyWith(
-            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: 16),
-            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: 16, fontWeight: FontWeight.bold))
+            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody),
+            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold))
         .apply(fontFamily: 'FiraCode', bodyColor: accentTextColor),
   );
 }

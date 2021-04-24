@@ -16,7 +16,6 @@ class TopBackWidget extends StatelessWidget {
             tooltip: TerminalTexts.exitTooltip,
             child: Icon(
               Icons.arrow_back,
-              color: Theme.of(context).textTheme.bodyText1?.color,
             ),
           )
         : SizedBox();

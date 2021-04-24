@@ -5,11 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
   _setupLogger();
   runApp(
-    const ProviderScope(child: FakeTerminalApp()),
+    ProviderScope(
+      child: Sizer(builder: (context, orientation, screenType) {
+        return FakeTerminalApp();
+      }),
+    ),
   );
 }
 
@@ -31,6 +36,7 @@ class FakeTerminalApp extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: TerminalTexts.appName,
       theme: theme.data,
       home: MainPage(),
