@@ -1,6 +1,7 @@
 import 'package:fake_terminal/core/commands/commands_loader.dart';
 import 'package:fake_terminal/core/commands/model/terminal_command.dart';
 import 'package:fake_terminal/core/commands/special_commands/clear_command.dart';
+import 'package:fake_terminal/core/commands/special_commands/history_command.dart';
 import 'package:fake_terminal/core/terminal/local/terminal_persistence.dart';
 import 'package:fake_terminal/core/terminal/local/terminal_system.dart';
 import 'package:fake_terminal/core/terminal/model/terminal_history.dart';
@@ -21,7 +22,7 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
   final CommandsLoader _commandsLoader;
   List<TerminalCommand> _commands = [];
 
-  TerminalNotifier(this._persistence, this._commandsLoader) : super(getDefaultTerminalFromSystem()) {
+  TerminalNotifier(this._persistence, this._commandsLoader) : super(TerminalState(output: [], historyInput: [])) {
     _initState();
   }
 
@@ -33,6 +34,8 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
     final history = await _persistence.fetchTerminalHistory();
     if (history != null) {
       _restoreFromHistory(history);
+    } else {
+      state = getDefaultTerminalFromSystem();
     }
   }
 
@@ -51,7 +54,24 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
 
   void executeCommand(String commandLine) async {
     _kLogger.fine("Execute command invoked with commandLine=$commandLine");
-    var newState = state;
+    final newState = state;
+
+    // history pointer replacement
+    if (commandLine.startsWith('!')) {
+      newState.output.add(_commandOutputLine(commandLine));
+      final historyIndexString = commandLine.replaceFirst('!', '');
+      final historyIndex = int.tryParse(historyIndexString);
+      if (historyIndex != null && historyIndex >= 0 && historyIndex < state.historyInput.length) {
+        commandLine = state.historyInput.elementAt(historyIndex);
+        _kLogger.fine("Replaced command from history commandLine=$commandLine");
+      } else {
+        newState.output.add(_invalidHistoryIndexOutputLine(commandLine));
+        state = newState;
+        _persistence.saveTerminalHistory(newState.snapshot());
+        return;
+      }
+    }
+
     newState.historyInput.add(commandLine);
     final commandWithArguments = commandLine.split(" ").map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
     if (commandWithArguments.isEmpty) {
@@ -71,7 +91,9 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
               .replaceFirst("\n", "");
           newState.output.add(TerminalLine(line: outputString, type: LineType.result));
         } on ExecuteClearCommand {
-          newState = TerminalState(output: [], historyInput: []);
+          newState.output.clear();
+        } on ExecuteClearHistoryCommand {
+          newState.historyInput.clear();
         }
       } else {
         newState.output.add(_commandNotFoundOutputLine(commandName));
@@ -96,6 +118,12 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
         type: LineType.result,
       );
   String _commandNotFound(String commandName) => "bash: $commandName: command not found";
+
+  TerminalLine _invalidHistoryIndexOutputLine(String index) => TerminalLine(
+        line: _invalidHistoryIndex(index),
+        type: LineType.result,
+      );
+  String _invalidHistoryIndex(String index) => "bash: event not found: $index";
 
   bool canExitTerminal() {
     // TODO

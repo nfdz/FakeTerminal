@@ -2,8 +2,8 @@ part of 'theme_settings.dart';
 
 ThemeData _createLightTheme() {
   final baseTheme = ThemeData.light();
-  final primaryColor = Color(0xFFF8F8F8);
-  final darkPrimaryColor = Color(0xffbdbdbd);
+  final primaryColor = Color(0xFFFFFFFF);
+  final darkPrimaryColor = Color(0xFFF4F4F4);
   final accentColor = Color(0xff1e90ff);
   final accentTextColor = Color(0xff8e2a5c);
   final textColor = Colors.black;

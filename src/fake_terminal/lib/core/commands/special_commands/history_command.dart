@@ -11,12 +11,16 @@ class HistoryCommand extends TerminalCommand {
 
   @override
   Future<List<String>> execute(List<String> arguments) async {
+    if (arguments.contains(_kClearArgument)) {
+      throw new ExecuteClearHistoryCommand();
+    }
+
     final List<String> output = [];
     final history = _getHistory();
     int historyLength = history.length;
     for (int i = 0; i < history.length; i++) {
       final index = _formatIndex(i, historyLength);
-      output.add("$index  ${history[i]}\n");
+      output.add("$index  ${history[i]}");
     }
     return output;
   }
@@ -32,23 +36,30 @@ class HistoryCommand extends TerminalCommand {
 
   @override
   String? autocomplete(String argument) {
-    return null;
+    return _kClearArgument.startsWith(argument) ? _kClearArgument : null;
   }
 }
 
+class ExecuteClearHistoryCommand implements Exception {}
+
+const String _kClearArgument = "-c";
 const String _kCommandName = "history";
 const String _kCommandDescription = "Show the history command list";
 const String _kCommandManual = """
 HISTORY(1)
 
 NAME
-       history - show the history command list
+       history - show the command list history
 
 SYNOPSIS
-       history
+       history [$_kClearArgument]
 
 DESCRIPTION
        The history command related to recently-executed commands recorded in a history list.
+       
+       The options are as follows:
+       
+       $_kClearArgument      Clear the history.
 
 OPTIONS
        None.""";
