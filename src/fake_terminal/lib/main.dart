@@ -1,6 +1,6 @@
-import 'package:fake_terminal/core/terminal/presentation/terminal_widget.dart';
-import 'package:fake_terminal/core/texts/terminal_texts.dart';
-import 'package:fake_terminal/core/theme/theme.dart';
+import 'package:fake_terminal/terminal/widgets/terminal_widget.dart';
+import 'package:fake_terminal/texts/terminal_texts.dart';
+import 'package:fake_terminal/theme/providers/theme_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
