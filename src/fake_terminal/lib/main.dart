@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:sizer/sizer.dart';
+import 'package:fake_terminal/theme/models/theme_settings.dart';
 
 void main() {
   _setupLogger();
@@ -38,7 +39,7 @@ class FakeTerminalApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: TerminalTexts.appName,
-      theme: theme.data,
+      theme: theme.data(),
       home: MainPage(),
     );
   }

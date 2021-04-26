@@ -2,15 +2,15 @@ import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:riverpod/riverpod.dart';
 
-final urlRepositoryProvider = Provider<UrlRepository>((ref) => _UrlRepositoryHttp());
+final contentRepositoryProvider = Provider<ContentRepository>((ref) => _ContentRepositoryHttp());
 
-abstract class UrlRepository {
+abstract class ContentRepository {
   Future<String> load(String url);
 }
 
 final Logger _kLogger = Logger("UrlRepository");
 
-class _UrlRepositoryHttp extends UrlRepository {
+class _ContentRepositoryHttp extends ContentRepository {
   @override
   Future<String> load(String url) async {
     try {

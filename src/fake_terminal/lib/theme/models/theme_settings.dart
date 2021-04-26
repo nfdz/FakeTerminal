@@ -7,7 +7,7 @@ part 'theme_settings.light.dart';
 enum ThemeSettings { dark, light }
 
 extension ThemeSettingsX on ThemeSettings {
-  ThemeData get data {
+  ThemeData data() {
     switch (this) {
       case ThemeSettings.dark:
         return _createDarkTheme();

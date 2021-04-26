@@ -12,7 +12,7 @@ class FakeCommandWrapper extends TerminalCommand {
         );
 
   @override
-  Future<List<String>> execute(List<String> arguments) async {
+  Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     if (arguments.isEmpty) {
       if (_fakeCommand.canExecuteWithoutArguments()) {
         return [await _getOutputFor(_fakeCommand.outputUrl, _fakeCommand.output)];
@@ -62,7 +62,7 @@ class FakeCommandWrapper extends TerminalCommand {
 
 String _buildManual(FakeCommand fakeCommand) {
   final commandsManual = fakeCommand.arguments
-      .fold("", (previousValue, element) => "$previousValue\n       ${element.name}       ${element.description}");
+      .fold("", (previousValue, element) => "$previousValue\n       ${element.name} - ${element.description}");
   return """
 ${fakeCommand.name.toUpperCase()}(1)
 

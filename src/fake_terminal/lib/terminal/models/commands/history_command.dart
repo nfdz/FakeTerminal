@@ -1,8 +1,7 @@
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 
 class HistoryCommand extends TerminalCommand {
-  final List<String> Function() _getHistory;
-  HistoryCommand(this._getHistory)
+  HistoryCommand()
       : super(
           name: _kCommandName,
           description: _kCommandDescription,
@@ -10,13 +9,12 @@ class HistoryCommand extends TerminalCommand {
         );
 
   @override
-  Future<List<String>> execute(List<String> arguments) async {
+  Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     if (arguments.contains(_kClearArgument)) {
       throw new ExecuteClearHistoryCommand();
     }
 
     final List<String> output = [];
-    final history = _getHistory();
     int historyLength = history.length;
     for (int i = 0; i < history.length; i++) {
       final index = _formatIndex(i, historyLength);

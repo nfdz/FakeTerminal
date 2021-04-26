@@ -1,5 +1,6 @@
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:fake_terminal/theme/providers/theme_provider.dart';
+import 'package:fake_terminal/theme/models/theme_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';

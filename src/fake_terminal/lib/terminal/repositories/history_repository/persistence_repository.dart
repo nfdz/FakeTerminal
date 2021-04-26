@@ -4,14 +4,14 @@ import 'package:fake_terminal/terminal/models/terminal_history.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final persistenceRepositoryProvider = Provider<PersistenceRepository>((ref) => _PersistenceRepositoryPreferences());
+final historyRepositoryProvider = Provider<HistoryRepository>((ref) => _HistoryRepositoryPreferences());
 
-abstract class PersistenceRepository {
+abstract class HistoryRepository {
   Future<TerminalHistory?> fetchTerminalHistory();
   Future<void> saveTerminalHistory(TerminalHistory history);
 }
 
-class _PersistenceRepositoryPreferences extends PersistenceRepository {
+class _HistoryRepositoryPreferences extends HistoryRepository {
   static const _kHistoryKey = "history";
 
   @override

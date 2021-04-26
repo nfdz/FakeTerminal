@@ -8,6 +8,6 @@ abstract class TerminalCommand {
     required this.manual,
   });
 
-  Future<List<String>> execute(List<String> arguments);
+  Future<List<String>> execute({required List<String> arguments, required List<String> history});
   String? autocomplete(String argument);
 }

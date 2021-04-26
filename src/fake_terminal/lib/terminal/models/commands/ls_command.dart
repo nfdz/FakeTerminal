@@ -13,7 +13,7 @@ class LsCommand extends TerminalCommand {
         );
 
   @override
-  Future<List<String>> execute(List<String> arguments) async {
+  Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     return _fakeFiles.map((file) => _mapFile(file)).toList();
   }
 

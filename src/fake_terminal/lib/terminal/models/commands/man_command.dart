@@ -10,7 +10,7 @@ class ManCommand extends TerminalCommand {
         );
 
   @override
-  Future<List<String>> execute(List<String> arguments) async {
+  Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     if (arguments.isEmpty) {
       return [_kCommandInvalid];
     }

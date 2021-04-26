@@ -12,7 +12,7 @@ class HelpCommand extends TerminalCommand {
         );
 
   @override
-  Future<List<String>> execute(List<String> arguments) async {
+  Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     final List<String> output = [_kHelpStart];
     final allCommands = _getAllCommands();
     allCommands.sort((a, b) => a.name.compareTo(b.name));

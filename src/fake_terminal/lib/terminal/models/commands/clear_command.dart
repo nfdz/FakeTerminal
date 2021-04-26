@@ -9,7 +9,7 @@ class ClearCommand extends TerminalCommand {
         );
 
   @override
-  Future<List<String>> execute(List<String> arguments) async {
+  Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     throw new ExecuteClearCommand();
   }
 

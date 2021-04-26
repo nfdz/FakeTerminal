@@ -1,5 +1,5 @@
 import 'package:fake_terminal/theme/repositories/theme_repository.dart';
-import 'package:fake_terminal/theme/modles/theme_settings.dart';
+import 'package:fake_terminal/theme/models/theme_settings.dart';
 import 'package:riverpod/riverpod.dart';
 
 final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeSettings>((ref) {

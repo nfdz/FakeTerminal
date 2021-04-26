@@ -1,5 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fake_terminal/theme/models/theme_settings.dart';
 
 final themeRepositoryProvider = Provider<ThemeRepository>((ref) => _ThemeRepositoryPreferences());
 
