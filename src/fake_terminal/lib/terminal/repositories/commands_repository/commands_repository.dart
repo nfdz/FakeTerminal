@@ -1,4 +1,6 @@
+import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart';
 import 'package:fake_terminal/terminal/models/commands/commands.dart';
+import 'package:fake_terminal/terminal/models/commands/js_command.dart';
 import 'package:fake_terminal/terminal/models/fake_data.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
@@ -46,6 +48,9 @@ class _CommandsRepositoryFakeData extends CommandsRepository {
     if (hasExitCommand()) {
       commands.add(ExitCommand(executeExitCommand));
     }
+    if (JavascriptDom.instance?.canEvalJs() == true) {
+      commands.add(JsCommand());
+    }
     commands.add(HelpCommand(() => commands));
     commands.add(HistoryCommand());
     commands.add(LsCommand(fakeData.fakeFiles));
@@ -61,15 +66,15 @@ class _CommandsRepositoryFakeData extends CommandsRepository {
 
   @override
   bool hasExitCommand() {
-    // TODO
-    return true;
+    return JavascriptDom.instance?.canNavigateBack() == true;
   }
 
   @override
   void executeExitCommand() {
     _kLogger.fine("Exit Terminal invoked");
-    // TODO
-    if (hasExitCommand()) {}
+    if (hasExitCommand()) {
+      JavascriptDom.instance?.navigateBack();
+    }
   }
 
   @override
@@ -120,11 +125,11 @@ class _CommandsRepositoryFakeData extends CommandsRepository {
       }
     }
 
-    history.add(commandLine);
     final commandWithArguments = _getCommandWithArguments(commandLine);
     if (commandWithArguments.isEmpty) {
       output.add(_emptyOutputLine());
     } else {
+      history.add(commandLine);
       output.add(_commandOutputLine(commandLine));
       await _executeCommand(commandWithArguments, output, history);
     }

@@ -31,3 +31,8 @@ flutter:
     - family: FiraCode
       fonts:
         - asset: fonts/FiraCode-Regular.ttf
+  plugin:
+    platforms:
+      web:
+        pluginClass: JavascriptDomPlugin
+        fileName: plugins/javascript_dom/javascript_dom_web_plugin.dart

@@ -64,7 +64,6 @@ class TerminalNotifier extends StateNotifier<TerminalState> {
   void exitTerminal() => _commandsRepository.executeExitCommand();
 
   void executeCommand(String commandLine) async {
-    _kLogger.fine("Execute command invoked with commandLine=$commandLine");
     final newState = state;
     await _commandsRepository.executeCommandLine(commandLine, newState.output, newState.historyInput);
     state = newState;

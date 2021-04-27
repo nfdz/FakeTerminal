@@ -21,7 +21,7 @@ class TopMenuWidget extends ConsumerWidget {
             theme == ThemeSettings.dark ? Icons.nights_stay : Icons.wb_sunny,
           ),
         ),
-        SizedBox(width: 4.sp),
+        SizedBox(width: 8.sp),
         FloatingActionButton(
           key: null,
           mini: true,

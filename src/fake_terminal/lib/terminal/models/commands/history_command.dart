@@ -57,7 +57,4 @@ DESCRIPTION
        
        The options are as follows:
        
-       $_kClearArgument      Clear the history.
-
-OPTIONS
-       None.""";
+       $_kClearArgument      Clear the history.""";

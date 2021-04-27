@@ -1,13 +1,12 @@
 part of 'theme_settings.dart';
 
-ThemeData _createDarkTheme() {
+ThemeData _createDarkTheme(double fontSizeBody) {
   final baseTheme = ThemeData.dark();
   final primaryColor = Color(0xFF242424);
   final lightPrimaryColor = Color(0xff424242);
   final accentColor = Color(0xff1e90ff);
   final accentTextColor = Color(0xff72d5a3);
   final textColor = Colors.white;
-  final fontSizeBody = 6.8.sp;
 
   return baseTheme.copyWith(
     accentColor: accentColor,
