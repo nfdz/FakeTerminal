@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:fake_terminal/terminal/models/terminal_history.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
 import 'package:fake_terminal/terminal/models/terminal_state.dart';
@@ -80,10 +82,10 @@ class TerminalNotifierImpl extends TerminalNotifier {
     }
     final currentEntryMatches = historyMap.entries.where((e) => commandLine == e.value);
     if (currentEntryMatches.isNotEmpty) {
-      final nextBackIndex = currentEntryMatches.first.key + 1;
+      final nextBackIndex = currentEntryMatches.first.key - 1;
       return historyMap[nextBackIndex];
     } else {
-      return historyMap.values.first;
+      return historyMap.values.last;
     }
   }
 
@@ -96,7 +98,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
     }
     final currentEntryMatches = historyMap.entries.where((e) => commandLine == e.value);
     if (currentEntryMatches.isNotEmpty) {
-      final nextForwardIndex = currentEntryMatches.first.key - 1;
+      final nextForwardIndex = currentEntryMatches.first.key + 1;
       return historyMap[nextForwardIndex];
     } else {
       return null;
@@ -105,10 +107,10 @@ class TerminalNotifierImpl extends TerminalNotifier {
 //#endregion
 
   Map<int, String> _getHistoryMap() {
-    final Map<int, String> historyMap = {};
+    final historyMap = LinkedHashMap<int, String>();
     int index = 0;
-    for (final historyEntry in state.historyInput.reversed) {
-      historyMap[index] = historyEntry;
+    for (final historyEntry in state.historyInput) {
+      historyMap[index] = "!$index $historyEntry";
       index++;
     }
     return historyMap;
