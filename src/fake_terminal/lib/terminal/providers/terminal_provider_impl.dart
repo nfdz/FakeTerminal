@@ -113,6 +113,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
       historyMap[index] = "!$index $historyEntry";
       index++;
     }
+    historyMap[index] = "";
     return historyMap;
   }
 }

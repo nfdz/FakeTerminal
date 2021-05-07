@@ -83,7 +83,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
   void _processInput(String? Function(String) process) {
     String commandLine = _cmdTextController.text;
     final result = process(commandLine);
-    if (result != null && result.isNotEmpty) {
+    if (result != null) {
       setState(() {
         _cmdTextController.text = result;
       });

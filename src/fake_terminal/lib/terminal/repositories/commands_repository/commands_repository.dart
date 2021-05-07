@@ -114,7 +114,7 @@ class _CommandsRepositoryFakeData extends CommandsRepository {
     // history pointer '!N' replacement
     if (commandLine.startsWith('!')) {
       output.add(_commandOutputLine(commandLine));
-      final historyIndexString = commandLine.replaceFirst('!', '');
+      final historyIndexString = commandLine.replaceFirst('!', '').split(" ").first;
       final historyIndex = int.tryParse(historyIndexString);
       if (historyIndex != null && historyIndex >= 0 && historyIndex < history.length) {
         commandLine = history.elementAt(historyIndex);
