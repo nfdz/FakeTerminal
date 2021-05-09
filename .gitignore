@@ -1,2 +1,3 @@
 .DS_Store
 .flutter-plugins-dependencies
+src/fake_terminal/coverage

@@ -3,12 +3,42 @@ import 'package:fake_terminal/theme/repositories/theme_repository.dart';
 import 'package:fake_terminal/theme/models/theme_settings.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:test/test.dart';
 
 import 'theme_provider_test.mocks.dart';
 
 @GenerateMocks([ThemeRepository])
 void main() {
+  group('StateNotifierProvider', () {
+    test('creation given the repository is present', () {
+      final repository = MockThemeRepository();
+      when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
+      final container = ProviderContainer(
+        overrides: [themeRepositoryProvider.overrideWithProvider(Provider((ref) => repository))],
+      );
+      final providerInstance = container.readProviderElement(themeProvider).state.createdValue;
+      expect(providerInstance, isA<ThemeNotifierImpl>());
+    });
+
+    test('creation fails given the repository is not present', () {
+      final container = ProviderContainer(
+        overrides: [
+          themeRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error")))
+        ],
+      );
+
+      var creationFailed = false;
+      try {
+        container.readProviderElement(themeProvider).state.createdValue;
+        creationFailed = false;
+      } catch (error) {
+        creationFailed = true;
+      }
+      expect(creationFailed, true);
+    });
+  });
+
   group('initialization', () {
     test('state default', () {
       final repository = MockThemeRepository();
