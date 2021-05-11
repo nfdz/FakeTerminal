@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart';
-import 'package:fake_terminal/terminal/models/commands/commands.dart';
-import 'package:fake_terminal/terminal/models/commands/js_command.dart';
 import 'package:fake_terminal/terminal/models/fake_data.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/fake_data_to_commands.dart';
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
@@ -13,7 +15,7 @@ import 'package:riverpod/riverpod.dart';
 final commandsRepositoryProvider = Provider<CommandsRepository>((ref) {
   final fakeDataRepository = ref.read(fakeDataRepositoryProvider);
   final contentRepository = ref.read(contentRepositoryProvider);
-  return _CommandsRepositoryFakeData(fakeDataRepository, contentRepository);
+  return CommandsRepositoryFakeData(fakeDataRepository, contentRepository, FakeDataToCommandsImpl());
 });
 
 final Logger _kLogger = Logger("CommandsRepository");
@@ -25,43 +27,30 @@ abstract class CommandsRepository {
   Future<void> executeCommandLine(String commandLine, List<TerminalLine> output, List<String> history);
 }
 
-class _CommandsRepositoryFakeData extends CommandsRepository {
+class CommandsRepositoryFakeData extends CommandsRepository {
+  Future get initializationComplete => _initCompleter.future;
+  final _initCompleter = Completer();
   final FakeDataRepository _fakeDataRepository;
   final ContentRepository _contentRepository;
 
   List<TerminalCommand> _commands = [];
 
-  _CommandsRepositoryFakeData(this._fakeDataRepository, this._contentRepository) {
-    _init();
+  CommandsRepositoryFakeData(
+    this._fakeDataRepository,
+    this._contentRepository,
+    FakeDataToCommands fakeDataToCommands,
+  ) {
+    _init(fakeDataToCommands).whenComplete(() => _initCompleter.complete());
   }
 
-  void _init() async {
-    _commands = await _loadCommands();
-  }
-
-  Future<List<TerminalCommand>> _loadCommands() async {
+  Future<void> _init(FakeDataToCommands fakeDataToCommands) async {
     FakeData fakeData = await _fakeDataRepository.load();
-    List<TerminalCommand> commands = [];
-
-    commands.add(CatCommand(fakeData.fakeFiles, (String url) => _contentRepository.load(url)));
-    commands.add(ClearCommand());
-    if (hasExitCommand()) {
-      commands.add(ExitCommand(executeExitCommand));
-    }
-    if (JavascriptDom.instance?.canEvalJs() == true) {
-      commands.add(JsCommand());
-    }
-    commands.add(HelpCommand(() => commands));
-    commands.add(HistoryCommand());
-    commands.add(LsCommand(fakeData.fakeFiles));
-    commands.add(ManCommand(() => commands));
-
-    fakeData.fakeCommands.forEach((fakeCommand) {
-      commands.add(FakeCommandWrapper(fakeCommand, (String url) => _contentRepository.load(url)));
-    });
-
-    commands.sort((a, b) => a.name.compareTo(b.name));
-    return commands;
+    _commands = fakeDataToCommands.createCommands(
+      fakeData: fakeData,
+      contentRepository: _contentRepository,
+      hasExitCommand: hasExitCommand(),
+      executeExitCommand: executeExitCommand,
+    );
   }
 
   @override

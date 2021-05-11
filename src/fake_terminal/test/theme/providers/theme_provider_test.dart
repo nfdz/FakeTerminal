@@ -58,7 +58,7 @@ void main() {
 
     test('state given the repository had light', () {
       final repository = MockThemeRepository();
-      when(repository.fetchThemeSettings()).thenAnswer((_) async => ThemeSettings.light);
+      when(repository.fetchThemeSettings()).thenAnswer((_) async => StoredTheme(ThemeSettings.light));
       final themeProvider = ThemeNotifierImpl(repository);
       themeProvider.initializationComplete.whenComplete(
         () => expect(themeProvider.debugState, ThemeSettings.light),
@@ -86,7 +86,7 @@ void main() {
 
       themeProvider.toggleTheme();
 
-      verify(repository.saveThemeSettings(ThemeSettings.dark)).called(1);
+      verify(repository.saveThemeSettings(StoredTheme(ThemeSettings.dark))).called(1);
     });
 
     test('given the state was dark then the new state is light', () {
@@ -108,7 +108,7 @@ void main() {
 
       themeProvider.toggleTheme();
 
-      verify(repository.saveThemeSettings(ThemeSettings.light)).called(1);
+      verify(repository.saveThemeSettings(StoredTheme(ThemeSettings.light))).called(1);
     });
   });
 }

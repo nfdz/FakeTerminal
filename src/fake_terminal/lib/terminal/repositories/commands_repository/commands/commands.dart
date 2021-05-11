@@ -1,0 +1,9 @@
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/cat_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/clear_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/exit_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/fake_command_wrapper.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/help_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/history_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/ls_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/man_command.dart';
+export 'package:fake_terminal/terminal/repositories/commands_repository/commands/js_command.dart';

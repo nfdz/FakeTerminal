@@ -29,13 +29,13 @@ class ThemeNotifierImpl extends ThemeNotifier {
   Future<void> _initState() async {
     final savedTheme = await _repository.fetchThemeSettings();
     if (savedTheme != null) {
-      state = savedTheme;
+      state = savedTheme.settings;
     }
   }
 
   @override
   void toggleTheme() {
     state = state == ThemeSettings.dark ? ThemeSettings.light : ThemeSettings.dark;
-    _repository.saveThemeSettings(state);
+    _repository.saveThemeSettings(StoredTheme(state));
   }
 }

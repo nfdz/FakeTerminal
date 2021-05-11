@@ -17,6 +17,7 @@ dependencies:
   json_serializable: ^4.1.0
   http: ^0.13.1
   sizer: ^2.0.11
+  equatable: ^2.0.0
 
 dev_dependencies:
   mockito: ^5.0.7
