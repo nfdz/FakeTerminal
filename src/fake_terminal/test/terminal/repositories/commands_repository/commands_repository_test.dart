@@ -26,21 +26,42 @@ void main() {
       expect(providerInstance, isA<CommandsRepositoryFakeData>());
     });
 
-    // test('creation fails given the repository is not present', () {
-    //   final container = ProviderContainer(
-    //     overrides: [
-    //       themeRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error")))
-    //     ],
-    //   );
+    test('creation fails given FakeDataRepository is not present', () {
+      final contentRepository = MockContentRepository();
+      final container = ProviderContainer(
+        overrides: [
+          fakeDataRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error"))),
+          contentRepositoryProvider.overrideWithProvider(Provider((ref) => contentRepository)),
+        ],
+      );
 
-    //   var creationFailed = false;
-    //   try {
-    //     container.readProviderElement(themeProvider).state.createdValue;
-    //     creationFailed = false;
-    //   } catch (error) {
-    //     creationFailed = true;
-    //   }
-    //   expect(creationFailed, true);
-    // });
+      var creationFailed = false;
+      try {
+        container.readProviderElement(commandsRepositoryProvider).state.createdValue;
+        creationFailed = false;
+      } catch (error) {
+        creationFailed = true;
+      }
+      expect(creationFailed, true);
+    });
+
+    test('creation fails given ContentRepository is not present', () {
+      final fakeDataRepository = MockFakeDataRepository();
+      final container = ProviderContainer(
+        overrides: [
+          fakeDataRepositoryProvider.overrideWithProvider(Provider((ref) => fakeDataRepository)),
+          contentRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error"))),
+        ],
+      );
+
+      var creationFailed = false;
+      try {
+        container.readProviderElement(commandsRepositoryProvider).state.createdValue;
+        creationFailed = false;
+      } catch (error) {
+        creationFailed = true;
+      }
+      expect(creationFailed, true);
+    });
   });
 }
