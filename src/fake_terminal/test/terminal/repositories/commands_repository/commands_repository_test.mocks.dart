@@ -5,6 +5,9 @@
 import 'dart:async' as _i4;
 
 import 'package:fake_terminal/terminal/models/fake_data.dart' as _i2;
+import 'package:fake_terminal/terminal/models/terminal_command.dart' as _i7;
+import 'package:fake_terminal/terminal/repositories/commands_repository/fake_data_to_commands.dart'
+    as _i6;
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart'
     as _i5;
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart'
@@ -48,4 +51,29 @@ class MockContentRepository extends _i1.Mock implements _i5.ContentRepository {
   _i4.Future<String> load(String? url) =>
       (super.noSuchMethod(Invocation.method(#load, [url]),
           returnValue: Future<String>.value('')) as _i4.Future<String>);
+}
+
+/// A class which mocks [FakeDataToCommands].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFakeDataToCommands extends _i1.Mock
+    implements _i6.FakeDataToCommands {
+  MockFakeDataToCommands() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  List<_i7.TerminalCommand> createCommands(
+          {_i2.FakeData? fakeData,
+          _i5.ContentRepository? contentRepository,
+          bool? hasExitCommand,
+          Function? executeExitCommand}) =>
+      (super.noSuchMethod(
+          Invocation.method(#createCommands, [], {
+            #fakeData: fakeData,
+            #contentRepository: contentRepository,
+            #hasExitCommand: hasExitCommand,
+            #executeExitCommand: executeExitCommand
+          }),
+          returnValue: <_i7.TerminalCommand>[]) as List<_i7.TerminalCommand>);
 }

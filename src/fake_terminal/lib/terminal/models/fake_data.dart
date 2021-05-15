@@ -26,7 +26,8 @@ class FakeFile {
     required this.name,
     this.contentUrl,
     this.content,
-  });
+  })  : assert(contentUrl != null || content != null),
+        assert(!(contentUrl != null && content != null));
 
   factory FakeFile.fromJson(Map<String, dynamic> json) => _$FakeFileFromJson(json);
   Map<String, dynamic> toJson() => _$FakeFileToJson(this);
@@ -45,9 +46,10 @@ class FakeCommand {
     required this.name,
     required this.description,
     required this.arguments,
-    required this.outputUrl,
-    required this.output,
-  });
+    this.outputUrl,
+    this.output,
+  })  : assert(outputUrl != null || output != null),
+        assert(!(outputUrl != null && output != null));
 
   bool canExecuteWithoutArguments() => outputUrl != null || output != null;
 
