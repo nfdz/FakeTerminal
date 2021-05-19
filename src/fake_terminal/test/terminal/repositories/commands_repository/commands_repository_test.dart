@@ -1,5 +1,7 @@
 import 'package:fake_terminal/terminal/models/fake_data.dart';
+import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/fake_data_to_commands.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
@@ -10,7 +12,7 @@ import 'package:test/test.dart';
 
 import 'commands_repository_test.mocks.dart';
 
-@GenerateMocks([FakeDataRepository, ContentRepository, FakeDataToCommands])
+@GenerateMocks([FakeDataRepository, ContentRepository, FakeDataToCommands, TerminalCommand, ExitExecutor])
 void main() {
   final _fakeDataMock = FakeData(fakeCommands: [
     FakeCommand(
@@ -37,6 +39,7 @@ void main() {
       contentUrl: "https://mycontenturl",
     ),
   ]);
+
   group('Provider', () {
     test('creation given FakeDataRepository and ContentRepository are present', () {
       final fakeDataRepository = MockFakeDataRepository();
@@ -93,30 +96,95 @@ void main() {
 
   group('initialization', () {
     test('fetch fake data', () {
-      final fakeDataRepository = MockFakeDataRepository();
-      when(fakeDataRepository.load()).thenAnswer((_) async => _fakeDataMock);
-      final contentRepository = MockContentRepository();
       final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.createCommands(
-        fakeData: anyNamed('fakeData'),
-        contentRepository: anyNamed('contentRepository'),
-        hasExitCommand: anyNamed('hasExitCommand'),
-        executeExitCommand: anyNamed('executeExitCommand'),
-      )).thenReturn([]);
+      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataRepository, contentRepository, fakeDataToCommands);
+      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
 
-      commandsRepository.initializationComplete.whenComplete(
-        () {
-          verify(fakeDataRepository.load()).called(1);
-          verify(fakeDataToCommands.createCommands(
-            fakeData: _fakeDataMock,
-            contentRepository: contentRepository,
-            hasExitCommand: anyNamed('hasExitCommand'),
-            executeExitCommand: anyNamed('executeExitCommand'),
-          )).called(1);
-        },
-      );
+      commandsRepository.initializationComplete.whenComplete(() {
+        verify(fakeDataToCommands.loadCommands()).called(1);
+      });
     });
   });
+
+  group('autocomplete', () {
+    test('given empty then return null', () {
+      final fakeDataToCommands = MockFakeDataToCommands();
+      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+
+      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+
+      commandsRepository.initializationComplete.whenComplete(() {
+        expect(commandsRepository.autocomplete(""), null);
+      });
+    });
+
+    test('given invalid command name then return null', () {
+      final commandName = "MyCommand";
+      final command = MockTerminalCommand();
+      when(command.name).thenReturn(commandName);
+      when(command.autocomplete(any)).thenReturn(null);
+      final fakeDataToCommands = MockFakeDataToCommands();
+      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+
+      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+
+      commandsRepository.initializationComplete.whenComplete(() {
+        expect(commandsRepository.autocomplete("OtherComm"), null);
+      });
+    });
+
+    test('given half command name then return command name', () {
+      final commandName = "MyCommand";
+      final command = MockTerminalCommand();
+      when(command.name).thenReturn(commandName);
+      when(command.autocomplete(any)).thenReturn(null);
+      final fakeDataToCommands = MockFakeDataToCommands();
+      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+
+      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+
+      commandsRepository.initializationComplete.whenComplete(() {
+        expect(commandsRepository.autocomplete("MyCom"), commandName);
+      });
+    });
+
+    test('given the command name then return null', () {
+      final commandName = "MyCommand";
+      final command = MockTerminalCommand();
+      when(command.name).thenReturn(commandName);
+      when(command.autocomplete(any)).thenReturn(null);
+      final fakeDataToCommands = MockFakeDataToCommands();
+      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+
+      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+
+      commandsRepository.initializationComplete.whenComplete(() {
+        expect(commandsRepository.autocomplete(commandName), null);
+      });
+    });
+
+    test(
+        'given the command name with an argument then invoke the command autocomplete function and return the aggregated result',
+        () {
+      final expectedAutocompletedArgument = "myArgument";
+      final commandName = "MyCommand";
+      final command = MockTerminalCommand();
+      when(command.name).thenReturn(commandName);
+      when(command.autocomplete(any)).thenReturn(expectedAutocompletedArgument);
+      final fakeDataToCommands = MockFakeDataToCommands();
+      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+
+      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+
+      commandsRepository.initializationComplete.whenComplete(() {
+        final inputArgToAutocomplete = "myA";
+        expect(commandsRepository.autocomplete("$commandName $inputArgToAutocomplete"),
+            "$commandName $expectedAutocompletedArgument");
+        verify(command.autocomplete(inputArgToAutocomplete)).called(1);
+      });
+    });
+  });
+
+  group('executeCommandLine', () {});
 }

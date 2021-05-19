@@ -2,20 +2,37 @@ import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart';
 import 'package:fake_terminal/terminal/models/fake_data.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
+import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 
 abstract class FakeDataToCommands {
-  List<TerminalCommand> createCommands({
-    required FakeData fakeData,
-    required ContentRepository contentRepository,
-    required bool hasExitCommand,
-    required Function executeExitCommand,
-  });
+  Future<List<TerminalCommand>> loadCommands();
 }
 
 class FakeDataToCommandsImpl extends FakeDataToCommands {
+  final FakeDataRepository _fakeDataRepository;
+  final ContentRepository _contentRepository;
+  final ExitExecutor _exitExecutor;
+
+  FakeDataToCommandsImpl(
+    this._fakeDataRepository,
+    this._contentRepository,
+    this._exitExecutor,
+  );
+
   @override
-  List<TerminalCommand> createCommands({
+  Future<List<TerminalCommand>> loadCommands() async {
+    FakeData fakeData = await _fakeDataRepository.load();
+    return _createCommands(
+      fakeData: fakeData,
+      contentRepository: _contentRepository,
+      hasExitCommand: _exitExecutor.hasExitCommand(),
+      executeExitCommand: _exitExecutor.executeExitCommand,
+    );
+  }
+
+  List<TerminalCommand> _createCommands({
     required FakeData fakeData,
     required ContentRepository contentRepository,
     required bool hasExitCommand,

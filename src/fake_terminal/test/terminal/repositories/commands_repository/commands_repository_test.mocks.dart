@@ -6,6 +6,8 @@ import 'dart:async' as _i4;
 
 import 'package:fake_terminal/terminal/models/fake_data.dart' as _i2;
 import 'package:fake_terminal/terminal/models/terminal_command.dart' as _i7;
+import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart'
+    as _i8;
 import 'package:fake_terminal/terminal/repositories/commands_repository/fake_data_to_commands.dart'
     as _i6;
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart'
@@ -63,17 +65,60 @@ class MockFakeDataToCommands extends _i1.Mock
   }
 
   @override
-  List<_i7.TerminalCommand> createCommands(
-          {_i2.FakeData? fakeData,
-          _i5.ContentRepository? contentRepository,
-          bool? hasExitCommand,
-          Function? executeExitCommand}) =>
+  _i4.Future<List<_i7.TerminalCommand>> loadCommands() => (super.noSuchMethod(
+          Invocation.method(#loadCommands, []),
+          returnValue:
+              Future<List<_i7.TerminalCommand>>.value(<_i7.TerminalCommand>[]))
+      as _i4.Future<List<_i7.TerminalCommand>>);
+}
+
+/// A class which mocks [TerminalCommand].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTerminalCommand extends _i1.Mock implements _i7.TerminalCommand {
+  MockTerminalCommand() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get name =>
+      (super.noSuchMethod(Invocation.getter(#name), returnValue: '') as String);
+  @override
+  String get description =>
+      (super.noSuchMethod(Invocation.getter(#description), returnValue: '')
+          as String);
+  @override
+  String get manual =>
+      (super.noSuchMethod(Invocation.getter(#manual), returnValue: '')
+          as String);
+  @override
+  _i4.Future<List<String>> execute(
+          {List<String>? arguments, List<String>? history}) =>
       (super.noSuchMethod(
-          Invocation.method(#createCommands, [], {
-            #fakeData: fakeData,
-            #contentRepository: contentRepository,
-            #hasExitCommand: hasExitCommand,
-            #executeExitCommand: executeExitCommand
-          }),
-          returnValue: <_i7.TerminalCommand>[]) as List<_i7.TerminalCommand>);
+              Invocation.method(
+                  #execute, [], {#arguments: arguments, #history: history}),
+              returnValue: Future<List<String>>.value(<String>[]))
+          as _i4.Future<List<String>>);
+  @override
+  String? autocomplete(String? argument) =>
+      (super.noSuchMethod(Invocation.method(#autocomplete, [argument]))
+          as String?);
+}
+
+/// A class which mocks [ExitExecutor].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockExitExecutor extends _i1.Mock implements _i8.ExitExecutor {
+  MockExitExecutor() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  bool hasExitCommand() =>
+      (super.noSuchMethod(Invocation.method(#hasExitCommand, []),
+          returnValue: false) as bool);
+  @override
+  void executeExitCommand() =>
+      super.noSuchMethod(Invocation.method(#executeExitCommand, []),
+          returnValueForMissingStub: null);
 }
