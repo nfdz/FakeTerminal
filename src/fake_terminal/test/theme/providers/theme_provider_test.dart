@@ -40,71 +40,84 @@ void main() {
   });
 
   group('initialization', () {
-    test('state default', () {
+    test('state default', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
+
       final themeProvider = ThemeNotifierImpl(repository);
+      await themeProvider.initializationComplete;
+
       expect(themeProvider.debugState, ThemeSettings.dark);
     });
 
-    test('state given the repository was empty', () {
+    test('state given the repository was empty', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
+
       final themeProvider = ThemeNotifierImpl(repository);
-      themeProvider.initializationComplete.whenComplete(
-        () => expect(themeProvider.debugState, ThemeSettings.dark),
-      );
+      await themeProvider.initializationComplete;
+
+      expect(themeProvider.debugState, ThemeSettings.dark);
     });
 
-    test('state given the repository had light', () {
+    test('state given the repository had light', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => StoredTheme(ThemeSettings.light));
+
       final themeProvider = ThemeNotifierImpl(repository);
-      themeProvider.initializationComplete.whenComplete(
-        () => expect(themeProvider.debugState, ThemeSettings.light),
-      );
+      await themeProvider.initializationComplete;
+
+      expect(themeProvider.debugState, ThemeSettings.light);
     });
   });
 
   group('toggleTheme', () {
-    test('given the state was light then the new state is dark', () {
+    test('given the state was light then the new state is dark', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
       when(repository.saveThemeSettings(any)).thenAnswer((_) async => null);
+
       final themeProvider = ThemeNotifierImpl(repository, initialState: ThemeSettings.light);
+      await themeProvider.initializationComplete;
 
       themeProvider.toggleTheme();
 
       expect(themeProvider.debugState, ThemeSettings.dark);
     });
 
-    test('given the state was light then save dark in the repository', () {
+    test('given the state was light then save dark in the repository', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
       when(repository.saveThemeSettings(any)).thenAnswer((_) async => null);
+
       final themeProvider = ThemeNotifierImpl(repository, initialState: ThemeSettings.light);
+      await themeProvider.initializationComplete;
 
       themeProvider.toggleTheme();
 
       verify(repository.saveThemeSettings(StoredTheme(ThemeSettings.dark))).called(1);
     });
 
-    test('given the state was dark then the new state is light', () {
+    test('given the state was dark then the new state is light', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
       when(repository.saveThemeSettings(any)).thenAnswer((_) async => null);
+
       final themeProvider = ThemeNotifierImpl(repository, initialState: ThemeSettings.dark);
+      await themeProvider.initializationComplete;
 
       themeProvider.toggleTheme();
 
       expect(themeProvider.debugState, ThemeSettings.light);
     });
 
-    test('given the state was dark then save light in the repository', () {
+    test('given the state was dark then save light in the repository', () async {
       final repository = MockThemeRepository();
       when(repository.fetchThemeSettings()).thenAnswer((_) async => null);
       when(repository.saveThemeSettings(any)).thenAnswer((_) async => null);
+
       final themeProvider = ThemeNotifierImpl(repository, initialState: ThemeSettings.dark);
+      await themeProvider.initializationComplete;
 
       themeProvider.toggleTheme();
 

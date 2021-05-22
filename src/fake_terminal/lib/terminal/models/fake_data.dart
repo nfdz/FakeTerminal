@@ -38,20 +38,14 @@ class FakeCommand {
   final String name;
   final String description;
   final List<FakeArgument> arguments;
-  @JsonKey(name: "output_url")
-  final String? outputUrl;
-  @JsonKey(name: "output")
-  final String? output;
+  @JsonKey(name: "default_argument")
+  final String defaultArgument;
   FakeCommand({
     required this.name,
     required this.description,
     required this.arguments,
-    this.outputUrl,
-    this.output,
-  })  : assert(outputUrl != null || output != null),
-        assert(!(outputUrl != null && output != null));
-
-  bool canExecuteWithoutArguments() => outputUrl != null || output != null;
+    required this.defaultArgument,
+  });
 
   factory FakeCommand.fromJson(Map<String, dynamic> json) => _$FakeCommandFromJson(json);
   Map<String, dynamic> toJson() => _$FakeCommandToJson(this);

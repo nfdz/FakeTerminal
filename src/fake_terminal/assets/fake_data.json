@@ -25,6 +25,7 @@
         {
             "name": "nfdz",
             "description": "TODO",
+            "default_argument": "hello",
             "arguments": [
                 {
                     "name": "about",

@@ -14,24 +14,20 @@ class FakeCommandWrapper extends TerminalCommand {
   @override
   Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     if (arguments.isEmpty) {
-      if (_fakeCommand.canExecuteWithoutArguments()) {
-        return [await _getOutputFor(_fakeCommand.outputUrl, _fakeCommand.output)];
-      } else {
-        return [_getCommandInvalid()];
-      }
-    } else {
-      final List<String> output = [];
-      for (final argument in arguments) {
-        final matches = _fakeCommand.arguments.where((fakeArgument) => fakeArgument.name == argument);
-        if (matches.isNotEmpty) {
-          final fakeArgument = matches.first;
-          output.add(await _getOutputFor(fakeArgument.outputUrl, fakeArgument.output));
-        } else {
-          output.add(_getArgumentInvalid(argument));
-        }
-      }
-      return output;
+      arguments = [_fakeCommand.defaultArgument];
     }
+
+    final List<String> output = [];
+    for (final argument in arguments) {
+      final matches = _fakeCommand.arguments.where((fakeArgument) => fakeArgument.name == argument);
+      if (matches.isNotEmpty) {
+        final fakeArgument = matches.first;
+        output.add(await _getOutputFor(fakeArgument.outputUrl, fakeArgument.output));
+      } else {
+        output.add(_getArgumentInvalid(argument));
+      }
+    }
+    return output;
   }
 
   Future<String> _getOutputFor(String? outputUrl, String? output) async {

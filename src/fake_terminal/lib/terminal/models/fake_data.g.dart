@@ -43,8 +43,7 @@ FakeCommand _$FakeCommandFromJson(Map<String, dynamic> json) {
     arguments: (json['arguments'] as List<dynamic>)
         .map((e) => FakeArgument.fromJson(e as Map<String, dynamic>))
         .toList(),
-    outputUrl: json['output_url'] as String?,
-    output: json['output'] as String?,
+    defaultArgument: json['default_argument'] as String,
   );
 }
 
@@ -53,8 +52,7 @@ Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) =>
       'name': instance.name,
       'description': instance.description,
       'arguments': instance.arguments,
-      'output_url': instance.outputUrl,
-      'output': instance.output,
+      'default_argument': instance.defaultArgument,
     };
 
 FakeArgument _$FakeArgumentFromJson(Map<String, dynamic> json) {
