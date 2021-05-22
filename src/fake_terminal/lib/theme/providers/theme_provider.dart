@@ -12,13 +12,16 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeSettings>((ref) 
 abstract class ThemeNotifier extends StateNotifier<ThemeSettings> {
   ThemeNotifier(ThemeSettings state) : super(state);
 
+  Future get initializationComplete;
   void toggleTheme();
 }
 
 class ThemeNotifierImpl extends ThemeNotifier {
   static const _kDefaultTheme = ThemeSettings.dark;
 
+  @override
   Future get initializationComplete => _initCompleter.future;
+
   final _initCompleter = Completer();
   final ThemeRepository _repository;
 

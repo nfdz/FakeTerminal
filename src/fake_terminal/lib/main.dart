@@ -10,13 +10,9 @@ import 'package:fake_terminal/theme/models/theme_settings.dart';
 
 void main() {
   _setupLogger();
-  runApp(
-    ProviderScope(
-      child: Sizer(builder: (context, orientation, screenType) {
-        return FakeTerminalApp();
-      }),
-    ),
-  );
+  runApp(ProviderScope(
+    child: EntryPointWidget(),
+  ));
 }
 
 void _setupLogger() {
@@ -27,6 +23,21 @@ void _setupLogger() {
     Logger.root.onRecord.listen((record) {
       print('[${record.time}][${record.level.name}][${record.loggerName}] ${record.message}');
     });
+  }
+}
+
+class EntryPointWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final themeNotifier = context.read(themeProvider.notifier);
+    return FutureBuilder(
+      future: themeNotifier.initializationComplete,
+      builder: (context, snapshot) {
+        return Sizer(builder: (context, orientation, screenType) {
+          return FakeTerminalApp();
+        });
+      },
+    );
   }
 }
 

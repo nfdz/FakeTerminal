@@ -7,6 +7,7 @@ import 'package:fake_terminal/terminal/providers/terminal_provider.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart';
 import 'package:fake_terminal/terminal/repositories/history_repository/persistence_repository.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
+import 'package:fake_terminal/texts/time_texts.dart';
 import 'package:logging/logging.dart';
 
 final _kLogger = Logger("TerminalNotifier");
@@ -43,7 +44,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
     _kLogger.fine("Restored history");
     final newState = TerminalState(output: history.output, historyInput: history.historyInput);
     if (history.output.isNotEmpty) {
-      final timestampText = TerminalTexts.lastLoginMessage(history.timestampMillis);
+      final timestampText = TimeTexts.lastLoginMessage(history.timestampMillis);
       newState.output.add(TerminalLine(
         type: LineType.timestamp,
         line: "\n$timestampText\n",

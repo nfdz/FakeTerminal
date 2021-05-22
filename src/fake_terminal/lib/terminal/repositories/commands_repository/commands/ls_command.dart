@@ -1,10 +1,10 @@
 import 'package:fake_terminal/terminal/models/fake_data.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
-import 'package:fake_terminal/texts/terminal_texts.dart';
+import 'package:fake_terminal/texts/time_texts.dart';
 
 class LsCommand extends TerminalCommand {
   final List<FakeFile> _fakeFiles;
-  final String _currentMonth = TerminalTexts.getCurrentMonthText();
+  final String _currentMonth = TimeTexts.getCurrentMonthText();
   LsCommand(this._fakeFiles)
       : super(
           name: _kCommandName,

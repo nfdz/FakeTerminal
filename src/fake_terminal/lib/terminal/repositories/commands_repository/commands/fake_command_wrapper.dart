@@ -43,8 +43,6 @@ class FakeCommandWrapper extends TerminalCommand {
   String _getArgumentInvalid(String argument) =>
       "Invalid argument '$argument', to learn about this command use: man ${_fakeCommand.name}";
 
-  String _getCommandInvalid() => "Input argument required, to learn about this command use: man ${_fakeCommand.name}";
-
   @override
   String? autocomplete(String argument) {
     final matches = _fakeCommand.arguments.where((fakeArgument) => fakeArgument.name.startsWith(argument));
