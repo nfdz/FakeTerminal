@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
-import 'package:fake_terminal/terminal/repositories/commands_repository/fake_data_to_commands.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/commands_loader.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart';
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
@@ -14,9 +16,15 @@ import 'package:riverpod/riverpod.dart';
 final commandsRepositoryProvider = Provider<CommandsRepository>((ref) {
   final fakeDataRepository = ref.read(fakeDataRepositoryProvider);
   final contentRepository = ref.read(contentRepositoryProvider);
-  final exitExecutor = ExitExecutorJavascript();
-  final fakeDataToCommands = FakeDataToCommandsImpl(fakeDataRepository, contentRepository, exitExecutor);
-  return CommandsRepositoryFakeData(fakeDataToCommands, exitExecutor);
+  final exitExecutor = ExitExecutorImpl(JavascriptDom.instance);
+  final javascriptExecutor = JavascriptDom.instance != null ? JavascriptExecutorImpl(JavascriptDom.instance!) : null;
+  final commandsLoader = CommandsLoaderImpl(
+    fakeDataRepository,
+    contentRepository,
+    exitExecutor,
+    javascriptExecutor,
+  );
+  return CommandsRepositoryFakeData(commandsLoader, exitExecutor);
 });
 
 final Logger _kLogger = Logger("CommandsRepository");
@@ -34,20 +42,20 @@ abstract class CommandsRepository {
 class CommandsRepositoryFakeData extends CommandsRepository {
   Future get initializationComplete => _initCompleter.future;
   final _initCompleter = Completer();
-  final FakeDataToCommands _fakeDataToCommands;
+  final CommandsLoader _commandsLoader;
   final ExitExecutor _exitExecutor;
 
   List<TerminalCommand> _commands = [];
 
   CommandsRepositoryFakeData(
-    this._fakeDataToCommands,
+    this._commandsLoader,
     this._exitExecutor,
   ) {
-    _init(_fakeDataToCommands).whenComplete(() => _initCompleter.complete());
+    _init(_commandsLoader).whenComplete(() => _initCompleter.complete());
   }
 
-  Future<void> _init(FakeDataToCommands fakeDataToCommands) async {
-    _commands = await _fakeDataToCommands.loadCommands();
+  Future<void> _init(CommandsLoader commandsLoader) async {
+    _commands = await _commandsLoader.loadCommands();
   }
 
   @override

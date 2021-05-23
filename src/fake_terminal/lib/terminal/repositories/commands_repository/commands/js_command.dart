@@ -1,8 +1,9 @@
-import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart';
 
 class JsCommand extends TerminalCommand {
-  JsCommand()
+  final JavascriptExecutor _javascriptExecutor;
+  JsCommand(this._javascriptExecutor)
       : super(
           name: _kCommandName,
           description: _kCommandDescription,
@@ -19,7 +20,7 @@ class JsCommand extends TerminalCommand {
     for (final lineToEval in linesToEval) {
       try {
         output.add("> $lineToEval");
-        output.add(JavascriptDom.instance?.evalJs(lineToEval) ?? "");
+        output.add(_javascriptExecutor.execute(lineToEval));
       } catch (e) {
         output.add(e.toString());
       }

@@ -4,5 +4,4 @@ abstract class JavascriptDom {
   void navigateBack();
   bool canNavigateBack();
   String evalJs(String expression);
-  bool canEvalJs();
 }

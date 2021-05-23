@@ -23,9 +23,4 @@ class JavascriptDomPlugin extends JavascriptDom {
   String evalJs(String expression) {
     return js.context.callMethod("eval", [expression]).toString();
   }
-
-  @override
-  bool canEvalJs() {
-    return true;
-  }
 }

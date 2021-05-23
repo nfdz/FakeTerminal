@@ -5,16 +5,19 @@ abstract class ExitExecutor {
   void executeExitCommand();
 }
 
-class ExitExecutorJavascript extends ExitExecutor {
+class ExitExecutorImpl extends ExitExecutor {
+  final JavascriptDom? _instance;
+  ExitExecutorImpl(this._instance);
+
   @override
   bool hasExitCommand() {
-    return JavascriptDom.instance?.canNavigateBack() == true;
+    return _instance?.canNavigateBack() == true;
   }
 
   @override
   void executeExitCommand() {
     if (hasExitCommand()) {
-      JavascriptDom.instance?.navigateBack();
+      _instance?.navigateBack();
     }
   }
 }

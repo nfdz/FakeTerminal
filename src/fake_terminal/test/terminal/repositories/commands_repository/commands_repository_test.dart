@@ -4,7 +4,7 @@ import 'package:fake_terminal/terminal/models/terminal_line.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
-import 'package:fake_terminal/terminal/repositories/commands_repository/fake_data_to_commands.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/commands_loader.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 import 'package:mockito/annotations.dart';
@@ -14,32 +14,8 @@ import 'package:test/test.dart';
 
 import 'commands_repository_test.mocks.dart';
 
-@GenerateMocks([FakeDataRepository, ContentRepository, FakeDataToCommands, TerminalCommand, ExitExecutor])
+@GenerateMocks([FakeDataRepository, ContentRepository, CommandsLoader, TerminalCommand, ExitExecutor])
 void main() {
-  final _fakeDataMock = FakeData(fakeCommands: [
-    FakeCommand(
-      name: "TestFakeCommandWithOutput",
-      description: "test description",
-      arguments: [FakeArgument(name: "myArg", description: "arg description", output: "arg output")],
-      defaultArgument: "myArg",
-    ),
-    FakeCommand(
-      name: "TestFakeCommandWithOutputUrl",
-      description: "test description",
-      arguments: [FakeArgument(name: "myArg", description: "arg description", outputUrl: "https://myoutputurl")],
-      defaultArgument: "myArg",
-    ),
-  ], fakeFiles: [
-    FakeFile(
-      name: "MyFakeFileWithContent",
-      content: "test content",
-    ),
-    FakeFile(
-      name: "MyFakeFileWithContentUrl",
-      contentUrl: "https://mycontenturl",
-    ),
-  ]);
-
   group('Provider', () {
     test('creation given FakeDataRepository and ContentRepository are present', () {
       final fakeDataRepository = MockFakeDataRepository();
@@ -96,22 +72,22 @@ void main() {
 
   group('initialization', () {
     test('fetch fake data', () async {
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
-      verify(fakeDataToCommands.loadCommands()).called(1);
+      verify(commandsLoader.loadCommands()).called(1);
     });
   });
 
   group('autocomplete', () {
     test('given empty then return null', () async {
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete(""), null);
@@ -122,10 +98,10 @@ void main() {
       final command = MockTerminalCommand();
       when(command.name).thenReturn(commandName);
       when(command.autocomplete(any)).thenReturn(null);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete("OtherComm"), null);
@@ -136,10 +112,10 @@ void main() {
       final command = MockTerminalCommand();
       when(command.name).thenReturn(commandName);
       when(command.autocomplete(any)).thenReturn(null);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete("MyCom"), commandName);
@@ -150,10 +126,10 @@ void main() {
       final command = MockTerminalCommand();
       when(command.name).thenReturn(commandName);
       when(command.autocomplete(any)).thenReturn(null);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete(commandName), null);
@@ -167,10 +143,10 @@ void main() {
       final command = MockTerminalCommand();
       when(command.name).thenReturn(commandName);
       when(command.autocomplete(any)).thenReturn(expectedAutocompletedArgument);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final inputArgToAutocomplete = "myA";
@@ -186,10 +162,10 @@ void main() {
       final command = MockTerminalCommand();
       when(command.name).thenReturn(commandName);
       when(command.autocomplete(any)).thenReturn(null);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final inputArgToAutocomplete = "myA";
@@ -201,10 +177,10 @@ void main() {
   group('executeCommandLine', () {
     group('history pointer', () {
       test('given empty history then do not execute any command and save the expected lines and history', () async {
-        final fakeDataToCommands = MockFakeDataToCommands();
-        when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+        final commandsLoader = MockCommandsLoader();
+        when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-        final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+        final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
         await commandsRepository.initializationComplete;
 
         final List<TerminalLine> output = [];
@@ -223,10 +199,10 @@ void main() {
       test(
           'given history with 1 entry and invalid pointer then do not execute any command and save the expected lines and history',
           () async {
-        final fakeDataToCommands = MockFakeDataToCommands();
-        when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+        final commandsLoader = MockCommandsLoader();
+        when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-        final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+        final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
         await commandsRepository.initializationComplete;
 
         final List<TerminalLine> output = [];
@@ -252,10 +228,10 @@ void main() {
         when(command.name).thenReturn(commandName);
         when(command.execute(arguments: anyNamed("arguments"), history: anyNamed("history")))
             .thenAnswer((_) async => [commandOutput]);
-        final fakeDataToCommands = MockFakeDataToCommands();
-        when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+        final commandsLoader = MockCommandsLoader();
+        when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-        final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+        final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
         await commandsRepository.initializationComplete;
 
         final List<TerminalLine> output = [];
@@ -278,10 +254,10 @@ void main() {
     });
 
     test('given empty line then do not execute any command and save the expected lines', () async {
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -294,10 +270,10 @@ void main() {
     });
 
     test('given invalid command then do not execute any command and save the expected lines', () async {
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -320,10 +296,10 @@ void main() {
       when(command.name).thenReturn(commandName);
       when(command.execute(arguments: anyNamed("arguments"), history: anyNamed("history")))
           .thenAnswer((_) async => [commandOutput]);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -350,10 +326,10 @@ void main() {
       when(command.name).thenReturn(commandName);
       when(command.execute(arguments: anyNamed("arguments"), history: anyNamed("history")))
           .thenAnswer((_) async => [commandOutput]);
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -380,10 +356,10 @@ void main() {
       when(command.name).thenReturn(commandName);
       when(command.execute(arguments: anyNamed("arguments"), history: anyNamed("history")))
           .thenThrow(ExecuteClearCommand());
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [TerminalLine(line: "AnyOutput", type: LineType.result)];
@@ -402,10 +378,10 @@ void main() {
       when(command.name).thenReturn(commandName);
       when(command.execute(arguments: anyNamed("arguments"), history: anyNamed("history")))
           .thenThrow(ExecuteClearHistoryCommand());
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => [command]);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, MockExitExecutor());
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
       await commandsRepository.initializationComplete;
 
       final previousHistoryLine = "MyPreviousCommand";
@@ -424,10 +400,10 @@ void main() {
       final expectedValue = true;
       when(exitExecutor.hasExitCommand()).thenReturn(expectedValue);
 
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, exitExecutor);
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, exitExecutor);
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.hasExitCommand(), expectedValue);
@@ -438,10 +414,10 @@ void main() {
       final exitExecutor = MockExitExecutor();
       when(exitExecutor.executeExitCommand()).thenReturn(null);
 
-      final fakeDataToCommands = MockFakeDataToCommands();
-      when(fakeDataToCommands.loadCommands()).thenAnswer((_) async => []);
+      final commandsLoader = MockCommandsLoader();
+      when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(fakeDataToCommands, exitExecutor);
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, exitExecutor);
       await commandsRepository.initializationComplete;
 
       commandsRepository.executeExitCommand();
