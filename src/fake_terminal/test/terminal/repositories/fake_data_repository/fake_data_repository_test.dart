@@ -1,46 +1,56 @@
-import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
+import 'dart:convert';
+
+import 'package:fake_terminal/terminal/models/fake_data.dart';
+import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
+import 'package:flutter/services.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:test/test.dart';
 
+import 'fake_data_repository_test.mocks.dart';
+
+@GenerateMocks([AssetBundle])
 void main() {
   group('provider', () {
     test('creation', () {
       final container = ProviderContainer();
-      final providerInstance = container.readProviderElement(contentRepositoryProvider).state.createdValue;
-      expect(providerInstance, isA<ContentRepositoryHttp>());
+      final providerInstance = container.readProviderElement(fakeDataRepositoryProvider).state.createdValue;
+      expect(providerInstance, isA<FakeDataRepositoryImpl>());
     });
   });
 
   group('load', () {
-    test('given http then invoke GET and return its output', () async {
-      final expectedOutput = "myOutput";
-      var getCount = 0;
-      Uri? invokedUrl;
-      final httpGet = (Uri url) {
-        invokedUrl = url;
-        getCount++;
-        return Future.value(expectedOutput);
-      };
+    test('given AssetBundle then invoke loadString and return the expected data', () async {
+      final expectedFakeData = FakeData(
+        fakeCommands: [
+          FakeCommand(name: "name", description: "description", arguments: [], defaultArgument: "defaultArgument"),
+        ],
+        fakeFiles: [
+          FakeFile(name: "name", content: "content"),
+        ],
+      );
 
-      final repository = ContentRepositoryHttp(httpGet);
+      final assetBundle = MockAssetBundle();
+      when(assetBundle.loadString(any)).thenAnswer((_) async => jsonEncode(expectedFakeData.toJson()));
 
-      final urlToLoad = "myUrl.com";
-      final result = await repository.load(urlToLoad);
+      final repository = FakeDataRepositoryImpl(assetBundle);
+      final result = await repository.load();
 
-      expect(getCount, 1);
-      expect(invokedUrl!.path, urlToLoad);
-      expect(result, expectedOutput);
+      expect(result, expectedFakeData);
+      verify(assetBundle.loadString(FakeDataRepositoryImpl.kFakeDataAssetFile)).called(1);
     });
 
-    test('given http and GET failed then return the given url', () async {
-      final httpGet = (Uri url) => throw Exception("This is an error");
+    test('given AssetBundle failed then return empty fake data', () async {
+      final expectedFakeData = FakeData(fakeCommands: [], fakeFiles: []);
 
-      final repository = ContentRepositoryHttp(httpGet);
+      final assetBundle = MockAssetBundle();
+      when(assetBundle.loadString(any)).thenThrow(Exception("This is an error"));
 
-      final urlToLoad = "myUrl.com";
-      final result = await repository.load(urlToLoad);
+      final repository = FakeDataRepositoryImpl(assetBundle);
+      final result = await repository.load();
 
-      expect(result, urlToLoad);
+      expect(result, expectedFakeData);
     });
   });
 }

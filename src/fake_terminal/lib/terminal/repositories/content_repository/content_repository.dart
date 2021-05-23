@@ -8,7 +8,7 @@ abstract class ContentRepository {
   Future<String> load(String url);
 }
 
-final Logger _kLogger = Logger("UrlRepository");
+final Logger _kLogger = Logger("ContentRepository");
 
 typedef HttpGet = Future<String> Function(Uri url);
 

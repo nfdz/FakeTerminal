@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'fake_data.g.dart';
 
 @JsonSerializable()
-class FakeData {
+class FakeData extends Equatable {
   @JsonKey(name: "fake_files")
   final List<FakeFile> fakeFiles;
   @JsonKey(name: "fake_commands")
@@ -13,10 +14,13 @@ class FakeData {
 
   factory FakeData.fromJson(Map<String, dynamic> json) => _$FakeDataFromJson(json);
   Map<String, dynamic> toJson() => _$FakeDataToJson(this);
+
+  @override
+  List<Object?> get props => [fakeFiles, fakeCommands];
 }
 
 @JsonSerializable()
-class FakeFile {
+class FakeFile extends Equatable {
   final String name;
   @JsonKey(name: "content_url")
   final String? contentUrl;
@@ -31,10 +35,13 @@ class FakeFile {
 
   factory FakeFile.fromJson(Map<String, dynamic> json) => _$FakeFileFromJson(json);
   Map<String, dynamic> toJson() => _$FakeFileToJson(this);
+
+  @override
+  List<Object?> get props => [name, contentUrl, content];
 }
 
 @JsonSerializable()
-class FakeCommand {
+class FakeCommand extends Equatable {
   final String name;
   final String description;
   final List<FakeArgument> arguments;
@@ -49,10 +56,13 @@ class FakeCommand {
 
   factory FakeCommand.fromJson(Map<String, dynamic> json) => _$FakeCommandFromJson(json);
   Map<String, dynamic> toJson() => _$FakeCommandToJson(this);
+
+  @override
+  List<Object?> get props => [name, description, arguments, defaultArgument];
 }
 
 @JsonSerializable()
-class FakeArgument {
+class FakeArgument extends Equatable {
   final String name;
   final String description;
   @JsonKey(name: "output_url")
@@ -64,8 +74,12 @@ class FakeArgument {
     required this.description,
     this.outputUrl,
     this.output,
-  });
+  })  : assert(outputUrl != null || output != null),
+        assert(!(outputUrl != null && output != null));
 
   factory FakeArgument.fromJson(Map<String, dynamic> json) => _$FakeArgumentFromJson(json);
   Map<String, dynamic> toJson() => _$FakeArgumentToJson(this);
+
+  @override
+  List<Object?> get props => [name, description, outputUrl, output];
 }
