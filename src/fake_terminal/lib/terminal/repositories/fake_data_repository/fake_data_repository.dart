@@ -11,7 +11,7 @@ abstract class FakeDataRepository {
   Future<FakeData> load();
 }
 
-final Logger _kLogger = Logger("ContenFakeDataRepositorytRepository");
+final Logger _kLogger = Logger("FakeDataRepository");
 
 class FakeDataRepositoryImpl extends FakeDataRepository {
   static const kFakeDataAssetFile = "assets/fake_data.json";

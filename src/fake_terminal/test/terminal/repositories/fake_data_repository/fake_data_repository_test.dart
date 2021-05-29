@@ -21,7 +21,7 @@ void main() {
   });
 
   group('load', () {
-    test('given AssetBundle then invoke loadString and return the expected data', () async {
+    test('given AssetBundle then invoke loadString and return the expected FakeData', () async {
       final expectedFakeData = FakeData(
         fakeCommands: [
           FakeCommand(name: "name", description: "description", arguments: [], defaultArgument: "defaultArgument"),
@@ -41,16 +41,24 @@ void main() {
       verify(assetBundle.loadString(FakeDataRepositoryImpl.kFakeDataAssetFile)).called(1);
     });
 
-    test('given AssetBundle failed then return empty fake data', () async {
-      final expectedFakeData = FakeData(fakeCommands: [], fakeFiles: []);
+    test('given AssetBundleis is empty then return empty FakeData', () async {
+      final assetBundle = MockAssetBundle();
+      when(assetBundle.loadString(any)).thenAnswer((_) async => "");
 
+      final repository = FakeDataRepositoryImpl(assetBundle);
+      final result = await repository.load();
+
+      expect(result, FakeData(fakeCommands: [], fakeFiles: []));
+    });
+
+    test('given AssetBundle failed then return empty FakeData', () async {
       final assetBundle = MockAssetBundle();
       when(assetBundle.loadString(any)).thenThrow(Exception("This is an error"));
 
       final repository = FakeDataRepositoryImpl(assetBundle);
       final result = await repository.load();
 
-      expect(result, expectedFakeData);
+      expect(result, FakeData(fakeCommands: [], fakeFiles: []));
     });
   });
 }

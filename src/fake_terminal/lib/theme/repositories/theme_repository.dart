@@ -1,29 +1,21 @@
-import 'package:equatable/equatable.dart';
+import 'package:fake_terminal/theme/models/stored_theme.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fake_terminal/theme/models/theme_settings.dart';
 
 final themeRepositoryProvider =
-    Provider<ThemeRepository>((ref) => ThemeRepositoryPreferences(SharedPreferences.getInstance()));
+    Provider<ThemeRepository>((ref) => ThemeRepositoryImpl(SharedPreferences.getInstance()));
 
 abstract class ThemeRepository {
   Future<StoredTheme?> fetchThemeSettings();
   Future<void> saveThemeSettings(StoredTheme theme);
 }
 
-class StoredTheme extends Equatable {
-  final ThemeSettings settings;
-  StoredTheme(this.settings);
-
-  @override
-  List<Object?> get props => [settings];
-}
-
-class ThemeRepositoryPreferences extends ThemeRepository {
+class ThemeRepositoryImpl extends ThemeRepository {
   static const kThemeSettingsKey = "theme";
-  final Future<SharedPreferences> _sharedPreferences;
 
-  ThemeRepositoryPreferences(this._sharedPreferences);
+  final Future<SharedPreferences> _sharedPreferences;
+  ThemeRepositoryImpl(this._sharedPreferences);
 
   @override
   Future<StoredTheme?> fetchThemeSettings() async {

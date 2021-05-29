@@ -1,3 +1,4 @@
+import 'package:fake_terminal/theme/models/stored_theme.dart';
 import 'package:fake_terminal/theme/providers/theme_provider.dart';
 import 'package:fake_terminal/theme/repositories/theme_repository.dart';
 import 'package:fake_terminal/theme/models/theme_settings.dart';

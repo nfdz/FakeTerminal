@@ -1,7 +1,7 @@
 import 'package:fake_terminal/terminal/models/terminal_state.dart';
 import 'package:fake_terminal/terminal/providers/terminal_provider_impl.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart';
-import 'package:fake_terminal/terminal/repositories/history_repository/persistence_repository.dart';
+import 'package:fake_terminal/terminal/repositories/history_repository/history_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
 final terminalProvider = StateNotifierProvider<TerminalNotifier, TerminalState>((ref) {
