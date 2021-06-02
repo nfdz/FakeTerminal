@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:fake_terminal/terminal/models/terminal_history.dart';
@@ -30,12 +31,15 @@ abstract class TerminalNotifier extends StateNotifier<TerminalState> {
 final _kLogger = Logger("TerminalNotifier");
 
 class TerminalNotifierImpl extends TerminalNotifier {
+  Future get initializationComplete => _initCompleter.future;
+
+  final _initCompleter = Completer();
   final HistoryRepository _historyRepository;
   final CommandsRepository _commandsRepository;
 
   TerminalNotifierImpl(this._historyRepository, this._commandsRepository)
       : super(TerminalState(output: [], historyInput: [])) {
-    _initState();
+    _initState().whenComplete(() => _initCompleter.complete());
   }
 
 //#region Initialization
