@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:fake_terminal/terminal/models/terminal_history.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
 
-class TerminalState {
+class TerminalState extends Equatable {
   final List<TerminalLine> output;
   final List<String> historyInput;
 
@@ -15,4 +16,7 @@ class TerminalState {
         historyInput: historyInput,
         timestampMillis: DateTime.now().millisecondsSinceEpoch,
       );
+
+  @override
+  List<Object?> get props => [output, historyInput];
 }

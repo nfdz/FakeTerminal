@@ -8,6 +8,7 @@ import 'package:fake_terminal/terminal/repositories/commands_repository/commands
 import 'package:fake_terminal/terminal/repositories/history_repository/history_repository.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:fake_terminal/texts/time_texts.dart';
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -48,11 +49,12 @@ class TerminalNotifierImpl extends TerminalNotifier {
     if (history != null) {
       _restoreFromHistory(history);
     } else {
-      state = _welcomeState();
+      state = welcomeState();
     }
   }
 
-  TerminalState _welcomeState() {
+  @visibleForTesting
+  static TerminalState welcomeState() {
     return TerminalState(
       historyInput: [],
       output: [
