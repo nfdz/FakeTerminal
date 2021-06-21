@@ -165,5 +165,159 @@ void main() {
       verify(commandRepository.autocomplete(commandLine)).called(1);
     });
   });
-  group('history', () {});
+  group('history', () {
+    test('navigateHistoryBack given history is empty then return null', () async {
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "";
+      expect(terminalProvider.navigateHistoryBack(commandLine), null);
+    });
+    test('navigateHistoryForward given history is empty then return null', () async {
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "";
+      expect(terminalProvider.navigateHistoryForward(commandLine), null);
+    });
+    test('navigateHistoryBack given history and empty command line then return history', () async {
+      final historyEntry = "myHistoryCmd";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "";
+      final expectedHistory = "!0 $historyEntry";
+      expect(terminalProvider.navigateHistoryBack(commandLine), expectedHistory);
+    });
+    test('navigateHistoryBack given history and command line not related with history then return history', () async {
+      final historyEntry = "myHistoryCmd";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "myCommand";
+      final expectedHistory = "!0 $historyEntry";
+      expect(terminalProvider.navigateHistoryBack(commandLine), expectedHistory);
+    });
+    test('navigateHistoryBack given history and command line with the history entry then return null', () async {
+      final historyEntry = "myHistoryCmd";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "!0 $historyEntry";
+      expect(terminalProvider.navigateHistoryBack(commandLine), null);
+    });
+    test('navigateHistoryForward given history and command line not related with the history then return null',
+        () async {
+      final historyEntry = "myHistoryCmd";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "";
+      expect(terminalProvider.navigateHistoryForward(commandLine), null);
+    });
+    test('navigateHistoryForward given history and command line with the history entry then return empty string',
+        () async {
+      final historyEntry = "myHistoryCmd";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "!0 $historyEntry";
+      expect(terminalProvider.navigateHistoryForward(commandLine), '');
+    });
+    test(
+        'navigateHistoryBack given history with two entries and command line with second entry then return first entry',
+        () async {
+      final historyEntry1 = "myHistoryCmd1";
+      final historyEntry2 = "myHistoryCmd2";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry1, historyEntry2],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "!1 $historyEntry2";
+      final expectedHistory = "!0 $historyEntry1";
+      expect(terminalProvider.navigateHistoryBack(commandLine), expectedHistory);
+    });
+    test(
+        'navigateHistoryForward given history with two entries and command line with first entry then return second entry',
+        () async {
+      final historyEntry1 = "myHistoryCmd1";
+      final historyEntry2 = "myHistoryCmd2";
+      final history = TerminalHistory(
+        output: [],
+        historyInput: [historyEntry1, historyEntry2],
+        timestampMillis: 1234,
+      );
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => history);
+      final commandRepository = MockCommandsRepository();
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      final commandLine = "!0 $historyEntry1";
+      final expectedHistory = "!1 $historyEntry2";
+      expect(terminalProvider.navigateHistoryForward(commandLine), expectedHistory);
+    });
+  });
 }

@@ -109,7 +109,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
       final nextBackIndex = currentEntryMatches.first.key - 1;
       return historyMap[nextBackIndex];
     } else {
-      return historyMap.values.last;
+      return historyMap[historyMap.length - 2];
     }
   }
 
