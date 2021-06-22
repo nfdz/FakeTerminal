@@ -1,6 +1,7 @@
+import 'package:fake_terminal/icons/terminal_icons.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
-import 'package:fake_terminal/theme/providers/theme_provider.dart';
 import 'package:fake_terminal/theme/models/theme_settings.dart';
+import 'package:fake_terminal/theme/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
@@ -18,7 +19,7 @@ class TopMenuWidget extends ConsumerWidget {
           onPressed: () => context.read(themeProvider.notifier).toggleTheme(),
           tooltip: TerminalTexts.toggleThemeTooltip,
           child: Icon(
-            theme == ThemeSettings.dark ? Icons.nights_stay : Icons.wb_sunny,
+            theme == ThemeSettings.dark ? TerminalIcons.darkTheme : TerminalIcons.lightTheme,
           ),
         ),
         SizedBox(width: 8.sp),
@@ -27,9 +28,7 @@ class TopMenuWidget extends ConsumerWidget {
           mini: true,
           onPressed: () => _showMoreInfo(context),
           tooltip: TerminalTexts.infoTooltip,
-          child: Icon(
-            Icons.announcement,
-          ),
+          child: Icon(TerminalIcons.information),
         ),
       ],
     );

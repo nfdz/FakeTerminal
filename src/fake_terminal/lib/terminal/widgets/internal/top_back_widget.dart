@@ -1,3 +1,4 @@
+import 'package:fake_terminal/icons/terminal_icons.dart';
 import 'package:fake_terminal/terminal/providers/terminal_provider.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,7 @@ class TopBackWidget extends StatelessWidget {
             mini: true,
             onPressed: context.read(terminalProvider.notifier).exitTerminal,
             tooltip: TerminalTexts.exitTooltip,
-            child: Icon(
-              Icons.arrow_back,
-            ),
+            child: Icon(TerminalIcons.exitTerminal),
           )
         : SizedBox();
   }

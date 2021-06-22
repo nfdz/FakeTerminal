@@ -1,6 +1,7 @@
+import 'package:fake_terminal/icons/terminal_icons.dart';
 import 'package:fake_terminal/terminal/providers/terminal_provider.dart';
-import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:fake_terminal/terminal/widgets/internal/terminal_input_keyboard_listener.dart';
+import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +59,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
               mini: true,
               tooltip: TerminalTexts.executeCommandTooltip,
               child: Icon(
-                Icons.play_arrow,
+                TerminalIcons.executeCommand,
                 color: Theme.of(context).textTheme.bodyText1?.color,
                 size: 10.sp,
               ),
