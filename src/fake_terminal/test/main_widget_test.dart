@@ -18,6 +18,7 @@ void main() {
   Widget _createWidgetToTest({
     required ThemeSettings themeState,
     required TerminalState terminalState,
+    required bool canExitTerminal,
   }) {
     final themeNotifier = MockThemeNotifier();
     when(themeNotifier.initializationComplete).thenAnswer((_) async => true);
@@ -33,7 +34,7 @@ void main() {
       listener(terminalState);
       return () {};
     });
-    when(terminalNotifier.canExitTerminal()).thenReturn(true);
+    when(terminalNotifier.canExitTerminal()).thenReturn(canExitTerminal);
     return ProviderScope(
       overrides: [
         themeProvider.overrideWithProvider(StateNotifierProvider((ref) => themeNotifier)),
@@ -43,10 +44,11 @@ void main() {
     );
   }
 
-  testWidgets('Render main page', (WidgetTester tester) async {
+  testWidgets('render main page empty state', (WidgetTester tester) async {
     await tester.pumpWidget(_createWidgetToTest(
       themeState: ThemeSettings.dark,
       terminalState: TerminalState(historyInput: [], output: []),
+      canExitTerminal: true,
     ));
 
     expect(find.text(TerminalTexts.terminalInputPrefix), findsOneWidget);
@@ -55,13 +57,5 @@ void main() {
     expect(find.byIcon(TerminalIcons.exitTerminal), findsOneWidget);
     expect(find.byIcon(TerminalIcons.darkTheme), findsOneWidget);
     expect(find.byIcon(TerminalIcons.information), findsOneWidget);
-
-    // // Tap the '+' icon and trigger a frame.
-    // await tester.tap(find.byIcon(Icons.add));
-    // await tester.pump();
-
-    // // Verify that our counter has incremented.
-    // expect(find.text('0'), findsNothing);
-    // expect(find.text('1'), findsOneWidget);
   });
 }
