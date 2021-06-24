@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const _kExecuteKey = LogicalKeyboardKey.enter;
-const _kNavigateBackKey = LogicalKeyboardKey.arrowUp;
-const _kNavigateForwardKey = LogicalKeyboardKey.arrowDown;
-const _kAutocompleteKey = LogicalKeyboardKey.tab;
-
 class TerminalInputKeyboardListener extends StatelessWidget {
+  static const executeKey = LogicalKeyboardKey.enter;
+  static const navigateBackKey = LogicalKeyboardKey.arrowUp;
+  static const navigateForwardKey = LogicalKeyboardKey.arrowDown;
+  static const autocompleteKey = LogicalKeyboardKey.tab;
+
   final Widget child;
   final FocusNode focusNode;
   final Function onExecuteCommand;
@@ -31,13 +31,13 @@ class TerminalInputKeyboardListener extends StatelessWidget {
       onKey: (event) {
         if (event.runtimeType == RawKeyDownEvent) {
           final eventKey = event.logicalKey;
-          if (eventKey == _kExecuteKey) {
+          if (eventKey == executeKey) {
             onExecuteCommand();
-          } else if (eventKey == _kNavigateBackKey) {
+          } else if (eventKey == navigateBackKey) {
             onNavigateHistoryBack();
-          } else if (eventKey == _kNavigateForwardKey) {
+          } else if (eventKey == navigateForwardKey) {
             onNavigateHistoryForward();
-          } else if (eventKey == _kAutocompleteKey) {
+          } else if (eventKey == autocompleteKey) {
             onAutocomplete();
           }
         }
