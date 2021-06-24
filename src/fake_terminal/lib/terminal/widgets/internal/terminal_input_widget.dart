@@ -9,14 +9,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
 
 class TerminalInputWidget extends StatefulWidget {
+  final FocusNode? inputNode;
+  final FocusNode? keyboardInputNode;
+
+  TerminalInputWidget({
+    this.inputNode,
+    this.keyboardInputNode,
+  });
+
   @override
   _TerminalInputWidgetState createState() => _TerminalInputWidgetState();
 }
 
 class _TerminalInputWidgetState extends State<TerminalInputWidget> {
   TextEditingController _cmdTextController = TextEditingController();
-  FocusNode _inputNode = FocusNode();
-  FocusNode _keyInputNode = FocusNode();
+  late final FocusNode _inputNode;
+  late final FocusNode _keyInputNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _inputNode = widget.inputNode ?? FocusNode();
+    _keyInputNode = widget.keyboardInputNode ?? FocusNode();
+  }
 
   @override
   Widget build(BuildContext context) {
