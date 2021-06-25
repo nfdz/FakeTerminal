@@ -18,11 +18,6 @@ void main() {
     FocusNode? keyboardInputNode,
     TerminalNotifier? terminalNotifier,
   }) {
-    // when(terminalNotifier.addListener(any)).thenAnswer((invocation) {
-    //   final listener = invocation.positionalArguments[0] as void Function(TerminalState state);
-    //   listener(terminalState);
-    //   return () {};
-    // });
     return ProviderScope(
       overrides: [
         terminalProvider
