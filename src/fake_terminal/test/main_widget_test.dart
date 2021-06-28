@@ -12,6 +12,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'main_widget_test.mocks.dart';
+import 'mockito_extensions.dart';
 
 @GenerateMocks([ThemeNotifier, TerminalNotifier])
 void main() {
@@ -22,18 +23,10 @@ void main() {
   }) {
     final themeNotifier = MockThemeNotifier();
     when(themeNotifier.initializationComplete).thenAnswer((_) async => true);
-    when(themeNotifier.addListener(any)).thenAnswer((invocation) {
-      final listener = invocation.positionalArguments[0] as void Function(ThemeSettings state);
-      listener(themeState);
-      return () {};
-    });
+    when(themeNotifier.addListener(any)).thenAnswerStateToListener(themeState);
     when(themeNotifier.state).thenReturn(themeState);
     final terminalNotifier = MockTerminalNotifier();
-    when(terminalNotifier.addListener(any)).thenAnswer((invocation) {
-      final listener = invocation.positionalArguments[0] as void Function(TerminalState state);
-      listener(terminalState);
-      return () {};
-    });
+    when(terminalNotifier.addListener(any)).thenAnswerStateToListener(terminalState);
     when(terminalNotifier.canExitTerminal()).thenReturn(canExitTerminal);
     return ProviderScope(
       overrides: [

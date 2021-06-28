@@ -9,6 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../mockito_extensions.dart';
 import 'top_menu_widget_test.mocks.dart';
 
 @GenerateMocks([ThemeNotifier])
@@ -36,11 +37,7 @@ void main() {
   group('toggle theme icon', () {
     testWidgets('given theme is dark then show dark theme icon', (WidgetTester tester) async {
       final themeNotifier = MockThemeNotifier();
-      when(themeNotifier.addListener(any)).thenAnswer((invocation) {
-        final listener = invocation.positionalArguments[0] as void Function(ThemeSettings state);
-        listener(ThemeSettings.dark);
-        return () {};
-      });
+      when(themeNotifier.addListener(any)).thenAnswerStateToListener(ThemeSettings.dark);
 
       await tester.pumpWidget(_createWidgetToTest(
         themeNotifier: themeNotifier,
@@ -51,11 +48,7 @@ void main() {
     });
     testWidgets('given theme is light then show light theme icon', (WidgetTester tester) async {
       final themeNotifier = MockThemeNotifier();
-      when(themeNotifier.addListener(any)).thenAnswer((invocation) {
-        final listener = invocation.positionalArguments[0] as void Function(ThemeSettings state);
-        listener(ThemeSettings.light);
-        return () {};
-      });
+      when(themeNotifier.addListener(any)).thenAnswerStateToListener(ThemeSettings.light);
 
       await tester.pumpWidget(_createWidgetToTest(
         themeNotifier: themeNotifier,
@@ -66,11 +59,7 @@ void main() {
     });
     testWidgets('given user tap theme icon then invoke toggleTheme', (WidgetTester tester) async {
       final themeNotifier = MockThemeNotifier();
-      when(themeNotifier.addListener(any)).thenAnswer((invocation) {
-        final listener = invocation.positionalArguments[0] as void Function(ThemeSettings state);
-        listener(ThemeSettings.dark);
-        return () {};
-      });
+      when(themeNotifier.addListener(any)).thenAnswerStateToListener(ThemeSettings.dark);
       when(themeNotifier.toggleTheme()).thenReturn(null);
 
       await tester.pumpWidget(_createWidgetToTest(
@@ -81,5 +70,18 @@ void main() {
 
       verify(themeNotifier.toggleTheme()).called(1);
     });
+  });
+
+  testWidgets('information icon have tooltip', (WidgetTester tester) async {
+    final themeNotifier = MockThemeNotifier();
+    when(themeNotifier.addListener(any)).thenAnswerStateToListener(ThemeSettings.dark);
+
+    await tester.pumpWidget(_createWidgetToTest(
+      themeNotifier: themeNotifier,
+    ));
+
+    expect(find.byIcon(TerminalIcons.information), findsOneWidget);
+    // final infoIconWidget = tester.widget<FloatingActionButton>(find.byIcon(TerminalIcons.information));
+    // expect(infoIconWidget.tooltip, TerminalTexts.infoTooltip);
   });
 }

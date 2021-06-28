@@ -11,6 +11,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../mockito_extensions.dart';
 import 'terminal_output_widget_test.mocks.dart';
 
 @GenerateMocks([TerminalNotifier])
@@ -39,11 +40,7 @@ void main() {
   testWidgets('given terminal state is empty then it shows no entries', (WidgetTester tester) async {
     final terminalState = TerminalState(output: [], historyInput: []);
     final terminalNotifier = MockTerminalNotifier();
-    when(terminalNotifier.addListener(any)).thenAnswer((invocation) {
-      final listener = invocation.positionalArguments[0] as void Function(TerminalState state);
-      listener(terminalState);
-      return () {};
-    });
+    when(terminalNotifier.addListener(any)).thenAnswerStateToListener(terminalState);
 
     await tester.pumpWidget(_createWidgetToTest(
       terminalNotifier: terminalNotifier,
@@ -57,11 +54,7 @@ void main() {
     final terminalLine = TerminalLine(line: "My line", type: LineType.command);
     final terminalState = TerminalState(output: [terminalLine], historyInput: []);
     final terminalNotifier = MockTerminalNotifier();
-    when(terminalNotifier.addListener(any)).thenAnswer((invocation) {
-      final listener = invocation.positionalArguments[0] as void Function(TerminalState state);
-      listener(terminalState);
-      return () {};
-    });
+    when(terminalNotifier.addListener(any)).thenAnswerStateToListener(terminalState);
 
     await tester.pumpWidget(_createWidgetToTest(
       terminalNotifier: terminalNotifier,
@@ -78,11 +71,7 @@ void main() {
     final entries = List.generate(20, (i) => TerminalLine(line: "My line $i", type: LineType.command));
     final terminalState = TerminalState(output: entries, historyInput: []);
     final terminalNotifier = MockTerminalNotifier();
-    when(terminalNotifier.addListener(any)).thenAnswer((invocation) {
-      final listener = invocation.positionalArguments[0] as void Function(TerminalState state);
-      listener(terminalState);
-      return () {};
-    });
+    when(terminalNotifier.addListener(any)).thenAnswerStateToListener(terminalState);
 
     await tester.pumpWidget(_createWidgetToTest(
       terminalNotifier: terminalNotifier,
