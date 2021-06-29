@@ -6,4 +6,5 @@ class TerminalIcons {
   static const IconData lightTheme = Icons.wb_sunny;
   static const IconData darkTheme = Icons.nights_stay;
   static const IconData information = Icons.announcement;
+  static const IconData closeDialog = Icons.close;
 }

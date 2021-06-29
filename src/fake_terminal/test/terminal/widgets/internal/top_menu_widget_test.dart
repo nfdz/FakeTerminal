@@ -1,5 +1,7 @@
 import 'package:fake_terminal/icons/terminal_icons.dart';
+import 'package:fake_terminal/terminal/widgets/internal/information_dialog.dart';
 import 'package:fake_terminal/terminal/widgets/internal/top_menu_widget.dart';
+import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:fake_terminal/theme/models/theme_settings.dart';
 import 'package:fake_terminal/theme/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -80,8 +82,26 @@ void main() {
       themeNotifier: themeNotifier,
     ));
 
-    expect(find.byIcon(TerminalIcons.information), findsOneWidget);
-    // final infoIconWidget = tester.widget<FloatingActionButton>(find.byIcon(TerminalIcons.information));
-    // expect(infoIconWidget.tooltip, TerminalTexts.infoTooltip);
+    final infoIconFinder = find.ancestor(
+      of: find.byIcon(TerminalIcons.information),
+      matching: find.byType(FloatingActionButton),
+    );
+    expect(infoIconFinder, findsOneWidget);
+    final infoIconWidget = tester.widget<FloatingActionButton>(infoIconFinder);
+    expect(infoIconWidget.tooltip, TerminalTexts.infoTooltip);
+  });
+
+  testWidgets('given user tap information icon then show a dialog with information', (WidgetTester tester) async {
+    final themeNotifier = MockThemeNotifier();
+    when(themeNotifier.addListener(any)).thenAnswerStateToListener(ThemeSettings.dark);
+
+    await tester.pumpWidget(_createWidgetToTest(
+      themeNotifier: themeNotifier,
+    ));
+
+    await tester.tap(find.byIcon(TerminalIcons.information));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(InformationDialog), findsOneWidget);
   });
 }

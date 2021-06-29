@@ -1,4 +1,5 @@
 import 'package:fake_terminal/icons/terminal_icons.dart';
+import 'package:fake_terminal/terminal/widgets/internal/information_dialog.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:fake_terminal/theme/models/theme_settings.dart';
 import 'package:fake_terminal/theme/providers/theme_provider.dart';
@@ -35,53 +36,6 @@ class TopMenuWidget extends ConsumerWidget {
   }
 
   void _showMoreInfo(BuildContext context) {
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       final double widthScreen = MediaQuery.of(context).size.width;
-    //       final double width = Math.min(widthScreen, _kDialogMaxWidth);
-    //       return AlertDialog(
-    //         titlePadding: const EdgeInsets.all(0),
-    //         contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 4),
-    //         content: Container(
-    //           width: width,
-    //           child: SingleChildScrollView(
-    //             child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.start,
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: <Widget>[
-    //                 Align(
-    //                   alignment: Alignment.topRight,
-    //                   child: InkWell(
-    //                     highlightColor: Theme.of(context).accentColor,
-    //                     onTap: () => Navigator.pop(context),
-    //                     child: Icon(Icons.close),
-    //                   ),
-    //                 ),
-    //                 Text(
-    //                   kWarningDialogTitle,
-    //                   style: Theme.of(context).textTheme.bodyText2,
-    //                 ),
-    //                 SizedBox(height: 9),
-    //                 Text(
-    //                   kWarningDialogContent,
-    //                   style: Theme.of(context).textTheme.bodyText2,
-    //                 ),
-    //                 SizedBox(height: 6),
-    //                 Align(
-    //                   alignment: Alignment.bottomRight,
-    //                   child: FlatButton(
-    //                     highlightColor: Theme.of(context).accentColor,
-    //                     onPressed: () => HtmlCommWorkAround.goGithub(),
-    //                     child: Text(kWarningDialogGithub),
-    //                   ),
-    //                 )
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       );
-    //     });
+    showDialog(context: context, builder: (context) => InformationDialog());
   }
 }
