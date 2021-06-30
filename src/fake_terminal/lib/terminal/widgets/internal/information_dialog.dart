@@ -1,7 +1,10 @@
 import 'dart:math' as Math;
 
 import 'package:fake_terminal/icons/terminal_icons.dart';
+import 'package:fake_terminal/terminal/providers/terminal_provider.dart';
+import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const double _kDialogMaxWidth = 500;
 
@@ -64,21 +67,24 @@ class _DialogContent extends StatelessWidget {
               vertical: _kDialogContentVerticalPadding,
               horizontal: _kDialogContentHorizontalPadding,
             ),
-            child: Text("TODO", style: Theme.of(context).textTheme.bodyText2),
+            child: Text(TerminalTexts.informationDialogTitle, style: Theme.of(context).textTheme.bodyText2),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: _kDialogContentHorizontalPadding),
-            child: Text("TODO", style: Theme.of(context).textTheme.bodyText1),
+            child: Text(TerminalTexts.informationDialogContent, style: Theme.of(context).textTheme.bodyText1),
           ),
           SizedBox(height: _kDialogContentVerticalPadding),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.read(terminalProvider.notifier).navigateToRepository(),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Text("TODO", style: Theme.of(context).accentTextTheme.bodyText1),
+                  child: Text(
+                    TerminalTexts.openGithubButton,
+                    style: Theme.of(context).accentTextTheme.bodyText1,
+                  ),
                 ),
               ),
             ],
@@ -94,17 +100,20 @@ class _DialogCloseIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topRight,
-      child: MaterialButton(
-        minWidth: 0,
-        color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
-        shape: CircleBorder(),
-        onPressed: () => Navigator.pop(context),
-        child: Padding(
-          padding: const EdgeInsets.all(2),
-          child: Icon(
-            TerminalIcons.closeDialog,
-            size: 18,
-            color: Theme.of(context).floatingActionButtonTheme.foregroundColor,
+      child: Semantics(
+        value: TerminalTexts.closeDialogSemantic,
+        child: MaterialButton(
+          minWidth: 0,
+          color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+          shape: CircleBorder(),
+          onPressed: () => Navigator.pop(context),
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: Icon(
+              TerminalIcons.closeDialog,
+              size: 18,
+              color: Theme.of(context).floatingActionButtonTheme.foregroundColor,
+            ),
           ),
         ),
       ),

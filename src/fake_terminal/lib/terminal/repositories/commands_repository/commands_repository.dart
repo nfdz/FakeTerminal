@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
-import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_loader.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart';
-import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
+import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod/riverpod.dart';
@@ -17,6 +18,7 @@ final commandsRepositoryProvider = Provider<CommandsRepository>((ref) {
   final fakeDataRepository = ref.read(fakeDataRepositoryProvider);
   final contentRepository = ref.read(contentRepositoryProvider);
   final exitExecutor = ExitExecutorImpl(JavascriptDom.instance);
+  final codeRepoExecutor = CodeRepositoryExecutorImpl();
   final javascriptExecutor = JavascriptDom.instance != null ? JavascriptExecutorImpl(JavascriptDom.instance!) : null;
   final commandsLoader = CommandsLoaderImpl(
     fakeDataRepository,
@@ -24,7 +26,7 @@ final commandsRepositoryProvider = Provider<CommandsRepository>((ref) {
     exitExecutor,
     javascriptExecutor,
   );
-  return CommandsRepositoryFakeData(commandsLoader, exitExecutor);
+  return CommandsRepositoryFakeData(commandsLoader, exitExecutor, codeRepoExecutor);
 });
 
 final Logger _kLogger = Logger("CommandsRepository");
@@ -35,6 +37,7 @@ typedef ExecuteExitCommandFunction = void Function();
 abstract class CommandsRepository {
   bool hasExitCommand();
   void executeExitCommand();
+  void executeOpenRepositoryCommand();
   String? autocomplete(String commandLine);
   Future<void> executeCommandLine(String commandLine, List<TerminalLine> output, List<String> history);
 }
@@ -44,12 +47,14 @@ class CommandsRepositoryFakeData extends CommandsRepository {
   final _initCompleter = Completer();
   final CommandsLoader _commandsLoader;
   final ExitExecutor _exitExecutor;
+  final CodeRepositoryExecutor _codeRepoExecutor;
 
   List<TerminalCommand> _commands = [];
 
   CommandsRepositoryFakeData(
     this._commandsLoader,
     this._exitExecutor,
+    this._codeRepoExecutor,
   ) {
     _init(_commandsLoader).whenComplete(() => _initCompleter.complete());
   }
@@ -63,6 +68,9 @@ class CommandsRepositoryFakeData extends CommandsRepository {
 
   @override
   void executeExitCommand() => _exitExecutor.executeExitCommand();
+
+  @override
+  void executeOpenRepositoryCommand() => _codeRepoExecutor.executeOpenRepositoryCommand();
 
   @override
   String? autocomplete(String commandLine) {

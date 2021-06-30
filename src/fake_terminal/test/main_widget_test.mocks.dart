@@ -120,6 +120,10 @@ class MockTerminalNotifier extends _i1.Mock implements _i7.TerminalNotifier {
       super.noSuchMethod(Invocation.method(#exitTerminal, []),
           returnValueForMissingStub: null);
   @override
+  void navigateToRepository() =>
+      super.noSuchMethod(Invocation.method(#navigateToRepository, []),
+          returnValueForMissingStub: null);
+  @override
   void executeCommand(String? commandLine) =>
       super.noSuchMethod(Invocation.method(#executeCommand, [commandLine]),
           returnValueForMissingStub: null);

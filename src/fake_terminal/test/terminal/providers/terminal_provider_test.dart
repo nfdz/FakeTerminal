@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fake_terminal/terminal/models/terminal_history.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
 import 'package:fake_terminal/terminal/models/terminal_state.dart';
@@ -127,13 +125,25 @@ void main() {
       final historyRepository = MockHistoryRepository();
       when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
       final commandRepository = MockCommandsRepository();
-      when(commandRepository.executeExitCommand()).thenReturn(Void);
+      when(commandRepository.executeExitCommand()).thenReturn(null);
 
       final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
       await terminalProvider.initializationComplete;
 
       terminalProvider.exitTerminal();
       verify(commandRepository.executeExitCommand()).called(1);
+    });
+    test('navigateToRepository invokes executeOpenRepositoryCommand', () async {
+      final historyRepository = MockHistoryRepository();
+      when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
+      final commandRepository = MockCommandsRepository();
+      when(commandRepository.executeOpenRepositoryCommand()).thenReturn(null);
+
+      final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
+      await terminalProvider.initializationComplete;
+
+      terminalProvider.navigateToRepository();
+      verify(commandRepository.executeOpenRepositoryCommand()).called(1);
     });
     test('executeCommand invokes executeCommandLine', () async {
       final commandLine = "myCommand myArg";

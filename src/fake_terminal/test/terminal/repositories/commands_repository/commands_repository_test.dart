@@ -1,10 +1,11 @@
 import 'package:fake_terminal/terminal/models/fake_data.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
 import 'package:fake_terminal/terminal/models/terminal_line.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/commands_loader.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
-import 'package:fake_terminal/terminal/repositories/commands_repository/commands_loader.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
 import 'package:mockito/annotations.dart';
@@ -14,7 +15,8 @@ import 'package:test/test.dart';
 
 import 'commands_repository_test.mocks.dart';
 
-@GenerateMocks([FakeDataRepository, ContentRepository, CommandsLoader, TerminalCommand, ExitExecutor])
+@GenerateMocks(
+    [FakeDataRepository, ContentRepository, CommandsLoader, TerminalCommand, ExitExecutor, CodeRepositoryExecutor])
 void main() {
   group('Provider', () {
     test('creation given FakeDataRepository and ContentRepository are present', () {
@@ -75,7 +77,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       verify(commandsLoader.loadCommands()).called(1);
@@ -87,7 +90,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete(""), null);
@@ -101,7 +105,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete("OtherComm"), null);
@@ -115,7 +120,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete("MyCom"), commandName);
@@ -129,7 +135,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.autocomplete(commandName), null);
@@ -146,7 +153,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final inputArgToAutocomplete = "myA";
@@ -165,7 +173,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final inputArgToAutocomplete = "myA";
@@ -180,7 +189,8 @@ void main() {
         final commandsLoader = MockCommandsLoader();
         when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-        final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+        final commandsRepository =
+            CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
         await commandsRepository.initializationComplete;
 
         final List<TerminalLine> output = [];
@@ -202,7 +212,8 @@ void main() {
         final commandsLoader = MockCommandsLoader();
         when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-        final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+        final commandsRepository =
+            CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
         await commandsRepository.initializationComplete;
 
         final List<TerminalLine> output = [];
@@ -231,7 +242,8 @@ void main() {
         final commandsLoader = MockCommandsLoader();
         when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-        final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+        final commandsRepository =
+            CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
         await commandsRepository.initializationComplete;
 
         final List<TerminalLine> output = [];
@@ -257,7 +269,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -273,7 +286,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -299,7 +313,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -329,7 +344,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [];
@@ -359,7 +375,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final List<TerminalLine> output = [TerminalLine(line: "AnyOutput", type: LineType.result)];
@@ -381,7 +398,8 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => [command]);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor());
+      final commandsRepository =
+          CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       final previousHistoryLine = "MyPreviousCommand";
@@ -403,25 +421,39 @@ void main() {
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, exitExecutor);
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, exitExecutor, MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       expect(commandsRepository.hasExitCommand(), expectedValue);
       verify(exitExecutor.hasExitCommand()).called(1);
     });
 
-    test('executeExitCommand invoke ExitExecutor.executeExitCommand and returns the value', () async {
+    test('executeExitCommand invoke ExitExecutor.executeExitCommand', () async {
       final exitExecutor = MockExitExecutor();
       when(exitExecutor.executeExitCommand()).thenReturn(null);
 
       final commandsLoader = MockCommandsLoader();
       when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
 
-      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, exitExecutor);
+      final commandsRepository = CommandsRepositoryFakeData(commandsLoader, exitExecutor, MockCodeRepositoryExecutor());
       await commandsRepository.initializationComplete;
 
       commandsRepository.executeExitCommand();
       verify(exitExecutor.executeExitCommand()).called(1);
     });
+  });
+
+  test('executeOpenRepositoryCommand invoke CodeRepositoryExecutor.executeOpenRepositoryCommand', () async {
+    final codeRepositoryExecutor = MockCodeRepositoryExecutor();
+    when(codeRepositoryExecutor.executeOpenRepositoryCommand()).thenReturn(null);
+
+    final commandsLoader = MockCommandsLoader();
+    when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
+
+    final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), codeRepositoryExecutor);
+    await commandsRepository.initializationComplete;
+
+    commandsRepository.executeOpenRepositoryCommand();
+    verify(codeRepositoryExecutor.executeOpenRepositoryCommand()).called(1);
   });
 }

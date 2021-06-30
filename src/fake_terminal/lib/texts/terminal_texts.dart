@@ -29,4 +29,12 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  and 'help'.
   static const String exitTooltip = "Exit terminal";
   static const String infoTooltip = "More information";
   static const String toggleThemeTooltip = "Toggle theme";
+  static const String closeDialogSemantic = "Close dialog";
+  static const String informationDialogTitle = "Why this terminal?";
+  static const String informationDialogContent = """
+This terminal is a fun way to communicate information in a different, fun, familiar and relaxed way. 
+
+It is also a testing ground. Where I test my knowledge of Flutter & Dart, testing the framework and language updates, new libraries, platforms, design patterns, testing strategies, CI/CD, and so on.""";
+  static const String openGithubButton = "Github Repository";
+  static const String githubRepositoryUrl = "https://github.com/nfdz/FakeTerminal";
 }
