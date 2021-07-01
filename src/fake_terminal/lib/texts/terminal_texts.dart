@@ -35,6 +35,8 @@ MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  and 'help'.
 This terminal is a fun way to communicate information in a different, fun, familiar and relaxed way. 
 
 It is also a testing ground. Where I test my knowledge of Flutter & Dart, testing the framework and language updates, new libraries, platforms, design patterns, testing strategies, CI/CD, and so on.""";
-  static const String openGithubButton = "Github Repository";
+  static const String openGithubButton = "GitHub Repository";
   static const String githubRepositoryUrl = "https://github.com/nfdz/FakeTerminal";
+  static const String personalRepositoryName = "nfdz";
+  static const String personalRepositoryUrl = "https://github.com/nfdz";
 }

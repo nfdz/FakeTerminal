@@ -134,7 +134,11 @@ class MockCodeRepositoryExecutor extends _i1.Mock
   }
 
   @override
-  void executeOpenRepositoryCommand() =>
-      super.noSuchMethod(Invocation.method(#executeOpenRepositoryCommand, []),
-          returnValueForMissingStub: null);
+  void executeOpenTerminalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenTerminalRepositoryCommand, []),
+      returnValueForMissingStub: null);
+  @override
+  void executeOpenPersonalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenPersonalRepositoryCommand, []),
+      returnValueForMissingStub: null);
 }

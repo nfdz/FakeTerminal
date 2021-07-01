@@ -23,7 +23,7 @@ abstract class TerminalNotifier extends StateNotifier<TerminalState> {
 
   bool canExitTerminal();
   void exitTerminal();
-  void navigateToRepository();
+  void navigateToTerminalRepository();
   void executeCommand(String commandLine);
   String? autocomplete(String commandLine);
   String? navigateHistoryBack(String commandLine);
@@ -86,7 +86,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
   void exitTerminal() => _commandsRepository.executeExitCommand();
 
   @override
-  void navigateToRepository() => _commandsRepository.executeOpenRepositoryCommand();
+  void navigateToTerminalRepository() => _commandsRepository.executeOpenTerminalRepositoryCommand();
 
   @override
   void executeCommand(String commandLine) async {

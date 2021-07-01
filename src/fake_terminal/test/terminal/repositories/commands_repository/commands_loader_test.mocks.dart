@@ -5,6 +5,8 @@
 import 'dart:async' as _i4;
 
 import 'package:fake_terminal/terminal/models/fake_data.dart' as _i2;
+import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart'
+    as _i8;
 import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart'
     as _i6;
 import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart'
@@ -85,4 +87,23 @@ class MockJavascriptExecutor extends _i1.Mock
   String execute(String? expression) =>
       (super.noSuchMethod(Invocation.method(#execute, [expression]),
           returnValue: '') as String);
+}
+
+/// A class which mocks [CodeRepositoryExecutor].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCodeRepositoryExecutor extends _i1.Mock
+    implements _i8.CodeRepositoryExecutor {
+  MockCodeRepositoryExecutor() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  void executeOpenTerminalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenTerminalRepositoryCommand, []),
+      returnValueForMissingStub: null);
+  @override
+  void executeOpenPersonalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenPersonalRepositoryCommand, []),
+      returnValueForMissingStub: null);
 }

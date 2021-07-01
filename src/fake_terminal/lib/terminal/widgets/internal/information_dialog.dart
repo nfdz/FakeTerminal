@@ -78,7 +78,7 @@ class _DialogContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () => context.read(terminalProvider.notifier).navigateToRepository(),
+                onPressed: () => context.read(terminalProvider.notifier).navigateToTerminalRepository(),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(

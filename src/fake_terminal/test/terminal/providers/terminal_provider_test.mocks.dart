@@ -60,9 +60,9 @@ class MockCommandsRepository extends _i1.Mock
       super.noSuchMethod(Invocation.method(#executeExitCommand, []),
           returnValueForMissingStub: null);
   @override
-  void executeOpenRepositoryCommand() =>
-      super.noSuchMethod(Invocation.method(#executeOpenRepositoryCommand, []),
-          returnValueForMissingStub: null);
+  void executeOpenTerminalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenTerminalRepositoryCommand, []),
+      returnValueForMissingStub: null);
   @override
   String? autocomplete(String? commandLine) =>
       (super.noSuchMethod(Invocation.method(#autocomplete, [commandLine]))

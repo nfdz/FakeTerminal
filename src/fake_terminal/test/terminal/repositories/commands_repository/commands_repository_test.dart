@@ -445,7 +445,7 @@ void main() {
 
   test('executeOpenRepositoryCommand invoke CodeRepositoryExecutor.executeOpenRepositoryCommand', () async {
     final codeRepositoryExecutor = MockCodeRepositoryExecutor();
-    when(codeRepositoryExecutor.executeOpenRepositoryCommand()).thenReturn(null);
+    when(codeRepositoryExecutor.executeOpenTerminalRepositoryCommand()).thenReturn(null);
 
     final commandsLoader = MockCommandsLoader();
     when(commandsLoader.loadCommands()).thenAnswer((_) async => []);
@@ -453,7 +453,7 @@ void main() {
     final commandsRepository = CommandsRepositoryFakeData(commandsLoader, MockExitExecutor(), codeRepositoryExecutor);
     await commandsRepository.initializationComplete;
 
-    commandsRepository.executeOpenRepositoryCommand();
-    verify(codeRepositoryExecutor.executeOpenRepositoryCommand()).called(1);
+    commandsRepository.executeOpenTerminalRepositoryCommand();
+    verify(codeRepositoryExecutor.executeOpenTerminalRepositoryCommand()).called(1);
   });
 }

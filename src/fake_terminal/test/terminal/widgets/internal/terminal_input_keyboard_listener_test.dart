@@ -24,26 +24,6 @@ void main() {
 
     expect(autocompleteInvoked, true);
   });
-  testWidgets('given enter key down then invoke execute callback', (WidgetTester tester) async {
-    var executeInvoked = false;
-    final focusNode = FocusNode();
-    await tester.pumpWidget(TerminalInputKeyboardListener(
-      focusNode: focusNode,
-      onAutocomplete: () {},
-      onExecuteCommand: () {
-        executeInvoked = true;
-      },
-      onNavigateHistoryBack: () {},
-      onNavigateHistoryForward: () {},
-      child: SizedBox(),
-    ));
-
-    focusNode.requestFocus();
-    await tester.pumpAndSettle();
-    await tester.sendKeyDownEvent(LogicalKeyboardKey.enter);
-
-    expect(executeInvoked, true);
-  });
   testWidgets('given arrow up key down then invoke navigate back callback', (WidgetTester tester) async {
     var navigateBackInvoked = false;
     final focusNode = FocusNode();

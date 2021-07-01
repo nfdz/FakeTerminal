@@ -37,30 +37,6 @@ void main() {
   }
 
   group('keyboard listener', () {
-    testWidgets('given execute key event then invoke executeCommand with the commandLine and clear the input',
-        (WidgetTester tester) async {
-      final commandLine = "myCommandLine";
-
-      final terminalNotifier = MockTerminalNotifier();
-      when(terminalNotifier.executeCommand(any)).thenAnswer((_) {});
-
-      final focusNode = FocusNode();
-      await tester.pumpWidget(_createWidgetToTest(
-        keyboardInputNode: focusNode,
-        terminalNotifier: terminalNotifier,
-      ));
-
-      await tester.enterText(find.byType(TextField), commandLine);
-
-      focusNode.requestFocus();
-      await tester.pumpAndSettle();
-      await tester.sendKeyDownEvent(TerminalInputKeyboardListener.executeKey);
-
-      final textField = tester.widget<TextField>(find.byType(TextField));
-      expect(textField.controller!.text.isEmpty, true);
-
-      verify(terminalNotifier.executeCommand(commandLine)).called(1);
-    });
     testWidgets(
         'given autocomplete key event then invoke autocomplete with the commandLine and replace the input with the value',
         (WidgetTester tester) async {

@@ -25,6 +25,7 @@ final commandsRepositoryProvider = Provider<CommandsRepository>((ref) {
     contentRepository,
     exitExecutor,
     javascriptExecutor,
+    codeRepoExecutor,
   );
   return CommandsRepositoryFakeData(commandsLoader, exitExecutor, codeRepoExecutor);
 });
@@ -37,7 +38,7 @@ typedef ExecuteExitCommandFunction = void Function();
 abstract class CommandsRepository {
   bool hasExitCommand();
   void executeExitCommand();
-  void executeOpenRepositoryCommand();
+  void executeOpenTerminalRepositoryCommand();
   String? autocomplete(String commandLine);
   Future<void> executeCommandLine(String commandLine, List<TerminalLine> output, List<String> history);
 }
@@ -70,7 +71,7 @@ class CommandsRepositoryFakeData extends CommandsRepository {
   void executeExitCommand() => _exitExecutor.executeExitCommand();
 
   @override
-  void executeOpenRepositoryCommand() => _codeRepoExecutor.executeOpenRepositoryCommand();
+  void executeOpenTerminalRepositoryCommand() => _codeRepoExecutor.executeOpenTerminalRepositoryCommand();
 
   @override
   String? autocomplete(String commandLine) {

@@ -137,13 +137,13 @@ void main() {
       final historyRepository = MockHistoryRepository();
       when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
       final commandRepository = MockCommandsRepository();
-      when(commandRepository.executeOpenRepositoryCommand()).thenReturn(null);
+      when(commandRepository.executeOpenTerminalRepositoryCommand()).thenReturn(null);
 
       final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
       await terminalProvider.initializationComplete;
 
-      terminalProvider.navigateToRepository();
-      verify(commandRepository.executeOpenRepositoryCommand()).called(1);
+      terminalProvider.navigateToTerminalRepository();
+      verify(commandRepository.executeOpenTerminalRepositoryCommand()).called(1);
     });
     test('executeCommand invokes executeCommandLine', () async {
       final commandLine = "myCommand myArg";

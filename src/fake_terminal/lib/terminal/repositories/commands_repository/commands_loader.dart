@@ -1,6 +1,8 @@
 import 'package:fake_terminal/terminal/models/fake_data.dart';
 import 'package:fake_terminal/terminal/models/terminal_command.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/commands.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/commands/github_command.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
@@ -15,12 +17,14 @@ class CommandsLoaderImpl extends CommandsLoader {
   final ContentRepository _contentRepository;
   final ExitExecutor _exitExecutor;
   final JavascriptExecutor? _javascriptExecutor;
+  final CodeRepositoryExecutor _codeRepositoryExecutor;
 
   CommandsLoaderImpl(
     this._fakeDataRepository,
     this._contentRepository,
     this._exitExecutor,
     this._javascriptExecutor,
+    this._codeRepositoryExecutor,
   );
 
   @override
@@ -31,6 +35,8 @@ class CommandsLoaderImpl extends CommandsLoader {
       contentRepository: _contentRepository,
       hasExitCommand: _exitExecutor.hasExitCommand(),
       executeExitCommand: _exitExecutor.executeExitCommand,
+      openTerminalRepository: _codeRepositoryExecutor.executeOpenTerminalRepositoryCommand,
+      openPersonalRepository: _codeRepositoryExecutor.executeOpenPersonalRepositoryCommand,
     );
   }
 
@@ -39,6 +45,8 @@ class CommandsLoaderImpl extends CommandsLoader {
     required ContentRepository contentRepository,
     required bool hasExitCommand,
     required Function executeExitCommand,
+    required Function openTerminalRepository,
+    required Function openPersonalRepository,
   }) {
     List<TerminalCommand> commands = [];
 
@@ -54,6 +62,7 @@ class CommandsLoaderImpl extends CommandsLoader {
     commands.add(HistoryCommand());
     commands.add(LsCommand(fakeData.fakeFiles));
     commands.add(ManCommand(() => commands));
+    commands.add(GitHubCommand(openTerminalRepository, openPersonalRepository));
 
     fakeData.fakeCommands.forEach((fakeCommand) {
       commands.add(FakeCommandWrapper(fakeCommand, (String url) => contentRepository.load(url)));

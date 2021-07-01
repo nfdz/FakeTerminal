@@ -1,9 +1,10 @@
 import 'package:fake_terminal/terminal/models/fake_data.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/exit_command.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/fake_command_wrapper.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands/js_command.dart';
-import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/commands_loader.dart';
+import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart';
 import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart';
 import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart';
 import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart';
@@ -13,7 +14,7 @@ import 'package:test/test.dart';
 
 import 'commands_loader_test.mocks.dart';
 
-@GenerateMocks([FakeDataRepository, ContentRepository, ExitExecutor, JavascriptExecutor])
+@GenerateMocks([FakeDataRepository, ContentRepository, ExitExecutor, JavascriptExecutor, CodeRepositoryExecutor])
 void main() {
   group('loadCommands', () {
     test('invoke fakeDataRepository.load once', () async {
@@ -24,7 +25,8 @@ void main() {
       when(exitExecutor.executeExitCommand()).thenReturn(null);
       when(exitExecutor.hasExitCommand()).thenReturn(false);
 
-      final commandsLoader = CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, null);
+      final commandsLoader =
+          CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, null, MockCodeRepositoryExecutor());
       await commandsLoader.loadCommands();
 
       verify(fakeDataRepository.load()).called(1);
@@ -39,8 +41,8 @@ void main() {
       when(exitExecutor.hasExitCommand()).thenReturn(false);
       final javascriptExecutor = MockJavascriptExecutor();
 
-      final commandsLoader =
-          CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, javascriptExecutor);
+      final commandsLoader = CommandsLoaderImpl(
+          fakeDataRepository, contentRepository, exitExecutor, javascriptExecutor, MockCodeRepositoryExecutor());
       final commands = await commandsLoader.loadCommands();
 
       expect(commands.where((element) => element is JsCommand).length, 1);
@@ -54,7 +56,8 @@ void main() {
       when(exitExecutor.executeExitCommand()).thenReturn(null);
       when(exitExecutor.hasExitCommand()).thenReturn(true);
 
-      final commandsLoader = CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, null);
+      final commandsLoader =
+          CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, null, MockCodeRepositoryExecutor());
       final commands = await commandsLoader.loadCommands();
 
       expect(commands.where((element) => element is ExitCommand).length, 1);
@@ -79,7 +82,8 @@ void main() {
       when(exitExecutor.executeExitCommand()).thenReturn(null);
       when(exitExecutor.hasExitCommand()).thenReturn(false);
 
-      final commandsLoader = CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, null);
+      final commandsLoader =
+          CommandsLoaderImpl(fakeDataRepository, contentRepository, exitExecutor, null, MockCodeRepositoryExecutor());
       final commands = await commandsLoader.loadCommands();
 
       final fakeCommands = commands.where((element) => element is FakeCommandWrapper);

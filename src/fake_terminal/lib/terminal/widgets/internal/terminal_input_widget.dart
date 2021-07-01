@@ -97,6 +97,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
   }
 
   void _processInput(String? Function(String) process) {
+    FocusScope.of(context).unfocus();
     String commandLine = _cmdTextController.text;
     final result = process(commandLine);
     if (result != null) {
@@ -104,6 +105,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
         _cmdTextController.text = result;
       });
     }
+    _inputNode.requestFocus();
     SchedulerBinding.instance?.addPostFrameCallback((_) {
       _inputNode.requestFocus();
       _cmdTextController.selection = TextSelection.fromPosition(TextPosition(offset: _cmdTextController.text.length));
