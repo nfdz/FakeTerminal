@@ -6,15 +6,15 @@ class CatCommand extends TerminalCommand {
   final Future<String> Function(String url) _getUrlContent;
   CatCommand(this._fakeFiles, this._getUrlContent)
       : super(
-          name: _kCommandName,
-          description: _kCommandDescription,
-          manual: _kCommandManual,
+          name: commandName,
+          description: commandDescription,
+          manual: commandManual,
         );
 
   @override
   Future<List<String>> execute({required List<String> arguments, required List<String> history}) async {
     if (arguments.isEmpty) {
-      return [_kCommandInvalid];
+      return [commandInvalid];
     }
     final List<String> output = [];
     for (final argument in arguments) {
@@ -35,12 +35,8 @@ class CatCommand extends TerminalCommand {
         return "";
       }
     } else {
-      return _getFileNotFoundOutput(argument);
+      return fileNotFoundOutput(argument);
     }
-  }
-
-  String _getFileNotFoundOutput(String file) {
-    return "cat: $file: No such file or directory";
   }
 
   @override
@@ -52,11 +48,10 @@ class CatCommand extends TerminalCommand {
       return null;
     }
   }
-}
 
-const String _kCommandName = "cat";
-const String _kCommandDescription = "Concatenate FILE(s) to standard output";
-const String _kCommandManual = """
+  static const String commandName = "cat";
+  static const String commandDescription = "Concatenate FILE(s) to standard output";
+  static const String commandManual = """
 CAT(1)
 
 NAME
@@ -71,4 +66,9 @@ DESCRIPTION
 EXAMPLES
        cat ./my-file.txt
               Output content of 'about.json'.""";
-const String _kCommandInvalid = "Input argument required, to learn about this command use: man cat";
+  static const String commandInvalid = "Input argument required, to learn about this command use: man cat";
+
+  static String fileNotFoundOutput(String file) {
+    return "cat: $file: No such file or directory";
+  }
+}

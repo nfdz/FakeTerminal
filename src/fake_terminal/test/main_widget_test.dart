@@ -37,9 +37,9 @@ void main() {
     );
   }
 
-  testWidgets('render main page empty state', (WidgetTester tester) async {
+  Future<void> _testMainWidget(WidgetTester tester, ThemeSettings theme) async {
     await tester.pumpWidget(_createWidgetToTest(
-      themeState: ThemeSettings.dark,
+      themeState: theme,
       terminalState: TerminalState(historyInput: [], output: []),
       canExitTerminal: true,
     ));
@@ -48,7 +48,16 @@ void main() {
     expect(find.text(TerminalTexts.terminalInputHint), findsOneWidget);
     expect(find.byIcon(TerminalIcons.executeCommand), findsOneWidget);
     expect(find.byIcon(TerminalIcons.exitTerminal), findsOneWidget);
-    expect(find.byIcon(TerminalIcons.darkTheme), findsOneWidget);
     expect(find.byIcon(TerminalIcons.information), findsOneWidget);
+  }
+
+  testWidgets('given dark theme then render main page empty state', (WidgetTester tester) async {
+    await _testMainWidget(tester, ThemeSettings.dark);
+    expect(find.byIcon(TerminalIcons.darkTheme), findsOneWidget);
+  });
+
+  testWidgets('given light theme then render main page empty state', (WidgetTester tester) async {
+    await _testMainWidget(tester, ThemeSettings.light);
+    expect(find.byIcon(TerminalIcons.lightTheme), findsOneWidget);
   });
 }
