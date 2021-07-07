@@ -24,7 +24,7 @@ class FakeCommandWrapper extends TerminalCommand {
         final fakeArgument = matches.first;
         output.add(await _getOutputFor(fakeArgument.outputUrl, fakeArgument.output));
       } else {
-        output.add(_getArgumentInvalid(argument));
+        output.add(argumentInvalid(_fakeCommand.name, argument));
       }
     }
     return output;
@@ -32,16 +32,13 @@ class FakeCommandWrapper extends TerminalCommand {
 
   Future<String> _getOutputFor(String? outputUrl, String? output) async {
     if (output?.isNotEmpty == true) {
-      return outputUrl!;
+      return output!;
     } else if (outputUrl?.isNotEmpty == true) {
       return await _getUrlContent(outputUrl!);
     } else {
       return "";
     }
   }
-
-  String _getArgumentInvalid(String argument) =>
-      "Invalid argument '$argument', to learn about this command use: man ${_fakeCommand.name}";
 
   @override
   String? autocomplete(String argument) {
@@ -52,6 +49,9 @@ class FakeCommandWrapper extends TerminalCommand {
       return null;
     }
   }
+
+  static String argumentInvalid(String commandName, String argument) =>
+      "Invalid argument '$argument', to learn about this command use: man $commandName";
 }
 
 String _buildManual(FakeCommand fakeCommand) {

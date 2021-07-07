@@ -52,7 +52,7 @@ class FakeCommand extends Equatable {
     required this.description,
     required this.arguments,
     required this.defaultArgument,
-  });
+  }) : assert(arguments.where((fakeArgument) => fakeArgument.name == defaultArgument).isNotEmpty);
 
   factory FakeCommand.fromJson(Map<String, dynamic> json) => _$FakeCommandFromJson(json);
   Map<String, dynamic> toJson() => _$FakeCommandToJson(this);

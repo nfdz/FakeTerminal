@@ -24,7 +24,12 @@ void main() {
     test('given AssetBundle then invoke loadString and return the expected FakeData', () async {
       final expectedFakeData = FakeData(
         fakeCommands: [
-          FakeCommand(name: "name", description: "description", arguments: [], defaultArgument: "defaultArgument"),
+          FakeCommand(
+            name: "name",
+            description: "description",
+            arguments: [FakeArgument(name: "", description: "argDescription", output: "argOutput")],
+            defaultArgument: "",
+          ),
         ],
         fakeFiles: [
           FakeFile(name: "name", content: "content"),
