@@ -1,4 +1,5 @@
 import 'package:fake_terminal/icons/terminal_icons.dart';
+import 'package:fake_terminal/sizer/sizer_extensions.dart';
 import 'package:fake_terminal/terminal/providers/terminal_provider.dart';
 import 'package:fake_terminal/terminal/widgets/internal/terminal_input_keyboard_listener.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
@@ -35,18 +36,19 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final spacing = 4.sp.withMaxValue(9.5);
     return Container(
       width: double.infinity,
-      height: 25.sp,
+      height: 25.sp.withMaxValue(60),
       color: Theme.of(context).cardColor,
       child: Row(
         children: <Widget>[
-          SizedBox(width: 4.sp),
+          SizedBox(width: spacing),
           Text(
             TerminalTexts.terminalInputPrefix,
             style: Theme.of(context).accentTextTheme.bodyText2,
           ),
-          SizedBox(width: 4.sp),
+          SizedBox(width: spacing),
           Expanded(
             child: TerminalInputKeyboardListener(
               focusNode: _keyInputNode,
@@ -63,9 +65,9 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
               ),
             ),
           ),
-          SizedBox(width: 4.sp),
+          SizedBox(width: spacing),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.sp),
+            padding: EdgeInsets.symmetric(vertical: spacing),
             child: FloatingActionButton(
               key: null,
               backgroundColor: Theme.of(context).primaryColor,
@@ -76,11 +78,11 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
               child: Icon(
                 TerminalIcons.executeCommand,
                 color: Theme.of(context).textTheme.bodyText1?.color,
-                size: 10.sp,
+                size: 10.sp.withMaxValue(25),
               ),
             ),
           ),
-          SizedBox(width: 4.sp),
+          SizedBox(width: spacing),
         ],
       ),
     );

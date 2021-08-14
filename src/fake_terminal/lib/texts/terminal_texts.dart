@@ -17,7 +17,7 @@ class TerminalTexts {
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 """;
   static const String appName = "FakeTerminal";
-  static const String terminalInputPrefix = "[faketerminal@github.io ~]\$ ";
+  static const String terminalInputPrefix = "[faketerminal@github.io ~]\$";
   static const String terminalInputHint = "Enter a command...";
   static const String executeCommandTooltip = "Execute command";
   static const String exitTooltip = "Exit terminal";

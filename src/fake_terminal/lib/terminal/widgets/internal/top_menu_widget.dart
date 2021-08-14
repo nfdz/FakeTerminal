@@ -23,7 +23,7 @@ class TopMenuWidget extends ConsumerWidget {
             theme == ThemeSettings.dark ? TerminalIcons.darkTheme : TerminalIcons.lightTheme,
           ),
         ),
-        SizedBox(width: 8.sp),
+        SizedBox(width: 5.sp),
         FloatingActionButton(
           key: null,
           mini: true,
