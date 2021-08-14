@@ -67,11 +67,11 @@ class _DialogContent extends StatelessWidget {
               vertical: _kDialogContentVerticalPadding,
               horizontal: _kDialogContentHorizontalPadding,
             ),
-            child: Text(TerminalTexts.informationDialogTitle, style: Theme.of(context).textTheme.bodyText2),
+            child: Text(TerminalTexts.informationDialogTitle, style: Theme.of(context).textTheme.subtitle1),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: _kDialogContentHorizontalPadding),
-            child: Text(TerminalTexts.informationDialogContent, style: Theme.of(context).textTheme.bodyText1),
+            child: Text(TerminalTexts.informationDialogContent, style: Theme.of(context).textTheme.subtitle2),
           ),
           SizedBox(height: _kDialogContentVerticalPadding),
           Row(
@@ -83,7 +83,7 @@ class _DialogContent extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
                     TerminalTexts.openGithubButton,
-                    style: Theme.of(context).accentTextTheme.bodyText1,
+                    style: Theme.of(context).accentTextTheme.subtitle2,
                   ),
                 ),
               ),

@@ -27,13 +27,19 @@ ThemeData _createLightTheme(double fontSizeBody) {
     ),
     textTheme: baseTheme.textTheme
         .copyWith(
-            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody),
-            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold))
-        .apply(fontFamily: 'FiraCode', bodyColor: textColor),
+          bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
+          bodyText2: baseTheme.textTheme.bodyText2
+              ?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold, fontFamily: 'FiraCode'),
+          subtitle1: baseTheme.textTheme.subtitle1?.copyWith(fontSize: 17, fontWeight: FontWeight.bold),
+          subtitle2: baseTheme.textTheme.subtitle1?.copyWith(fontSize: 17, fontWeight: FontWeight.normal),
+        )
+        .apply(bodyColor: textColor),
     accentTextTheme: baseTheme.textTheme
         .copyWith(
-            bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody),
-            bodyText2: baseTheme.textTheme.bodyText2?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold))
-        .apply(fontFamily: 'FiraCode', bodyColor: accentTextColor),
+          bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
+          bodyText2: baseTheme.textTheme.bodyText2
+              ?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold, fontFamily: 'FiraCode'),
+        )
+        .apply(bodyColor: accentTextColor),
   );
 }
