@@ -26,34 +26,47 @@ class MockThemeNotifier extends _i1.Mock implements _i2.ThemeNotifier {
 
   @override
   _i3.Future<dynamic> get initializationComplete =>
-      (super.noSuchMethod(Invocation.getter(#initializationComplete), returnValue: Future<dynamic>.value(null))
-          as _i3.Future<dynamic>);
+      (super.noSuchMethod(Invocation.getter(#initializationComplete),
+          returnValue: Future<dynamic>.value(null)) as _i3.Future<dynamic>);
   @override
   set onError(_i4.ErrorListener? _onError) =>
-      super.noSuchMethod(Invocation.setter(#onError, _onError), returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.setter(#onError, _onError),
+          returnValueForMissingStub: null);
   @override
-  bool get mounted => (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false) as bool);
+  bool get mounted =>
+      (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false)
+          as bool);
   @override
   _i3.Stream<_i5.ThemeSettings> get stream =>
-      (super.noSuchMethod(Invocation.getter(#stream), returnValue: Stream<_i5.ThemeSettings>.empty())
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i5.ThemeSettings>.empty())
           as _i3.Stream<_i5.ThemeSettings>);
   @override
-  _i5.ThemeSettings get state =>
-      (super.noSuchMethod(Invocation.getter(#state), returnValue: _i5.ThemeSettings.dark) as _i5.ThemeSettings);
+  _i5.ThemeSettings get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _i5.ThemeSettings.dark) as _i5.ThemeSettings);
   @override
   set state(_i5.ThemeSettings? value) =>
-      super.noSuchMethod(Invocation.setter(#state, value), returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.setter(#state, value),
+          returnValueForMissingStub: null);
   @override
   _i5.ThemeSettings get debugState =>
-      (super.noSuchMethod(Invocation.getter(#debugState), returnValue: _i5.ThemeSettings.dark) as _i5.ThemeSettings);
+      (super.noSuchMethod(Invocation.getter(#debugState),
+          returnValue: _i5.ThemeSettings.dark) as _i5.ThemeSettings);
   @override
-  bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
   @override
-  void toggleTheme() => super.noSuchMethod(Invocation.method(#toggleTheme, []), returnValueForMissingStub: null);
+  void toggleTheme() => super.noSuchMethod(Invocation.method(#toggleTheme, []),
+      returnValueForMissingStub: null);
   @override
-  _i4.RemoveListener addListener(_i4.Listener<_i5.ThemeSettings>? listener, {bool? fireImmediately = true}) =>
-      (super.noSuchMethod(Invocation.method(#addListener, [listener], {#fireImmediately: fireImmediately}),
+  _i4.RemoveListener addListener(_i4.Listener<_i5.ThemeSettings>? listener,
+          {bool? fireImmediately = true}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #addListener, [listener], {#fireImmediately: fireImmediately}),
           returnValue: () {}) as _i4.RemoveListener);
   @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
 }

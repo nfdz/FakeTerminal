@@ -6,8 +6,10 @@ import 'dart:async' as _i4;
 
 import 'package:fake_terminal/terminal/models/terminal_history.dart' as _i2;
 import 'package:fake_terminal/terminal/models/terminal_line.dart' as _i6;
-import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart' as _i5;
-import 'package:fake_terminal/terminal/repositories/history_repository/history_repository.dart' as _i3;
+import 'package:fake_terminal/terminal/repositories/commands_repository/commands_repository.dart'
+    as _i5;
+import 'package:fake_terminal/terminal/repositories/history_repository/history_repository.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: comment_references
@@ -30,34 +32,47 @@ class MockHistoryRepository extends _i1.Mock implements _i3.HistoryRepository {
   @override
   _i4.Future<_i2.TerminalHistory?> fetchTerminalHistory() =>
       (super.noSuchMethod(Invocation.method(#fetchTerminalHistory, []),
-          returnValue: Future<_i2.TerminalHistory?>.value(_FakeTerminalHistory())) as _i4.Future<_i2.TerminalHistory?>);
+              returnValue:
+                  Future<_i2.TerminalHistory?>.value(_FakeTerminalHistory()))
+          as _i4.Future<_i2.TerminalHistory?>);
   @override
   _i4.Future<void> saveTerminalHistory(_i2.TerminalHistory? history) =>
       (super.noSuchMethod(Invocation.method(#saveTerminalHistory, [history]),
-          returnValue: Future<void>.value(null), returnValueForMissingStub: Future.value()) as _i4.Future<void>);
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i4.Future<void>);
 }
 
 /// A class which mocks [CommandsRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCommandsRepository extends _i1.Mock implements _i5.CommandsRepository {
+class MockCommandsRepository extends _i1.Mock
+    implements _i5.CommandsRepository {
   MockCommandsRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  bool hasExitCommand() => (super.noSuchMethod(Invocation.method(#hasExitCommand, []), returnValue: false) as bool);
+  bool hasExitCommand() =>
+      (super.noSuchMethod(Invocation.method(#hasExitCommand, []),
+          returnValue: false) as bool);
   @override
   void executeExitCommand() =>
-      super.noSuchMethod(Invocation.method(#executeExitCommand, []), returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.method(#executeExitCommand, []),
+          returnValueForMissingStub: null);
   @override
-  void executeOpenTerminalRepositoryCommand() =>
-      super.noSuchMethod(Invocation.method(#executeOpenTerminalRepositoryCommand, []), returnValueForMissingStub: null);
+  void executeOpenTerminalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenTerminalRepositoryCommand, []),
+      returnValueForMissingStub: null);
   @override
   String? autocomplete(String? commandLine) =>
-      (super.noSuchMethod(Invocation.method(#autocomplete, [commandLine])) as String?);
+      (super.noSuchMethod(Invocation.method(#autocomplete, [commandLine]))
+          as String?);
   @override
-  _i4.Future<void> executeCommandLine(String? commandLine, List<_i6.TerminalLine>? output, List<String>? history) =>
-      (super.noSuchMethod(Invocation.method(#executeCommandLine, [commandLine, output, history]),
-          returnValue: Future<void>.value(null), returnValueForMissingStub: Future.value()) as _i4.Future<void>);
+  _i4.Future<void> executeCommandLine(String? commandLine,
+          List<_i6.TerminalLine>? output, List<String>? history) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #executeCommandLine, [commandLine, output, history]),
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i4.Future<void>);
 }

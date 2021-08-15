@@ -5,11 +5,16 @@
 import 'dart:async' as _i4;
 
 import 'package:fake_terminal/terminal/models/fake_data.dart' as _i2;
-import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart' as _i8;
-import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart' as _i6;
-import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart' as _i7;
-import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart' as _i5;
-import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart' as _i3;
+import 'package:fake_terminal/terminal/repositories/commands_repository/code_repository_executor.dart'
+    as _i8;
+import 'package:fake_terminal/terminal/repositories/commands_repository/exit_executor.dart'
+    as _i6;
+import 'package:fake_terminal/terminal/repositories/commands_repository/javascript_executor.dart'
+    as _i7;
+import 'package:fake_terminal/terminal/repositories/content_repository/content_repository.dart'
+    as _i5;
+import 'package:fake_terminal/terminal/repositories/fake_data_repository/fake_data_repository.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: comment_references
@@ -24,14 +29,16 @@ class _FakeFakeData extends _i1.Fake implements _i2.FakeData {}
 /// A class which mocks [FakeDataRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFakeDataRepository extends _i1.Mock implements _i3.FakeDataRepository {
+class MockFakeDataRepository extends _i1.Mock
+    implements _i3.FakeDataRepository {
   MockFakeDataRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i4.Future<_i2.FakeData> load() =>
-      (super.noSuchMethod(Invocation.method(#load, []), returnValue: Future<_i2.FakeData>.value(_FakeFakeData()))
+      (super.noSuchMethod(Invocation.method(#load, []),
+              returnValue: Future<_i2.FakeData>.value(_FakeFakeData()))
           as _i4.Future<_i2.FakeData>);
 }
 
@@ -45,8 +52,8 @@ class MockContentRepository extends _i1.Mock implements _i5.ContentRepository {
 
   @override
   _i4.Future<String> load(String? url) =>
-      (super.noSuchMethod(Invocation.method(#load, [url]), returnValue: Future<String>.value(''))
-          as _i4.Future<String>);
+      (super.noSuchMethod(Invocation.method(#load, [url]),
+          returnValue: Future<String>.value('')) as _i4.Future<String>);
 }
 
 /// A class which mocks [ExitExecutor].
@@ -58,37 +65,45 @@ class MockExitExecutor extends _i1.Mock implements _i6.ExitExecutor {
   }
 
   @override
-  bool hasExitCommand() => (super.noSuchMethod(Invocation.method(#hasExitCommand, []), returnValue: false) as bool);
+  bool hasExitCommand() =>
+      (super.noSuchMethod(Invocation.method(#hasExitCommand, []),
+          returnValue: false) as bool);
   @override
   void executeExitCommand() =>
-      super.noSuchMethod(Invocation.method(#executeExitCommand, []), returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.method(#executeExitCommand, []),
+          returnValueForMissingStub: null);
 }
 
 /// A class which mocks [JavascriptExecutor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJavascriptExecutor extends _i1.Mock implements _i7.JavascriptExecutor {
+class MockJavascriptExecutor extends _i1.Mock
+    implements _i7.JavascriptExecutor {
   MockJavascriptExecutor() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   String execute(String? expression) =>
-      (super.noSuchMethod(Invocation.method(#execute, [expression]), returnValue: '') as String);
+      (super.noSuchMethod(Invocation.method(#execute, [expression]),
+          returnValue: '') as String);
 }
 
 /// A class which mocks [CodeRepositoryExecutor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCodeRepositoryExecutor extends _i1.Mock implements _i8.CodeRepositoryExecutor {
+class MockCodeRepositoryExecutor extends _i1.Mock
+    implements _i8.CodeRepositoryExecutor {
   MockCodeRepositoryExecutor() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  void executeOpenTerminalRepositoryCommand() =>
-      super.noSuchMethod(Invocation.method(#executeOpenTerminalRepositoryCommand, []), returnValueForMissingStub: null);
+  void executeOpenTerminalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenTerminalRepositoryCommand, []),
+      returnValueForMissingStub: null);
   @override
-  void executeOpenPersonalRepositoryCommand() =>
-      super.noSuchMethod(Invocation.method(#executeOpenPersonalRepositoryCommand, []), returnValueForMissingStub: null);
+  void executeOpenPersonalRepositoryCommand() => super.noSuchMethod(
+      Invocation.method(#executeOpenPersonalRepositoryCommand, []),
+      returnValueForMissingStub: null);
 }

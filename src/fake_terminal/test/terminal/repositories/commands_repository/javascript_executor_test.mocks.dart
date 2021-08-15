@@ -2,7 +2,8 @@
 // in fake_terminal/test/terminal/repositories/commands_repository/javascript_executor_test.dart.
 // Do not manually edit this file.
 
-import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart' as _i2;
+import 'package:fake_terminal/plugins/javascript_dom/javascript_dom.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: comment_references
@@ -21,10 +22,15 @@ class MockJavascriptDom extends _i1.Mock implements _i2.JavascriptDom {
   }
 
   @override
-  void navigateBack() => super.noSuchMethod(Invocation.method(#navigateBack, []), returnValueForMissingStub: null);
+  void navigateBack() =>
+      super.noSuchMethod(Invocation.method(#navigateBack, []),
+          returnValueForMissingStub: null);
   @override
-  bool canNavigateBack() => (super.noSuchMethod(Invocation.method(#canNavigateBack, []), returnValue: false) as bool);
+  bool canNavigateBack() =>
+      (super.noSuchMethod(Invocation.method(#canNavigateBack, []),
+          returnValue: false) as bool);
   @override
   String evalJs(String? expression) =>
-      (super.noSuchMethod(Invocation.method(#evalJs, [expression]), returnValue: '') as String);
+      (super.noSuchMethod(Invocation.method(#evalJs, [expression]),
+          returnValue: '') as String);
 }
