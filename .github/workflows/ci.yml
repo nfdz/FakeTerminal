@@ -45,9 +45,9 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter pub get
       - name: Remove generated code - JSON
-        run: rm **/*.g.dart
+        run: find . -name "*.g.dart" -exec rm -rf {} \;
       - name: Remove generated code - Mocks
-        run: rm **/*.mocks.dart
+        run: find . -name "*.mocks.dart" -exec rm -rf {} \;
       - name: Generate code using build_runner
         working-directory: ./src/fake_terminal
         run: flutter pub run build_runner build >/dev/null
