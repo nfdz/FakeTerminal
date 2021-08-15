@@ -7,7 +7,7 @@ on:
 
 jobs:
   format:
-      name: Check format
+      name: Format
       runs-on: ubuntu-latest
       container: cirrusci/flutter:stable
 
@@ -19,7 +19,7 @@ jobs:
           run: flutter format --line-length=120 -n . | grep -v "**.mocks.dart" | grep -v "**.g.dart"
 
   lint:
-    name: Check lint
+    name: Lint
     runs-on: ubuntu-latest
     container: cirrusci/flutter:stable
 
@@ -39,7 +39,7 @@ jobs:
     container: cirrusci/flutter:stable
 
     steps:
-      - name: Checkout code
+      - name: build_runner
         uses: actions/checkout@v2
       - name: Get dependencies
         working-directory: ./src/fake_terminal
@@ -52,7 +52,7 @@ jobs:
         run: git status --porcelain
 
   test:
-    name: Lint
+    name: Test
     needs: [lint, format, build_runner]
     runs-on: ubuntu-latest
     container: cirrusci/flutter:stable
@@ -63,6 +63,6 @@ jobs:
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
-      - name: Lint using flutter analyze
+      - name: Run all tests
         working-directory: ./src/fake_terminal
         run: flutter test --reporter=expanded --coverage
