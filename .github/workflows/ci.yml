@@ -44,9 +44,15 @@ jobs:
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
+      - name: Remove generated code - JSON
+        working-directory: ./src/fake_terminal
+        run: rm "./**.g.dart"
+      - name: Remove generated code - Mocks
+        working-directory: ./src/fake_terminal
+        run: rm "./**.mocks.dart"
       - name: Generate code using build_runner
         working-directory: ./src/fake_terminal
-        run: flutter pub run build_runner build --delete-conflicting-outputs >/dev/null
+        run: flutter pub run build_runner build >/dev/null
       - name: Check there is no differences
         working-directory: ./src/fake_terminal
         run: git status --porcelain
