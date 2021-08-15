@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  format:
+      name: Check format
+      runs-on: ubuntu-latest
+      container: cirrusci/flutter:stable
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout
+        - name: Check format
+          working-directory: ./src/fake_terminal
+          run: flutter format --line-length=120 -n . | grep -v "**.mocks.dart" | grep -v "**.g.dart"
+
+  lint:
+    name: Check lint
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout
+      - name: Get dependencies
+        working-directory: ./src/fake_terminal
+        run: flutter pub get
+      - name: Lint using flutter analyze
+        working-directory: ./src/fake_terminal
+        run: flutter analyze
+
+  build_runner:
+    name: Check code generation
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout
+      - name: Get dependencies
+        working-directory: ./src/fake_terminal
+        run: flutter pub get
+      - name: Generate code using build_runner
+        working-directory: ./src/fake_terminal
+        run: flutter pub run build_runner build --delete-conflicting-outputs >/dev/null
+      - name: Check there is no differences
+        working-directory: ./src/fake_terminal
+        run: git status --porcelain
+
+  test:
+    name: Lint
+    needs: [lint, format, build_runner]
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout
+      - name: Get dependencies
+        working-directory: ./src/fake_terminal
+        run: flutter pub get
+      - name: Lint using flutter analyze
+        working-directory: ./src/fake_terminal
+        run: flutter test --reporter=expanded --coverage

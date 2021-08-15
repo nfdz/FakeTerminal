@@ -9,23 +9,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  logging: ^1.0.1
-  riverpod: ^0.14.0+1
-  flutter_riverpod: ^0.14.0+1
-  shared_preferences: ^2.0.5
-  json_annotation: ^4.0.1
-  json_serializable: ^4.1.0
-  http: ^0.13.1
-  sizer: ^2.0.11
-  equatable: ^2.0.0
-  url_launcher: ^6.0.7
+  logging: 1.0.1
+  riverpod: 0.14.0+1
+  flutter_riverpod: 0.14.0+1
+  shared_preferences: 2.0.5
+  json_annotation: 4.0.1
+  json_serializable: 4.1.0
+  http: 0.13.1
+  sizer: 2.0.11
+  equatable: 2.0.0
+  url_launcher: 6.0.7
 
 dev_dependencies:
-  mockito: ^5.0.7
-  test: ^1.9.4
+  mockito: 5.0.7
+  test: 1.16.8
   flutter_test:
     sdk: flutter
-  build_runner: ^1.0.0
+  build_runner: 1.12.2
 
 flutter:
   uses-material-design: true

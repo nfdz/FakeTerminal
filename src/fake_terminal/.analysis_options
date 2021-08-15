@@ -1,4 +1,4 @@
+include: package:lints/recommended.yaml
+
 analyzer:
-  exclude:
-    - lib/**.g.dart
-    - lib/**.mocks.dart
+  exclude: [build/**, lib/**.g.dart, test/**.mocks.dart]
