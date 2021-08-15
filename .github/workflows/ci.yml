@@ -19,7 +19,7 @@ jobs:
           run: flutter clean
         - name: Check format
           working-directory: ./src/fake_terminal
-          run: flutter format --line-length=120 -n .
+          run: flutter format --line-length=120 -n --set-exit-if-changed .
 
   lint:
     name: Lint
