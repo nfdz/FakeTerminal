@@ -19,6 +19,10 @@ class TerminalEntryWidget extends StatelessWidget {
           text: entry.prefix,
           children: <TextSpan>[
             TextSpan(
+              text: " ",
+              style: textLineStyle,
+            ),
+            TextSpan(
               text: entry.line,
               style: textLineStyle,
             ),

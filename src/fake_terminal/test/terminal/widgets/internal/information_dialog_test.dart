@@ -56,7 +56,7 @@ void main() {
 
     await tester.pumpWidget(_createWidgetToTest(terminalNotifier: terminalNotifier));
 
-    await tester.tap(find.text(TerminalTexts.openGithubButton));
+    await tester.tap(find.text(TerminalTexts.openGithubButton.toUpperCase()));
 
     verify(terminalNotifier.navigateToTerminalRepository()).called(1);
   });
