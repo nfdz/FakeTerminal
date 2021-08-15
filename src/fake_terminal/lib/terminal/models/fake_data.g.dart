@@ -6,11 +6,11 @@ part of 'fake_data.dart';
 // JsonSerializableGeneratorasdf
 // **************************************************************************
 
-FakeData _$FakeDataFromJson2(Map<String, dynamic> json) {
+FakeData _$FakeDataFromJson(Map<String, dynamic> json) {
   return FakeData(
-    fakeFiles: (json['fake_files'] as List<dynamic>).map((e) => FakeFile.fromJson(e as Map<String, dynamic>)).toList(),
+    fakeFiles: (json['fake_files2'] as List<dynamic>).map((e) => FakeFile.fromJson(e as Map<String, dynamic>)).toList(),
     fakeCommands:
-        (json['fake_commands'] as List<dynamic>).map((e) => FakeCommand.fromJson(e as Map<String, dynamic>)).toList(),
+        (json['fake_commands22'] as List<dynamic>).map((e) => FakeCommand.fromJson(e as Map<String, dynamic>)).toList(),
   );
 }
 

@@ -41,16 +41,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Clean
+        working-directory: ./src/fake_terminal
+        run: flutter clean
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
-      - name: Remove generated code - JSON
-        run: find . -name "*.g.dart" -exec rm -rf {} \;
-      - name: Remove generated code - Mocks
-        run: find . -name "*.mocks.dart" -exec rm -rf {} \;
       - name: Generate code using build_runner
         working-directory: ./src/fake_terminal
-        run: flutter pub run build_runner build >/dev/null
+        run: flutter pub run build_runner build
       - name: Check there is no differences
         working-directory: ./src/fake_terminal
         run: git status --porcelain
