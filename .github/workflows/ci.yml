@@ -14,9 +14,12 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
+        - name: Clean
+          working-directory: ./src/fake_terminal
+          run: flutter clean
         - name: Check format
           working-directory: ./src/fake_terminal
-          run: flutter format --line-length=120 -n . | grep -v "**.mocks.dart" | grep -v "**.g.dart"
+          run: flutter format --line-length=120 -n .
 
   lint:
     name: Lint
@@ -50,9 +53,6 @@ jobs:
       - name: Generate code using build_runner
         working-directory: ./src/fake_terminal
         run: flutter pub run build_runner build
-      - name: Check there is no differences
-        working-directory: ./src/fake_terminal
-        run: git status --porcelain
 
   test:
     name: Test
