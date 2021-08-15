@@ -8,12 +8,9 @@ part of 'fake_data.dart';
 
 FakeData _$FakeDataFromJson(Map<String, dynamic> json) {
   return FakeData(
-    fakeFiles: (json['fake_files'] as List<dynamic>)
-        .map((e) => FakeFile.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    fakeCommands: (json['fake_commands'] as List<dynamic>)
-        .map((e) => FakeCommand.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    fakeFiles: (json['fake_files'] as List<dynamic>).map((e) => FakeFile.fromJson(e as Map<String, dynamic>)).toList(),
+    fakeCommands:
+        (json['fake_commands'] as List<dynamic>).map((e) => FakeCommand.fromJson(e as Map<String, dynamic>)).toList(),
   );
 }
 
@@ -40,15 +37,13 @@ FakeCommand _$FakeCommandFromJson(Map<String, dynamic> json) {
   return FakeCommand(
     name: json['name'] as String,
     description: json['description'] as String,
-    arguments: (json['arguments'] as List<dynamic>)
-        .map((e) => FakeArgument.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    arguments:
+        (json['arguments'] as List<dynamic>).map((e) => FakeArgument.fromJson(e as Map<String, dynamic>)).toList(),
     defaultArgument: json['default_argument'] as String,
   );
 }
 
-Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'arguments': instance.arguments,
@@ -64,8 +59,7 @@ FakeArgument _$FakeArgumentFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$FakeArgumentToJson(FakeArgument instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FakeArgumentToJson(FakeArgument instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'output_url': instance.outputUrl,

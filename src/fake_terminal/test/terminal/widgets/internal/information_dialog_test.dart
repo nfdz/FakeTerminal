@@ -58,6 +58,6 @@ void main() {
 
     await tester.tap(find.text(TerminalTexts.openGithubButton.toUpperCase()));
 
-    verify(terminalNotifier.navigateToTerminalRepository()).called(4);
+    verify(terminalNotifier.navigateToTerminalRepository()).called(1);
   });
 }

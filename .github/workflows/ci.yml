@@ -34,12 +34,12 @@ jobs:
         run: flutter analyze
 
   build_runner:
-    name: Check code generation
+    name: build_runner
     runs-on: ubuntu-latest
     container: cirrusci/flutter:stable
 
     steps:
-      - name: build_runner
+      - name: Checkout code
         uses: actions/checkout@v2
       - name: Get dependencies
         working-directory: ./src/fake_terminal
