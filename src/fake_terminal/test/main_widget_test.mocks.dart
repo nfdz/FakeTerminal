@@ -30,49 +30,36 @@ class MockThemeNotifier extends _i1.Mock implements _i3.ThemeNotifier {
 
   @override
   _i4.Future<dynamic> get initializationComplete =>
-      (super.noSuchMethod(Invocation.getter(#initializationComplete),
-          returnValue: Future<dynamic>.value(null)) as _i4.Future<dynamic>);
+      (super.noSuchMethod(Invocation.getter(#initializationComplete), returnValue: Future<dynamic>.value(null))
+          as _i4.Future<dynamic>);
   @override
   set onError(_i5.ErrorListener? _onError) =>
-      super.noSuchMethod(Invocation.setter(#onError, _onError),
-          returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.setter(#onError, _onError), returnValueForMissingStub: null);
   @override
-  bool get mounted =>
-      (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false)
-          as bool);
+  bool get mounted => (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false) as bool);
   @override
   _i4.Stream<_i6.ThemeSettings> get stream =>
-      (super.noSuchMethod(Invocation.getter(#stream),
-              returnValue: Stream<_i6.ThemeSettings>.empty())
+      (super.noSuchMethod(Invocation.getter(#stream), returnValue: Stream<_i6.ThemeSettings>.empty())
           as _i4.Stream<_i6.ThemeSettings>);
   @override
-  _i6.ThemeSettings get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i6.ThemeSettings.dark) as _i6.ThemeSettings);
+  _i6.ThemeSettings get state =>
+      (super.noSuchMethod(Invocation.getter(#state), returnValue: _i6.ThemeSettings.dark) as _i6.ThemeSettings);
   @override
   set state(_i6.ThemeSettings? value) =>
-      super.noSuchMethod(Invocation.setter(#state, value),
-          returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.setter(#state, value), returnValueForMissingStub: null);
   @override
   _i6.ThemeSettings get debugState =>
-      (super.noSuchMethod(Invocation.getter(#debugState),
-          returnValue: _i6.ThemeSettings.dark) as _i6.ThemeSettings);
+      (super.noSuchMethod(Invocation.getter(#debugState), returnValue: _i6.ThemeSettings.dark) as _i6.ThemeSettings);
   @override
-  bool get hasListeners =>
-      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
-          as bool);
+  bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
   @override
-  void toggleTheme() => super.noSuchMethod(Invocation.method(#toggleTheme, []),
-      returnValueForMissingStub: null);
+  void toggleTheme() => super.noSuchMethod(Invocation.method(#toggleTheme, []), returnValueForMissingStub: null);
   @override
-  _i5.RemoveListener addListener(_i5.Listener<_i6.ThemeSettings>? listener,
-          {bool? fireImmediately = true}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #addListener, [listener], {#fireImmediately: fireImmediately}),
+  _i5.RemoveListener addListener(_i5.Listener<_i6.ThemeSettings>? listener, {bool? fireImmediately = true}) =>
+      (super.noSuchMethod(Invocation.method(#addListener, [listener], {#fireImmediately: fireImmediately}),
           returnValue: () {}) as _i5.RemoveListener);
   @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
-      returnValueForMissingStub: null);
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
 }
 
 /// A class which mocks [TerminalNotifier].
@@ -85,67 +72,47 @@ class MockTerminalNotifier extends _i1.Mock implements _i7.TerminalNotifier {
 
   @override
   set onError(_i5.ErrorListener? _onError) =>
-      super.noSuchMethod(Invocation.setter(#onError, _onError),
-          returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.setter(#onError, _onError), returnValueForMissingStub: null);
   @override
-  bool get mounted =>
-      (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false)
-          as bool);
+  bool get mounted => (super.noSuchMethod(Invocation.getter(#mounted), returnValue: false) as bool);
   @override
   _i4.Stream<_i2.TerminalState> get stream =>
-      (super.noSuchMethod(Invocation.getter(#stream),
-              returnValue: Stream<_i2.TerminalState>.empty())
+      (super.noSuchMethod(Invocation.getter(#stream), returnValue: Stream<_i2.TerminalState>.empty())
           as _i4.Stream<_i2.TerminalState>);
   @override
-  _i2.TerminalState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _FakeTerminalState()) as _i2.TerminalState);
+  _i2.TerminalState get state =>
+      (super.noSuchMethod(Invocation.getter(#state), returnValue: _FakeTerminalState()) as _i2.TerminalState);
   @override
   set state(_i2.TerminalState? value) =>
-      super.noSuchMethod(Invocation.setter(#state, value),
-          returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.setter(#state, value), returnValueForMissingStub: null);
   @override
   _i2.TerminalState get debugState =>
-      (super.noSuchMethod(Invocation.getter(#debugState),
-          returnValue: _FakeTerminalState()) as _i2.TerminalState);
+      (super.noSuchMethod(Invocation.getter(#debugState), returnValue: _FakeTerminalState()) as _i2.TerminalState);
   @override
-  bool get hasListeners =>
-      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
-          as bool);
+  bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
   @override
-  bool canExitTerminal() =>
-      (super.noSuchMethod(Invocation.method(#canExitTerminal, []),
-          returnValue: false) as bool);
+  bool canExitTerminal() => (super.noSuchMethod(Invocation.method(#canExitTerminal, []), returnValue: false) as bool);
   @override
-  void exitTerminal() =>
-      super.noSuchMethod(Invocation.method(#exitTerminal, []),
-          returnValueForMissingStub: null);
+  void exitTerminal() => super.noSuchMethod(Invocation.method(#exitTerminal, []), returnValueForMissingStub: null);
   @override
   void navigateToTerminalRepository() =>
-      super.noSuchMethod(Invocation.method(#navigateToTerminalRepository, []),
-          returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.method(#navigateToTerminalRepository, []), returnValueForMissingStub: null);
   @override
   void executeCommand(String? commandLine) =>
-      super.noSuchMethod(Invocation.method(#executeCommand, [commandLine]),
-          returnValueForMissingStub: null);
+      super.noSuchMethod(Invocation.method(#executeCommand, [commandLine]), returnValueForMissingStub: null);
   @override
   String? autocomplete(String? commandLine) =>
-      (super.noSuchMethod(Invocation.method(#autocomplete, [commandLine]))
-          as String?);
+      (super.noSuchMethod(Invocation.method(#autocomplete, [commandLine])) as String?);
   @override
-  String? navigateHistoryBack(String? commandLine) => (super
-          .noSuchMethod(Invocation.method(#navigateHistoryBack, [commandLine]))
-      as String?);
+  String? navigateHistoryBack(String? commandLine) =>
+      (super.noSuchMethod(Invocation.method(#navigateHistoryBack, [commandLine])) as String?);
   @override
-  String? navigateHistoryForward(String? commandLine) => (super.noSuchMethod(
-      Invocation.method(#navigateHistoryForward, [commandLine])) as String?);
+  String? navigateHistoryForward(String? commandLine) =>
+      (super.noSuchMethod(Invocation.method(#navigateHistoryForward, [commandLine])) as String?);
   @override
-  _i5.RemoveListener addListener(_i5.Listener<_i2.TerminalState>? listener,
-          {bool? fireImmediately = true}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #addListener, [listener], {#fireImmediately: fireImmediately}),
+  _i5.RemoveListener addListener(_i5.Listener<_i2.TerminalState>? listener, {bool? fireImmediately = true}) =>
+      (super.noSuchMethod(Invocation.method(#addListener, [listener], {#fireImmediately: fireImmediately}),
           returnValue: () {}) as _i5.RemoveListener);
   @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
-      returnValueForMissingStub: null);
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
 }

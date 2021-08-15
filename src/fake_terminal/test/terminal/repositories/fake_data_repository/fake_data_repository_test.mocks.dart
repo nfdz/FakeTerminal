@@ -27,24 +27,18 @@ class MockAssetBundle extends _i1.Mock implements _i3.AssetBundle {
 
   @override
   _i4.Future<_i2.ByteData> load(String? key) =>
-      (super.noSuchMethod(Invocation.method(#load, [key]),
-              returnValue: Future<_i2.ByteData>.value(_FakeByteData()))
+      (super.noSuchMethod(Invocation.method(#load, [key]), returnValue: Future<_i2.ByteData>.value(_FakeByteData()))
           as _i4.Future<_i2.ByteData>);
   @override
-  _i4.Future<String> loadString(String? key, {bool? cache = true}) => (super
-      .noSuchMethod(Invocation.method(#loadString, [key], {#cache: cache}),
-          returnValue: Future<String>.value('')) as _i4.Future<String>);
+  _i4.Future<String> loadString(String? key, {bool? cache = true}) =>
+      (super.noSuchMethod(Invocation.method(#loadString, [key], {#cache: cache}), returnValue: Future<String>.value(''))
+          as _i4.Future<String>);
   @override
-  _i4.Future<T> loadStructuredData<T>(
-          String? key, _i4.Future<T> Function(String)? parser) =>
-      (super.noSuchMethod(Invocation.method(#loadStructuredData, [key, parser]),
-          returnValue: Future<T>.value(null)) as _i4.Future<T>);
+  _i4.Future<T> loadStructuredData<T>(String? key, _i4.Future<T> Function(String)? parser) =>
+      (super.noSuchMethod(Invocation.method(#loadStructuredData, [key, parser]), returnValue: Future<T>.value(null))
+          as _i4.Future<T>);
   @override
-  void evict(String? key) =>
-      super.noSuchMethod(Invocation.method(#evict, [key]),
-          returnValueForMissingStub: null);
+  void evict(String? key) => super.noSuchMethod(Invocation.method(#evict, [key]), returnValueForMissingStub: null);
   @override
-  String toString() =>
-      (super.noSuchMethod(Invocation.method(#toString, []), returnValue: '')
-          as String);
+  String toString() => (super.noSuchMethod(Invocation.method(#toString, []), returnValue: '') as String);
 }

@@ -14,8 +14,7 @@ TerminalLine _$TerminalLineFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$TerminalLineToJson(TerminalLine instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TerminalLineToJson(TerminalLine instance) => <String, dynamic>{
       'prefix': instance.prefix,
       'line': instance.line,
       'type': _$LineTypeEnumMap[instance.type],

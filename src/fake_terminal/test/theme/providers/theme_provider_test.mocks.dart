@@ -26,13 +26,10 @@ class MockThemeRepository extends _i1.Mock implements _i3.ThemeRepository {
   }
 
   @override
-  _i4.Future<_i2.StoredTheme?> fetchThemeSettings() =>
-      (super.noSuchMethod(Invocation.method(#fetchThemeSettings, []),
-              returnValue: Future<_i2.StoredTheme?>.value(_FakeStoredTheme()))
-          as _i4.Future<_i2.StoredTheme?>);
+  _i4.Future<_i2.StoredTheme?> fetchThemeSettings() => (super.noSuchMethod(Invocation.method(#fetchThemeSettings, []),
+      returnValue: Future<_i2.StoredTheme?>.value(_FakeStoredTheme())) as _i4.Future<_i2.StoredTheme?>);
   @override
   _i4.Future<void> saveThemeSettings(_i2.StoredTheme? theme) =>
       (super.noSuchMethod(Invocation.method(#saveThemeSettings, [theme]),
-          returnValue: Future<void>.value(null),
-          returnValueForMissingStub: Future.value()) as _i4.Future<void>);
+          returnValue: Future<void>.value(null), returnValueForMissingStub: Future.value()) as _i4.Future<void>);
 }
