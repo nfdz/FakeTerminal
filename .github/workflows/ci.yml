@@ -22,6 +22,8 @@ jobs:
       - name: Check format
         working-directory: ./src/fake_terminal
         run: flutter format --line-length=120 -n --set-exit-if-changed .
+      - name: Print
+        run: echo ${github.ref}
 
   lint:
     name: Lint
