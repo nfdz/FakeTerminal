@@ -82,9 +82,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Checkout release
+        run: git checkout "release/master" && git pull origin master
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
       - name: Build
         working-directory: ./src/fake_terminal
         run: flutter build web
+      - name: Prepare
+        run: rm -rf release/* && mv src/fake_terminal/build/web/* release/
+      - name: Publish
+        run: git commit -m "Release: ${github.event_name}" && git push
+        
