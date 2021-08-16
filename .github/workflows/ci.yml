@@ -105,7 +105,7 @@ jobs:
           github-repository: ${{ github.repository }}
         run: git config --global user.name "$github-actor" && git config --global user.email "github-actor@$github-repository"
       - name: Checkout release
-        run: git fetch && git checkout "release/master" && git pull --no-edit origin master
+        run: git fetch && git checkout "release/master" && git pull --no-edit --allow-unrelated-histories origin master
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
@@ -115,5 +115,7 @@ jobs:
       - name: Prepare
         run: rm -rf docs/* && mv src/fake_terminal/build/web/* docs/
       - name: Publish
-        run: git commit -m "Release - ${github.event_name}" && git push
+        env:
+          github-event-name: ${{ github.event_name }}
+        run: git commit -m "Release - ${github-event-name}" && git push
         
