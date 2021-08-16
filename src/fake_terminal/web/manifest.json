@@ -1,11 +1,11 @@
 {
-    "name": "Fake Bash Terminal Application",
+    "name": "Fake Terminal",
     "short_name": "Fake Terminal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#242424",
-    "theme_color": "#1E90FF",
-    "description": "This is a fake terminal application. It has a predefined command list and simulates executing input as a Bash interpreter.",
+    "theme_color": "#1e90ff",
+    "description": "Interactive terminal with fake commands and data made with Flutter.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
