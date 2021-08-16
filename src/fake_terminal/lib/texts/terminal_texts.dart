@@ -28,7 +28,7 @@ class TerminalTexts {
   static const String informationDialogContent = """
 This terminal is a fun way to communicate information in a different, fun, familiar and relaxed way.
 
-This is also a playground. Where we can test Flutter & Dart, testing the framework and language updates, new libraries, platforms, design patterns, testing strategies, CI/CD, and so on.""";
+This is also a playground. Where we can test Flutter, testing the framework and language updates, new libraries, platforms, design patterns, testing strategies, CI/CD, and so on.""";
   static const String openGithubButton = "Open GitHub";
   static const String githubRepositoryUrl = "https://github.com/nfdz/FakeTerminal";
   static const String personalRepositoryName = "nfdz";
