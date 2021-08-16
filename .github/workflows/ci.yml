@@ -1,7 +1,9 @@
-name: CI
+name: CI/CD
 
 on:
   push:
+    branches:
+      - master
   pull_request:
   workflow_dispatch:
 
@@ -69,3 +71,16 @@ jobs:
       - name: Run all tests
         working-directory: ./src/fake_terminal
         run: flutter test --reporter=expanded --coverage
+
+  release:
+    name: Release
+    needs: test
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get dependencies
+        working-directory: ./src/fake_terminal
+        run: echo running on branch ${GITHUB_REF##*/}
