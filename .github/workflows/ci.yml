@@ -9,19 +9,21 @@ on:
 
 jobs:
   format:
-      name: Format
-      runs-on: ubuntu-latest
-      container: cirrusci/flutter:stable
+    name: Format
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:stable
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-        - name: Clean
-          working-directory: ./src/fake_terminal
-          run: flutter clean
-        - name: Check format
-          working-directory: ./src/fake_terminal
-          run: flutter format --line-length=120 -n --set-exit-if-changed .
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Clean
+        working-directory: ./src/fake_terminal
+        run: flutter clean
+        run: find . -name "*.g.dart" -exec rm -rf {} \;
+        run: find . -name "*.mocks.dart" -exec rm -rf {} \;
+      - name: Check format
+        working-directory: ./src/fake_terminal
+        run: flutter format --line-length=120 -n --set-exit-if-changed .
 
   lint:
     name: Lint
@@ -49,6 +51,8 @@ jobs:
       - name: Clean
         working-directory: ./src/fake_terminal
         run: flutter clean
+        run: find . -name "*.g.dart" -exec rm -rf {} \;
+        run: find . -name "*.mocks.dart" -exec rm -rf {} \;
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
