@@ -93,5 +93,5 @@ jobs:
       - name: Prepare
         run: rm -rf release/* && mv src/fake_terminal/build/web/* release/
       - name: Publish
-        run: git commit -m "Release: ${github.event_name}" && git push
+        run: git commit -m "Release - ${github.event_name}" && git push
         
