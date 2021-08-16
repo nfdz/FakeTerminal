@@ -83,7 +83,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Checkout release
-        run: git checkout "release/master" && git pull origin master
+        run: git checkout "release/master" && git pull --rebase origin master
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
