@@ -73,7 +73,7 @@ jobs:
         run: flutter test --reporter=expanded --coverage
 
   release:
-    if: "(${GITHUB_REF##*/} == 'master')"
+    if: "(github.ref == 'master')"
     name: Release
     needs: test
     runs-on: ubuntu-latest
