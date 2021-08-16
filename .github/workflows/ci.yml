@@ -24,7 +24,7 @@ jobs:
         run: flutter format --line-length=120 -n --set-exit-if-changed .
       - name: Print
         env:
-          my_env_var: ${{ github.push.ref }}
+          my_env_var: ${{ github.ref }}
         run: echo "${my_env_var}"
 
   lint:
