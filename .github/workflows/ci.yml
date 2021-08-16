@@ -99,7 +99,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup git
+      - name: Setup
         env:
           github-actor: ${{ github.actor }}
           github-repository: ${{ github.repository }}
