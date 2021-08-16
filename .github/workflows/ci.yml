@@ -72,6 +72,23 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter test --reporter=expanded --coverage
 
+  build:
+    if: "(github.ref != 'refs/heads/master')"
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter:stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get dependencies
+        working-directory: ./src/fake_terminal
+        run: flutter pub get
+      - name: Build
+        working-directory: ./src/fake_terminal
+        run: flutter build web
+
   release:
     if: "(github.ref == 'refs/heads/master')"
     name: Release
@@ -83,7 +100,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Checkout release
-        run: git checkout "release/master" && git pull --rebase origin master
+        run: git fetch && git checkout "release/master" && git pull --rebase origin master
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
