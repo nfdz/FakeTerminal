@@ -1,0 +1,31 @@
+{
+    "fake_files": [
+        {
+            "name": "lorem-ipsum.txt",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            "name": "README.md",
+            "content_url": "https://raw.githubusercontent.com/nfdz/FakeTerminal/master/README.md"
+        }
+    ],
+    "fake_commands": [
+        {
+            "name": "hello",
+            "description": "Greets the visitor politely",
+            "default_argument": "new-visitor",
+            "arguments": [
+                {
+                    "name": "new-visitor",
+                    "description": "Provides basic information for the new visitor",
+                    "output": "Hello, World!\nThis is a fake command just to greet you  :)\nKeep playing and exploring everything it can do by executing 'help'"
+                },
+                {
+                    "name": "old-visitor",
+                    "description": "Says hello to our old friend",
+                    "output": "Hello, Old Friend!\nThis is a fake command with a fake argument just to say hello again.\nKeep playing and exploring everything it can do by executing 'help'"
+                }
+            ]
+        }
+    ]
+}
