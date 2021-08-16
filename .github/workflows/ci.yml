@@ -91,7 +91,7 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter build web
       - name: Prepare
-        run: rm -rf release/* && mv src/fake_terminal/build/web/* release/
+        run: rm -rf docs/* && mv src/fake_terminal/build/web/* docs/
       - name: Publish
         run: git commit -m "Release - ${github.event_name}" && git push
         
