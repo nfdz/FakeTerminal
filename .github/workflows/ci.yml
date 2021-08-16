@@ -18,9 +18,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Clean
         working-directory: ./src/fake_terminal
-        run: flutter clean
-        run: find . -name "*.g.dart" -exec rm -rf {} \;
-        run: find . -name "*.mocks.dart" -exec rm -rf {} \;
+        run: flutter clean && find . -name "*.g.dart" -exec rm -rf {} \; && find . -name "*.mocks.dart" -exec rm -rf {} \;
       - name: Check format
         working-directory: ./src/fake_terminal
         run: flutter format --line-length=120 -n --set-exit-if-changed .
@@ -50,9 +48,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Clean
         working-directory: ./src/fake_terminal
-        run: flutter clean
-        run: find . -name "*.g.dart" -exec rm -rf {} \;
-        run: find . -name "*.mocks.dart" -exec rm -rf {} \;
+        run: flutter clean && find . -name "*.g.dart" -exec rm -rf {} \; && find . -name "*.mocks.dart" -exec rm -rf {} \;
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
