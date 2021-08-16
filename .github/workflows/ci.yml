@@ -23,7 +23,9 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter format --line-length=120 -n --set-exit-if-changed .
       - name: Print
-        run: echo "${github.push.ref}"
+        env:
+          my_env_var: ${{ github.push.ref }}
+        run: echo "${my_env_var}"
 
   lint:
     name: Lint
