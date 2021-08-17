@@ -35930,7 +35930,7 @@ P:function(a,b){var s=null,r=Math.min(b.a5(t.w).f.a.a,500)
 return M.lw(s,T.pE(C.bJ,H.a([new K.IP(s),T.XU(s,new K.IN(s),s,s,s,0,s,s)],t.J),C.bD),s,s,s,new V.aK(0,0,0,0),s,r)}}
 K.IP.prototype={
 P:function(a,b){var s=null,r=K.au(b),q=K.Ap(8),p=t.J
-return M.lw(s,T.afJ(H.a([new T.dx(C.ox,L.kK("Why this terminal?",s,s,s,K.au(b).a6.r,s,s),s),new T.dx(C.f6,L.kK("This terminal is a fun way to communicate information in a different, fun, familiar and relaxed way.\n\nThis is also a playground. Where we can test Flutter & Dart, testing the framework and language updates, new libraries, platforms, design patterns, testing strategies, CI/CD, and so on.",s,s,s,K.au(b).a6.x,s,s),s),T.i_(s,12,s),T.acx(H.a([U.at0(new T.dx(C.iC,L.kK("Open GitHub".toUpperCase(),s,s,s,K.au(b).aq.x,s,s),s),new K.a5a(b),s)],p),C.fE)],p),C.dr,C.un),s,new S.fB(r.ch,s,s,q,s,s,C.ai),s,new V.aK(0,13,8,0),new V.aK(0,18,0,0),s)}}
+return M.lw(s,T.afJ(H.a([new T.dx(C.ox,L.kK("Why this terminal?",s,s,s,K.au(b).a6.r,s,s),s),new T.dx(C.f6,L.kK("This terminal is a fun way to communicate information in a different, fun, familiar and relaxed way.\n\nThis is also a playground. Where we can test Flutter, testing the framework and language updates, new libraries, platforms, design patterns, testing strategies, CI/CD, and so on.",s,s,s,K.au(b).a6.x,s,s),s),T.i_(s,12,s),T.acx(H.a([U.at0(new T.dx(C.iC,L.kK("Open GitHub".toUpperCase(),s,s,s,K.au(b).aq.x,s,s),s),new K.a5a(b),s)],p),C.fE)],p),C.dr,C.un),s,new S.fB(r.ch,s,s,q,s,s,C.ai),s,new V.aK(0,13,8,0),new V.aK(0,18,0,0),s)}}
 K.a5a.prototype={
 $0:function(){var s=$.nr().ghN()
 return N.j9(this.a,!1).ex(0,s,t.Xe).db.d.km("https://github.com/nfdz/FakeTerminal")},
@@ -36032,7 +36032,7 @@ s=s.d
 s.sn7(X.pY(new P.aL(s.a.a.length,C.k)))},
 $S:1}
 S.GH.prototype={
-P:function(a,b){var s=this,r=null,q=K.au(b),p=L.agr(r,C.eD,C.af,r,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,!0,r,r,r,r,r,s.e,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,r,r,r)
+P:function(a,b){var s=this,r=null,q=K.au(b),p=L.agr(r,C.eD,C.af,r,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,!0,r,r,r,r,r,s.e,r,r,r,!0,!0,r,r,r,r,r,r,r,r,r,r,r,r,r)
 return new Z.wv(s.d,s.c,p,C.A8,C.eh,C.A1,q.a6.y,!1,C.zE,C.zF,!1,1,C.Dd,new S.a2f(s),r)}}
 S.a2f.prototype={
 $0:function(){return this.a.f.$0()},
