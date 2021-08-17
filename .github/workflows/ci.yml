@@ -71,6 +71,8 @@ jobs:
       - name: Run all tests
         working-directory: ./src/fake_terminal
         run: flutter test --reporter=expanded --coverage
+      - name: Check coverage
+        run: dart .ci/check-coverage.dart src/fake_terminal/coverage/lcov.info
 
   build:
     if: "(github.ref != 'refs/heads/master')"
@@ -117,5 +119,5 @@ jobs:
       - name: Publish
         env:
           githubEventName: ${{ github.event_name }}
-        run: git add docs/* && git commit -m "Release - ${githubEventName}" && git push origin HEAD:release/master
+        run: git add docs/* && git commit -m "[CD] Release (${githubEventName})" && git push origin HEAD:release/master
         
