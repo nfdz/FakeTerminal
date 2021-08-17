@@ -117,5 +117,5 @@ jobs:
       - name: Publish
         env:
           github-event-name: ${{ github.event_name }}
-        run: git commit -m "Release - ${github-event-name}" && git push
+        run: git add docs/* && git commit -m "Release - ${github-event-name}" && git push
         
