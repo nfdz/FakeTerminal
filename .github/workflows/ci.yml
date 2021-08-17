@@ -72,7 +72,7 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter test --reporter=expanded --coverage
       - name: Check coverage
-        run: dart .ci/coverage.dart src/fake_terminal/coverage/lcov.info
+        run: dart .ci/check-coverage.dart src/fake_terminal/coverage/lcov.info
 
   build:
     if: "(github.ref != 'refs/heads/master')"
