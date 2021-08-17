@@ -5,7 +5,7 @@
 
 import 'dart:io';
 
-const minCoverage = 90;
+const minCoverage = 80;
 
 void main(List<String> args) async {
   final lcovFilePath = args[0];
