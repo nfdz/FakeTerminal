@@ -101,9 +101,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup
         env:
-          github-actor: ${{ github.actor }}
-          github-repository: ${{ github.repository }}
-        run: git config --global user.name "$github-actor" && git config --global user.email "github-actor@$github-repository"
+          githubActor: ${{ github.actor }}
+          githubRepository: ${{ github.repository }}
+        run: git config --global user.name "$githubActor" && git config --global user.email "$githubActor@$githubRepository"
       - name: Checkout release
         run: git fetch origin && git checkout "origin/release/master" && git merge -X theirs "origin/master" --allow-unrelated-histories
       - name: Get dependencies
@@ -116,6 +116,6 @@ jobs:
         run: rm -rf docs/* && mv src/fake_terminal/build/web/* docs/
       - name: Publish
         env:
-          github-event-name: ${{ github.event_name }}
-        run: git add docs/* && git commit -m "Release - ${github-event-name}" && git push origin HEAD:release/master
+          githubEventName: ${{ github.event_name }}
+        run: git add docs/* && git commit -m "Release - ${githubEventName}" && git push origin HEAD:release/master
         
