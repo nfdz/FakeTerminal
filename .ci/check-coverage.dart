@@ -9,6 +9,10 @@ const minCoverage = 80;
 
 void main(List<String> args) async {
   final lcovFilePath = args[0];
+
+  var result = await Process.run('lcov', ['--summary', lcovFilePath]);
+  print(result.stdout);
+
   final coverage = await _computeCoverage(File(lcovFilePath));
   final coverageString = coverage.toStringAsFixed(2);
   print('Total test coverage: $coverageString%');
