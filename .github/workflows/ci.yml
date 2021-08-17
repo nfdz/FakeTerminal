@@ -99,13 +99,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup git
+      - name: Setup
         env:
           github-actor: ${{ github.actor }}
           github-repository: ${{ github.repository }}
         run: git config --global user.name "$github-actor" && git config --global user.email "github-actor@$github-repository"
       - name: Checkout release
-        run: git fetch && git checkout "release/master" && git pull --no-edit --allow-unrelated-histories origin master
+        run: git fetch origin && git checkout "origin/release/master" && git merge -X theirs "origin/master" --allow-unrelated-histories
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
@@ -117,5 +117,5 @@ jobs:
       - name: Publish
         env:
           github-event-name: ${{ github.event_name }}
-        run: git commit -m "Release - ${github-event-name}" && git push
+        run: git add docs/* && git commit -m "Release - ${github-event-name}" && git push origin HEAD:release/master
         
