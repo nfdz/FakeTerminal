@@ -105,7 +105,7 @@ jobs:
           github-repository: ${{ github.repository }}
         run: git config --global user.name "$github-actor" && git config --global user.email "github-actor@$github-repository"
       - name: Checkout release
-        run: git fetch && git checkout "release/master" && git merge --squash "origin/master" --allow-unrelated-histories
+        run: git fetch origin && git checkout "origin/release/master" && git merge -X theirs "origin/master" --allow-unrelated-histories
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get

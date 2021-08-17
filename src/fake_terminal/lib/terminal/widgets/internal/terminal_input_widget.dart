@@ -142,6 +142,7 @@ class TerminalInputTextField extends StatelessWidget {
       textInputAction: TextInputAction.done,
       style: Theme.of(context).textTheme.bodyText1,
       decoration: InputDecoration(
+        isDense: true,
         border: InputBorder.none,
         hintText: this.hintText,
         isCollapsed: true,
