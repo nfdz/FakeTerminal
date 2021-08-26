@@ -1,5 +1,13 @@
+<p align="left">
+  <a href="https://github.com/nfdz/FakeTerminal/actions/workflows/ci.yml">
+    <img alt="build and test status" src="https://github.com/nfdz/FakeTerminal/actions/workflows/ci.yml/badge.svg">
+  </a>
+</p>
+
 <p>
-  <img src="dev/terminal_icon.png?raw=true" alt="Fake Terminal" width="200" height="200"/>
+  <a href="https://faketerminal.nfdz.io">
+    <img src="dev/terminal_icon.png?raw=true" alt="Fake Terminal" width="120" height="120"/>
+  </a>
 </p>
 
 # Fake Terminal
