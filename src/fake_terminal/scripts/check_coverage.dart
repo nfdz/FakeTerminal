@@ -1,7 +1,7 @@
 // NOTE: The preferred way is to install lcov and use command `lcov --summary path/to/lcov.info`
 // Use this script only if you can't install lcov on your platform.
 
-// Usage: dart coverage.dart path/to/lcov.info
+// Usage: dart check_coverage.dart path/to/lcov.info
 
 import 'dart:io';
 

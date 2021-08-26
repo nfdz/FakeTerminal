@@ -18,10 +18,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Clean
         working-directory: ./src/fake_terminal
-        run: flutter clean && find . -name "*.g.dart" -exec rm -rf {} \; && find . -name "*.mocks.dart" -exec rm -rf {} \;
+        run: scripts/clean_all.sh
       - name: Check format
         working-directory: ./src/fake_terminal
-        run: flutter format --line-length=120 -n --set-exit-if-changed .
+        run: scripts/check_format.sh
 
   lint:
     name: Lint
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Clean
         working-directory: ./src/fake_terminal
-        run: flutter clean && find . -name "*.g.dart" -exec rm -rf {} \; && find . -name "*.mocks.dart" -exec rm -rf {} \;
+        run: scripts/clean_all.sh
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
@@ -72,7 +72,8 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter test --reporter=expanded --coverage
       - name: Check coverage
-        run: dart .ci/check-coverage.dart src/fake_terminal/coverage/lcov.info
+        working-directory: ./src/fake_terminal
+        run: dart scripts/check_coverage.dart coverage/lcov.info
 
   build:
     if: "(github.ref != 'refs/heads/master')"
