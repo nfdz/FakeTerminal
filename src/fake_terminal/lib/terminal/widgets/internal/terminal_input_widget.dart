@@ -70,8 +70,8 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
             padding: EdgeInsets.symmetric(vertical: spacing),
             child: FloatingActionButton(
               key: null,
-              backgroundColor: Theme.of(context).primaryColor,
-              foregroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.primary,
               onPressed: _onExecuteCommand,
               mini: true,
               tooltip: TerminalTexts.executeCommandTooltip,

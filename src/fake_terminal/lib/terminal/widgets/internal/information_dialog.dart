@@ -83,7 +83,7 @@ class _DialogContent extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
                     TerminalTexts.openGithubButton.toUpperCase(),
-                    style: Theme.of(context).accentTextTheme.subtitle2,
+                    style: Theme.of(context).accentTextTheme.bodyText2,
                   ),
                 ),
               ),

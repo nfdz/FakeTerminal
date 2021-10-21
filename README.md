@@ -1,9 +1,3 @@
-<p align="left">
-  <a href="https://github.com/nfdz/FakeTerminal/actions/workflows/ci.yml">
-    <img alt="build and test status" src="https://github.com/nfdz/FakeTerminal/actions/workflows/ci.yml/badge.svg">
-  </a>
-</p>
-
 <p>
   <a href="https://faketerminal.nfdz.io">
     <img src="dev/terminal_icon.png?raw=true" alt="Fake Terminal" width="120" height="120"/>
@@ -11,6 +5,12 @@
 </p>
 
 # Fake Terminal
+
+<p align="left">
+  <a href="https://github.com/nfdz/FakeTerminal/actions/workflows/ci.yml">
+    <img alt="build and test status" src="https://github.com/nfdz/FakeTerminal/actions/workflows/ci.yml/badge.svg">
+  </a>
+</p>
 
 Interactive terminal with fake commands and data made with Flutter.
 

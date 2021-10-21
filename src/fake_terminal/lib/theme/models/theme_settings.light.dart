@@ -9,8 +9,11 @@ ThemeData _createLightTheme(double fontSizeBody) {
   final textColor = Colors.black;
 
   return baseTheme.copyWith(
-    accentColor: accentColor,
-    primaryColor: primaryColor,
+    colorScheme: baseTheme.colorScheme.copyWith(
+      background: primaryColor,
+      primary: primaryColor,
+      secondary: accentColor,
+    ),
     scaffoldBackgroundColor: primaryColor,
     backgroundColor: primaryColor,
     cardColor: darkPrimaryColor,
