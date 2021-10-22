@@ -66,3 +66,10 @@ The application tries to simulate a classic terminal with a Bash shell on a Linu
   ]
 }
 ```
+
+## Dependencies
+
+- <a href="https://github.com/rrousselGit/river_pod" target="_blank">Riverpod</a>: A simple way to access state from anywhere in your application while robust and testable.
+- <a href="https://github.com/flutter/plugins/tree/master/packages/shared_preferences/shared_preferences" target="_blank">Shared preferences</a>: Flutter plugin for reading and writing simple key-value pairs.
+- <a href="https://github.com/TechnoUrmish/Sizer" target="_blank">Sizer</a>: A Flutter plugin for easily make apps responsive.
+- <a href="https://github.com/dart-lang/mockito" target="_blank">Mockito</a>: A mock framework inspired by Mockito with APIs for Fakes, Mocks, behavior verification, and stubbing.
