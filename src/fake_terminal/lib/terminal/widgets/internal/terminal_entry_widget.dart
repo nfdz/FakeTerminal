@@ -15,7 +15,9 @@ class TerminalEntryWidget extends StatelessWidget {
       return RichText(
         key: prefixKey,
         text: TextSpan(
-          style: Theme.of(context).accentTextTheme.bodyText2,
+          style: Theme.of(context).textTheme.headline2?.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
           text: entry.prefix,
           children: <TextSpan>[
             TextSpan(

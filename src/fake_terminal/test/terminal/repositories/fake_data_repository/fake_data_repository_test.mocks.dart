@@ -2,10 +2,10 @@
 // in fake_terminal/test/terminal/repositories/fake_data_repository/fake_data_repository_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
-import 'dart:typed_data' as _i2;
+import 'dart:async' as _i3;
 
-import 'package:flutter/src/services/asset_bundle.dart' as _i3;
+import 'package:fake_terminal/terminal/repositories/fake_data_repository/asset_text_loader.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: comment_references
@@ -15,36 +15,16 @@ import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
 
-class _FakeByteData extends _i1.Fake implements _i2.ByteData {}
-
-/// A class which mocks [AssetBundle].
+/// A class which mocks [AssetTextLoader].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAssetBundle extends _i1.Mock implements _i3.AssetBundle {
-  MockAssetBundle() {
+class MockAssetTextLoader extends _i1.Mock implements _i2.AssetTextLoader {
+  MockAssetTextLoader() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.ByteData> load(String? key) =>
-      (super.noSuchMethod(Invocation.method(#load, [key]),
-              returnValue: Future<_i2.ByteData>.value(_FakeByteData()))
-          as _i4.Future<_i2.ByteData>);
-  @override
-  _i4.Future<String> loadString(String? key, {bool? cache = true}) => (super
-      .noSuchMethod(Invocation.method(#loadString, [key], {#cache: cache}),
-          returnValue: Future<String>.value('')) as _i4.Future<String>);
-  @override
-  _i4.Future<T> loadStructuredData<T>(
-          String? key, _i4.Future<T> Function(String)? parser) =>
-      (super.noSuchMethod(Invocation.method(#loadStructuredData, [key, parser]),
-          returnValue: Future<T>.value(null)) as _i4.Future<T>);
-  @override
-  void evict(String? key) =>
-      super.noSuchMethod(Invocation.method(#evict, [key]),
-          returnValueForMissingStub: null);
-  @override
-  String toString() =>
-      (super.noSuchMethod(Invocation.method(#toString, []), returnValue: '')
-          as String);
+  _i3.Future<String> loadString(String? key) =>
+      (super.noSuchMethod(Invocation.method(#loadString, [key]),
+          returnValue: Future<String>.value('')) as _i3.Future<String>);
 }

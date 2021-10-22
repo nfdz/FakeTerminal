@@ -9,8 +9,12 @@ ThemeData _createDarkTheme(double fontSizeBody) {
   final textColor = Colors.white;
 
   return baseTheme.copyWith(
-    accentColor: accentColor,
-    primaryColor: primaryColor,
+    colorScheme: baseTheme.colorScheme.copyWith(
+      background: primaryColor,
+      primary: primaryColor,
+      secondary: accentColor,
+      onSecondary: accentTextColor,
+    ),
     scaffoldBackgroundColor: primaryColor,
     backgroundColor: primaryColor,
     cardColor: lightPrimaryColor,
@@ -32,14 +36,10 @@ ThemeData _createDarkTheme(double fontSizeBody) {
               ?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold, fontFamily: 'FiraCode'),
           subtitle1: baseTheme.textTheme.subtitle1?.copyWith(fontSize: 17, fontWeight: FontWeight.bold),
           subtitle2: baseTheme.textTheme.subtitle1?.copyWith(fontSize: 17, fontWeight: FontWeight.normal),
-        )
-        .apply(bodyColor: textColor),
-    accentTextTheme: baseTheme.textTheme
-        .copyWith(
-          bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
-          bodyText2: baseTheme.textTheme.bodyText2
+          headline1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
+          headline2: baseTheme.textTheme.bodyText2
               ?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold, fontFamily: 'FiraCode'),
         )
-        .apply(bodyColor: accentTextColor),
+        .apply(bodyColor: textColor),
   );
 }
