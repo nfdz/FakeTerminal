@@ -46,7 +46,9 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
           SizedBox(width: spacing),
           Text(
             TerminalTexts.terminalInputPrefix,
-            style: Theme.of(context).accentTextTheme.bodyText2,
+            style: Theme.of(context).textTheme.headline2?.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
           ),
           SizedBox(width: spacing),
           Expanded(

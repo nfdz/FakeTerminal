@@ -74,16 +74,31 @@ void main() {
 
   testWidgets('given line with prefix of type result then the prefix use the expected style',
       (WidgetTester tester) async {
-    await _testPrefixStyle(tester, LineType.result, (context) => Theme.of(context).accentTextTheme.bodyText2!);
+    await _testPrefixStyle(
+        tester,
+        LineType.result,
+        (context) => Theme.of(context).textTheme.headline2!.copyWith(
+              color: Theme.of(context).colorScheme.onSecondary,
+            ));
   });
 
   testWidgets('given line with prefix of type command then the prefix use the expected style',
       (WidgetTester tester) async {
-    await _testPrefixStyle(tester, LineType.command, (context) => Theme.of(context).accentTextTheme.bodyText2!);
+    await _testPrefixStyle(
+        tester,
+        LineType.command,
+        (context) => Theme.of(context).textTheme.headline2!.copyWith(
+              color: Theme.of(context).colorScheme.onSecondary,
+            ));
   });
 
   testWidgets('given line with prefix of type timestamp then the prefix use the expected style',
       (WidgetTester tester) async {
-    await _testPrefixStyle(tester, LineType.timestamp, (context) => Theme.of(context).accentTextTheme.bodyText2!);
+    await _testPrefixStyle(
+        tester,
+        LineType.timestamp,
+        (context) => Theme.of(context).textTheme.headline2!.copyWith(
+              color: Theme.of(context).colorScheme.onSecondary,
+            ));
   });
 }
