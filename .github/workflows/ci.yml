@@ -115,8 +115,6 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter build web
       - name: Prepare
-        run: rm -rf docs && mv src/fake_terminal/build/web/* docs/
-      - name: Prepare
         run: rm -rf docs/* && mv src/fake_terminal/build/web/* docs/
       - name: Publish
         run: git add docs && git commit -m "[CD] Release" && git push origin HEAD:release/master
