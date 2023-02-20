@@ -20,8 +20,7 @@ void main() {
   }) {
     return ProviderScope(
       overrides: [
-        terminalProvider
-            .overrideWithProvider(StateNotifierProvider((ref) => terminalNotifier ?? MockTerminalNotifier())),
+        terminalProvider.overrideWith((ref) => terminalNotifier ?? MockTerminalNotifier()),
       ],
       child: Sizer(
         builder: (context, orientation, screenType) {

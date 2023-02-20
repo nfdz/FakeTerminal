@@ -7,8 +7,8 @@ class TerminalOutputWidget extends ConsumerWidget {
   const TerminalOutputWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final output = watch(terminalProvider).output.reversed.toList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final output = ref.watch(terminalProvider).outputReversed;
     return Scrollbar(
       child: ListView.builder(
         reverse: true,

@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:fake_terminal/terminal/widgets/terminal_widget.dart';
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:fake_terminal/theme/providers/theme_provider.dart';
@@ -16,6 +17,7 @@ void main() {
 }
 
 void _setupLogger() {
+  EquatableConfig.stringify = true;
   if (kReleaseMode) {
     Logger.root.level = Level.OFF;
   } else {
@@ -26,10 +28,12 @@ void _setupLogger() {
   }
 }
 
-class EntryPointWidget extends StatelessWidget {
+class EntryPointWidget extends ConsumerWidget {
+  const EntryPointWidget({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    final themeNotifier = context.read(themeProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeNotifier = ref.read(themeProvider.notifier);
     return FutureBuilder(
       future: themeNotifier.initializationComplete,
       builder: (context, snapshot) {
@@ -45,8 +49,8 @@ class FakeTerminalApp extends ConsumerWidget {
   const FakeTerminalApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final theme = watch(themeProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: TerminalTexts.appName,

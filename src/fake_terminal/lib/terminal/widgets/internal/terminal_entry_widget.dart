@@ -10,12 +10,13 @@ class TerminalEntryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isCommandType = entry.type == LineType.command;
-    final textLineStyle = isCommandType ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.bodyText1;
+    final textLineStyle =
+        isCommandType ? Theme.of(context).textTheme.bodyMedium : Theme.of(context).textTheme.bodyLarge;
     if (entry.prefix?.isNotEmpty == true) {
       return RichText(
         key: prefixKey,
         text: TextSpan(
-          style: Theme.of(context).textTheme.headline2?.copyWith(
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
           text: entry.prefix,

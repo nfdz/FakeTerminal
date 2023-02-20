@@ -30,8 +30,8 @@ void main() {
     when(terminalNotifier.canExitTerminal()).thenReturn(canExitTerminal);
     return ProviderScope(
       overrides: [
-        themeProvider.overrideWithProvider(StateNotifierProvider((ref) => themeNotifier)),
-        terminalProvider.overrideWithProvider(StateNotifierProvider((ref) => terminalNotifier)),
+        themeProvider.overrideWith((ref) => themeNotifier),
+        terminalProvider.overrideWith((ref) => terminalNotifier),
       ],
       child: EntryPointWidget(),
     );

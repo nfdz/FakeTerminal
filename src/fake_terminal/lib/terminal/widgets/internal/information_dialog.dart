@@ -45,9 +45,9 @@ const double _kDialogCornerRadius = 8.0;
 const double _kDialogContentVerticalPadding = 12.0;
 const double _kDialogContentHorizontalPadding = 24.0;
 
-class _DialogContent extends StatelessWidget {
+class _DialogContent extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: EdgeInsets.only(
         top: 18.0,
@@ -67,23 +67,23 @@ class _DialogContent extends StatelessWidget {
               vertical: _kDialogContentVerticalPadding,
               horizontal: _kDialogContentHorizontalPadding,
             ),
-            child: Text(TerminalTexts.informationDialogTitle, style: Theme.of(context).textTheme.subtitle1),
+            child: Text(TerminalTexts.informationDialogTitle, style: Theme.of(context).textTheme.titleMedium),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: _kDialogContentHorizontalPadding),
-            child: Text(TerminalTexts.informationDialogContent, style: Theme.of(context).textTheme.subtitle2),
+            child: Text(TerminalTexts.informationDialogContent, style: Theme.of(context).textTheme.titleSmall),
           ),
           SizedBox(height: _kDialogContentVerticalPadding),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () => context.read(terminalProvider.notifier).navigateToTerminalRepository(),
+                onPressed: () => ref.read(terminalProvider.notifier).navigateToTerminalRepository(),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
                     TerminalTexts.openGithubButton.toUpperCase(),
-                    style: Theme.of(context).textTheme.headline2?.copyWith(
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           color: Theme.of(context).colorScheme.onSecondary,
                         ),
                   ),

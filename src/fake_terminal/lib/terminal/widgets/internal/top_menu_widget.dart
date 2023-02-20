@@ -9,15 +9,15 @@ import 'package:sizer/sizer.dart';
 
 class TopMenuWidget extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final theme = watch(themeProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         FloatingActionButton(
           key: null,
           mini: true,
-          onPressed: () => context.read(themeProvider.notifier).toggleTheme(),
+          onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
           tooltip: TerminalTexts.toggleThemeTooltip,
           child: Icon(
             theme == ThemeSettings.dark ? TerminalIcons.darkTheme : TerminalIcons.lightTheme,

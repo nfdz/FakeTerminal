@@ -16,7 +16,6 @@ ThemeData _createLightTheme(double fontSizeBody) {
       onSecondary: accentTextColor,
     ),
     scaffoldBackgroundColor: primaryColor,
-    backgroundColor: primaryColor,
     cardColor: darkPrimaryColor,
     buttonTheme: baseTheme.buttonTheme.copyWith(highlightColor: accentColor),
     highlightColor: accentColor,
@@ -31,13 +30,13 @@ ThemeData _createLightTheme(double fontSizeBody) {
     ),
     textTheme: baseTheme.textTheme
         .copyWith(
-          bodyText1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
-          bodyText2: baseTheme.textTheme.bodyText2
+          bodyLarge: baseTheme.textTheme.bodyLarge?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
+          bodyMedium: baseTheme.textTheme.bodyMedium
               ?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold, fontFamily: 'FiraCode'),
-          subtitle1: baseTheme.textTheme.subtitle1?.copyWith(fontSize: 17, fontWeight: FontWeight.bold),
-          subtitle2: baseTheme.textTheme.subtitle1?.copyWith(fontSize: 17, fontWeight: FontWeight.normal),
-          headline1: baseTheme.textTheme.bodyText1?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
-          headline2: baseTheme.textTheme.bodyText2
+          titleMedium: baseTheme.textTheme.titleMedium?.copyWith(fontSize: 17, fontWeight: FontWeight.bold),
+          titleSmall: baseTheme.textTheme.titleMedium?.copyWith(fontSize: 17, fontWeight: FontWeight.normal),
+          displayLarge: baseTheme.textTheme.bodyLarge?.copyWith(fontSize: fontSizeBody, fontFamily: 'FiraCode'),
+          displayMedium: baseTheme.textTheme.bodyMedium
               ?.copyWith(fontSize: fontSizeBody, fontWeight: FontWeight.bold, fontFamily: 'FiraCode'),
         )
         .apply(bodyColor: textColor),

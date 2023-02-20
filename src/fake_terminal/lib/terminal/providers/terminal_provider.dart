@@ -22,11 +22,17 @@ abstract class TerminalNotifier extends StateNotifier<TerminalState> {
   TerminalNotifier(TerminalState state) : super(state);
 
   bool canExitTerminal();
+
   void exitTerminal();
+
   void navigateToTerminalRepository();
+
   void executeCommand(String commandLine);
+
   String? autocomplete(String commandLine);
+
   String? navigateHistoryBack(String commandLine);
+
   String? navigateHistoryForward(String commandLine);
 }
 
@@ -76,6 +82,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
     }
     state = newState;
   }
+
 //#endregion
 
 //#region Public event handlers
@@ -90,10 +97,9 @@ class TerminalNotifierImpl extends TerminalNotifier {
 
   @override
   void executeCommand(String commandLine) async {
-    final newState = state;
-    await _commandsRepository.executeCommandLine(commandLine, newState.output, newState.historyInput);
-    state = newState;
-    _historyRepository.saveTerminalHistory(newState.snapshot());
+    final result = await _commandsRepository.executeCommandLine(commandLine, state.output, state.historyInput);
+    state = TerminalState(output: result.output, historyInput: result.history);
+    _historyRepository.saveTerminalHistory(state.snapshot());
   }
 
   @override
@@ -132,6 +138,7 @@ class TerminalNotifierImpl extends TerminalNotifier {
       return null;
     }
   }
+
 //#endregion
 
   Map<int, String> _getHistoryMap() {
