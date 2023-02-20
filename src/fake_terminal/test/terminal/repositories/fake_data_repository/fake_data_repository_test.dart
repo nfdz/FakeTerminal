@@ -15,7 +15,7 @@ void main() {
   group('provider', () {
     test('creation', () {
       final container = ProviderContainer();
-      final providerInstance = container.readProviderElement(fakeDataRepositoryProvider).state.createdValue;
+      final providerInstance = container.read(fakeDataRepositoryProvider);
       expect(providerInstance, isA<FakeDataRepositoryImpl>());
     });
   });

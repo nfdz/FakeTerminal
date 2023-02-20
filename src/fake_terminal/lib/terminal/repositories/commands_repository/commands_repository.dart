@@ -37,10 +37,24 @@ typedef ExecuteExitCommandFunction = void Function();
 
 abstract class CommandsRepository {
   bool hasExitCommand();
+
   void executeExitCommand();
+
   void executeOpenTerminalRepositoryCommand();
+
   String? autocomplete(String commandLine);
-  Future<void> executeCommandLine(String commandLine, List<TerminalLine> output, List<String> history);
+
+  Future<ExecuteCommandResult> executeCommandLine(String commandLine, List<TerminalLine> output, List<String> history);
+}
+
+class ExecuteCommandResult {
+  final List<TerminalLine> output;
+  final List<String> history;
+
+  ExecuteCommandResult({
+    required this.output,
+    required this.history,
+  });
 }
 
 class CommandsRepositoryFakeData extends CommandsRepository {
@@ -104,31 +118,38 @@ class CommandsRepositoryFakeData extends CommandsRepository {
   }
 
   @override
-  Future<void> executeCommandLine(String commandLine, List<TerminalLine> output, List<String> history) async {
+  Future<ExecuteCommandResult> executeCommandLine(
+    String commandLine,
+    List<TerminalLine> output,
+    List<String> history,
+  ) async {
     _kLogger.fine("Execute command invoked with commandLine=$commandLine");
+    final outputResult = List<TerminalLine>.from(output);
+    final outputHistory = List<String>.from(history);
 
     // history pointer '!N' replacement
     if (commandLine.startsWith('!')) {
-      output.add(_commandOutputLine(commandLine));
+      outputResult.add(_commandOutputLine(commandLine));
       final historyIndexString = commandLine.replaceFirst('!', '').split(" ").first;
       final historyIndex = int.tryParse(historyIndexString);
       if (historyIndex != null && historyIndex >= 0 && historyIndex < history.length) {
         commandLine = history.elementAt(historyIndex);
         _kLogger.fine("Replaced command from history commandLine=$commandLine");
       } else {
-        output.add(_invalidHistoryIndexOutputLine(commandLine));
-        return;
+        outputResult.add(_invalidHistoryIndexOutputLine(commandLine));
+        return ExecuteCommandResult(output: List.unmodifiable(outputResult), history: List.unmodifiable(outputHistory));
       }
     }
 
     final commandWithArguments = _getCommandWithArguments(commandLine);
     if (commandWithArguments.isEmpty) {
-      output.add(_emptyOutputLine());
+      outputResult.add(_emptyOutputLine());
     } else {
-      history.add(commandLine);
-      output.add(_commandOutputLine(commandLine));
-      await _executeCommand(commandWithArguments, output, history);
+      outputHistory.add(commandLine);
+      outputResult.add(_commandOutputLine(commandLine));
+      await _executeCommand(commandWithArguments, outputResult, outputHistory);
     }
+    return ExecuteCommandResult(output: List.unmodifiable(outputResult), history: List.unmodifiable(outputHistory));
   }
 
   Future<void> _executeCommand(
@@ -166,20 +187,24 @@ class CommandsRepositoryFakeData extends CommandsRepository {
         type: LineType.result,
         prefix: TerminalTexts.terminalInputPrefix,
       );
+
   TerminalLine _commandOutputLine(String commandLine) => TerminalLine(
         line: commandLine,
         type: LineType.command,
         prefix: TerminalTexts.terminalInputPrefix,
       );
+
   TerminalLine _commandNotFoundOutputLine(String commandName) => TerminalLine(
         line: _commandNotFound(commandName),
         type: LineType.result,
       );
+
   String _commandNotFound(String commandName) => "bash: $commandName: command not found";
 
   TerminalLine _invalidHistoryIndexOutputLine(String index) => TerminalLine(
         line: _invalidHistoryIndex(index),
         type: LineType.result,
       );
+
   String _invalidHistoryIndex(String index) => "bash: event not found: $index";
 }

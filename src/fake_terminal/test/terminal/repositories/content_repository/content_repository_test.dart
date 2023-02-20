@@ -6,7 +6,7 @@ void main() {
   group('provider', () {
     test('creation', () {
       final container = ProviderContainer();
-      final providerInstance = container.readProviderElement(contentRepositoryProvider).state.createdValue;
+      final providerInstance = container.read(contentRepositoryProvider);
       expect(providerInstance, isA<ContentRepositoryHttp>());
     });
   });

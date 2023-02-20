@@ -5,11 +5,10 @@ import 'package:fake_terminal/terminal/widgets/internal/terminal_input_keyboard_
 import 'package:fake_terminal/texts/terminal_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
 
-class TerminalInputWidget extends StatefulWidget {
+class TerminalInputWidget extends ConsumerStatefulWidget {
   final FocusNode? inputNode;
   final FocusNode? keyboardInputNode;
 
@@ -22,7 +21,7 @@ class TerminalInputWidget extends StatefulWidget {
   _TerminalInputWidgetState createState() => _TerminalInputWidgetState();
 }
 
-class _TerminalInputWidgetState extends State<TerminalInputWidget> {
+class _TerminalInputWidgetState extends ConsumerState<TerminalInputWidget> {
   TextEditingController _cmdTextController = TextEditingController();
   late final FocusNode _inputNode;
   late final FocusNode _keyInputNode;
@@ -46,7 +45,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
           SizedBox(width: spacing),
           Text(
             TerminalTexts.terminalInputPrefix,
-            style: Theme.of(context).textTheme.headline2?.copyWith(
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
           ),
@@ -55,10 +54,9 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
             child: TerminalInputKeyboardListener(
               focusNode: _keyInputNode,
               onExecuteCommand: _onExecuteCommand,
-              onNavigateHistoryBack: () => _processInput(context.read(terminalProvider.notifier).navigateHistoryBack),
-              onNavigateHistoryForward: () =>
-                  _processInput(context.read(terminalProvider.notifier).navigateHistoryForward),
-              onAutocomplete: () => _processInput(context.read(terminalProvider.notifier).autocomplete),
+              onNavigateHistoryBack: () => _processInput(ref.read(terminalProvider.notifier).navigateHistoryBack),
+              onNavigateHistoryForward: () => _processInput(ref.read(terminalProvider.notifier).navigateHistoryForward),
+              onAutocomplete: () => _processInput(ref.read(terminalProvider.notifier).autocomplete),
               child: TerminalInputTextField(
                 focusNode: _inputNode,
                 controller: _cmdTextController,
@@ -79,7 +77,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
               tooltip: TerminalTexts.executeCommandTooltip,
               child: Icon(
                 TerminalIcons.executeCommand,
-                color: Theme.of(context).textTheme.bodyText1?.color,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
                 size: 10.sp.withMaxValue(25),
               ),
             ),
@@ -95,7 +93,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
       FocusScope.of(context).unfocus();
       String commandLine = _cmdTextController.text;
       _cmdTextController.clear();
-      context.read(terminalProvider.notifier).executeCommand(commandLine);
+      ref.read(terminalProvider.notifier).executeCommand(commandLine);
       _inputNode.requestFocus();
     });
   }
@@ -110,7 +108,7 @@ class _TerminalInputWidgetState extends State<TerminalInputWidget> {
       });
     }
     _inputNode.requestFocus();
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       _inputNode.requestFocus();
       _cmdTextController.selection = TextSelection.fromPosition(TextPosition(offset: _cmdTextController.text.length));
     });
@@ -142,7 +140,7 @@ class TerminalInputTextField extends StatelessWidget {
       textCapitalization: TextCapitalization.none,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      style: Theme.of(context).textTheme.bodyText1,
+      style: Theme.of(context).textTheme.bodyLarge,
       decoration: InputDecoration(
         isDense: true,
         border: InputBorder.none,

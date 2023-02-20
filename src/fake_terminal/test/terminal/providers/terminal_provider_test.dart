@@ -20,25 +20,25 @@ void main() {
       when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
       final container = ProviderContainer(
         overrides: [
-          historyRepositoryProvider.overrideWithProvider(Provider((ref) => historyRepository)),
-          commandsRepositoryProvider.overrideWithProvider(Provider((ref) => commandRepository)),
+          historyRepositoryProvider.overrideWith((ref) => historyRepository),
+          commandsRepositoryProvider.overrideWith((ref) => commandRepository),
         ],
       );
-      final providerInstance = container.readProviderElement(terminalProvider).state.createdValue;
-      expect(providerInstance, isA<TerminalNotifierImpl>());
+
+      expect(container.read(terminalProvider), TerminalState(output: [], historyInput: []));
     });
 
     test('creation fails given the history repository is not present', () {
       final commandRepository = MockCommandsRepository();
       final container = ProviderContainer(
         overrides: [
-          historyRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error"))),
-          commandsRepositoryProvider.overrideWithProvider(Provider((ref) => commandRepository)),
+          historyRepositoryProvider.overrideWith((ref) => throw Exception("This is an error")),
+          commandsRepositoryProvider.overrideWith((ref) => commandRepository),
         ],
       );
       var creationFailed = false;
       try {
-        container.readProviderElement(terminalProvider).state.createdValue;
+        container.read(terminalProvider);
         creationFailed = false;
       } catch (error) {
         creationFailed = true;
@@ -50,13 +50,13 @@ void main() {
       final historyRepository = MockHistoryRepository();
       final container = ProviderContainer(
         overrides: [
-          historyRepositoryProvider.overrideWithProvider(Provider((ref) => historyRepository)),
-          commandsRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error"))),
+          historyRepositoryProvider.overrideWith((ref) => historyRepository),
+          commandsRepositoryProvider.overrideWith((ref) => throw Exception("This is an error")),
         ],
       );
       var creationFailed = false;
       try {
-        container.readProviderElement(terminalProvider).state.createdValue;
+        container.read(terminalProvider);
         creationFailed = false;
       } catch (error) {
         creationFailed = true;
@@ -147,11 +147,12 @@ void main() {
     });
     test('executeCommand invokes executeCommandLine', () async {
       final commandLine = "myCommand myArg";
+      final result = ExecuteCommandResult(output: [], history: []);
 
       final historyRepository = MockHistoryRepository();
       when(historyRepository.fetchTerminalHistory()).thenAnswer((_) async => null);
       final commandRepository = MockCommandsRepository();
-      when(commandRepository.executeCommandLine(commandLine, any, any)).thenAnswer((_) async => null);
+      when(commandRepository.executeCommandLine(commandLine, any, any)).thenAnswer((_) async => result);
 
       final terminalProvider = TerminalNotifierImpl(historyRepository, commandRepository);
       await terminalProvider.initializationComplete;

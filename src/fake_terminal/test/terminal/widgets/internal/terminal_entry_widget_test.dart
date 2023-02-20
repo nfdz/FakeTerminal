@@ -35,13 +35,13 @@ void main() {
   }
 
   testWidgets('given line without prefix of type result then use the expected style', (WidgetTester tester) async {
-    await _testLineStyle(tester, LineType.result, (context) => Theme.of(context).textTheme.bodyText1!);
+    await _testLineStyle(tester, LineType.result, (context) => Theme.of(context).textTheme.bodyLarge!);
   });
   testWidgets('given line without prefix of type command then use the expected style', (WidgetTester tester) async {
-    await _testLineStyle(tester, LineType.command, (context) => Theme.of(context).textTheme.bodyText2!);
+    await _testLineStyle(tester, LineType.command, (context) => Theme.of(context).textTheme.bodyMedium!);
   });
   testWidgets('given line without prefix of type timestamp then use the expected style', (WidgetTester tester) async {
-    await _testLineStyle(tester, LineType.timestamp, (context) => Theme.of(context).textTheme.bodyText1!);
+    await _testLineStyle(tester, LineType.timestamp, (context) => Theme.of(context).textTheme.bodyLarge!);
   });
 
   Future<void> _testPrefixStyle(
@@ -77,7 +77,7 @@ void main() {
     await _testPrefixStyle(
         tester,
         LineType.result,
-        (context) => Theme.of(context).textTheme.headline2!.copyWith(
+        (context) => Theme.of(context).textTheme.displayMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSecondary,
             ));
   });
@@ -87,7 +87,7 @@ void main() {
     await _testPrefixStyle(
         tester,
         LineType.command,
-        (context) => Theme.of(context).textTheme.headline2!.copyWith(
+        (context) => Theme.of(context).textTheme.displayMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSecondary,
             ));
   });
@@ -97,7 +97,7 @@ void main() {
     await _testPrefixStyle(
         tester,
         LineType.timestamp,
-        (context) => Theme.of(context).textTheme.headline2!.copyWith(
+        (context) => Theme.of(context).textTheme.displayMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSecondary,
             ));
   });

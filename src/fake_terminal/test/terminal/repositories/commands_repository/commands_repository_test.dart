@@ -25,11 +25,11 @@ void main() {
       when(fakeDataRepository.load()).thenAnswer((_) async => FakeData(fakeCommands: [], fakeFiles: []));
       final container = ProviderContainer(
         overrides: [
-          fakeDataRepositoryProvider.overrideWithProvider(Provider((ref) => fakeDataRepository)),
-          contentRepositoryProvider.overrideWithProvider(Provider((ref) => contentRepository)),
+          fakeDataRepositoryProvider.overrideWith((ref) => fakeDataRepository),
+          contentRepositoryProvider.overrideWith((ref) => contentRepository),
         ],
       );
-      final providerInstance = container.readProviderElement(commandsRepositoryProvider).state.createdValue;
+      final providerInstance = container.read(commandsRepositoryProvider);
       expect(providerInstance, isA<CommandsRepositoryFakeData>());
     });
 
@@ -37,14 +37,14 @@ void main() {
       final contentRepository = MockContentRepository();
       final container = ProviderContainer(
         overrides: [
-          fakeDataRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error"))),
-          contentRepositoryProvider.overrideWithProvider(Provider((ref) => contentRepository)),
+          fakeDataRepositoryProvider.overrideWith((ref) => throw Exception("This is an error")),
+          contentRepositoryProvider.overrideWith((ref) => contentRepository),
         ],
       );
 
       var creationFailed = false;
       try {
-        container.readProviderElement(commandsRepositoryProvider).state.createdValue;
+        container.read(commandsRepositoryProvider);
         creationFailed = false;
       } catch (error) {
         creationFailed = true;
@@ -56,14 +56,14 @@ void main() {
       final fakeDataRepository = MockFakeDataRepository();
       final container = ProviderContainer(
         overrides: [
-          fakeDataRepositoryProvider.overrideWithProvider(Provider((ref) => fakeDataRepository)),
-          contentRepositoryProvider.overrideWithProvider(Provider((ref) => throw Exception("This is an error"))),
+          fakeDataRepositoryProvider.overrideWith((ref) => fakeDataRepository),
+          contentRepositoryProvider.overrideWith((ref) => throw Exception("This is an error")),
         ],
       );
 
       var creationFailed = false;
       try {
-        container.readProviderElement(commandsRepositoryProvider).state.createdValue;
+        container.read(commandsRepositoryProvider);
         creationFailed = false;
       } catch (error) {
         creationFailed = true;
@@ -197,13 +197,13 @@ void main() {
         final List<String> history = [];
 
         final historyPointer = "!1";
-        await commandsRepository.executeCommandLine(historyPointer, output, history);
+        final result = await commandsRepository.executeCommandLine(historyPointer, output, history);
 
-        expect(output.length, 2);
-        expect(output[0].type, LineType.command);
-        expect(output[0].line, historyPointer);
-        expect(output[1].type, LineType.result);
-        expect(history, []);
+        expect(result.output.length, 2);
+        expect(result.output[0].type, LineType.command);
+        expect(result.output[0].line, historyPointer);
+        expect(result.output[1].type, LineType.result);
+        expect(result.history, []);
       });
 
       test(
@@ -221,13 +221,13 @@ void main() {
         final List<String> history = [commandHistory];
 
         final historyPointer = "!4";
-        await commandsRepository.executeCommandLine(historyPointer, output, history);
+        final result = await commandsRepository.executeCommandLine(historyPointer, output, history);
 
-        expect(output.length, 2);
-        expect(output[0].type, LineType.command);
-        expect(output[0].line, historyPointer);
-        expect(output[1].type, LineType.result);
-        expect(history, [commandHistory]);
+        expect(result.output.length, 2);
+        expect(result.output[0].type, LineType.command);
+        expect(result.output[0].line, historyPointer);
+        expect(result.output[1].type, LineType.result);
+        expect(result.history, [commandHistory]);
       });
 
       test(
@@ -250,15 +250,15 @@ void main() {
         final List<String> history = [commandName];
 
         final historyPointer = "!0";
-        await commandsRepository.executeCommandLine(historyPointer, output, history);
+        final result = await commandsRepository.executeCommandLine(historyPointer, output, history);
 
-        expect(output.length, 3);
-        expect(output[0].type, LineType.command);
-        expect(output[0].line, historyPointer);
-        expect(output[1].type, LineType.command);
-        expect(output[1].line, commandName);
-        expect(output[2].type, LineType.result);
-        expect(output[2].line, commandOutput);
+        expect(result.output.length, 3);
+        expect(result.output[0].type, LineType.command);
+        expect(result.output[0].line, historyPointer);
+        expect(result.output[1].type, LineType.command);
+        expect(result.output[1].line, commandName);
+        expect(result.output[2].type, LineType.result);
+        expect(result.output[2].line, commandOutput);
 
         final expectedHistory = [commandName, commandName];
         verify(command.execute(arguments: anyNamed("arguments"), history: expectedHistory)).called(1);
@@ -275,11 +275,11 @@ void main() {
 
       final List<TerminalLine> output = [];
 
-      await commandsRepository.executeCommandLine("", output, []);
+      final result = await commandsRepository.executeCommandLine("", output, []);
 
-      expect(output.length, 1);
-      expect(output[0].type, LineType.result);
-      expect(output[0].line, "");
+      expect(result.output.length, 1);
+      expect(result.output[0].type, LineType.result);
+      expect(result.output[0].line, "");
     });
 
     test('given invalid command then do not execute any command and save the expected lines', () async {
@@ -293,12 +293,12 @@ void main() {
       final List<TerminalLine> output = [];
 
       final invalidCommand = "MyCommand";
-      await commandsRepository.executeCommandLine(invalidCommand, output, []);
+      final result = await commandsRepository.executeCommandLine(invalidCommand, output, []);
 
-      expect(output.length, 2);
-      expect(output[0].type, LineType.command);
-      expect(output[0].line, invalidCommand);
-      expect(output[1].type, LineType.result);
+      expect(result.output.length, 2);
+      expect(result.output[0].type, LineType.command);
+      expect(result.output[0].line, invalidCommand);
+      expect(result.output[1].type, LineType.result);
     });
 
     test(
@@ -319,13 +319,13 @@ void main() {
 
       final List<TerminalLine> output = [];
 
-      await commandsRepository.executeCommandLine(commandName, output, []);
+      final result = await commandsRepository.executeCommandLine(commandName, output, []);
 
-      expect(output.length, 2);
-      expect(output[0].type, LineType.command);
-      expect(output[0].line, commandName);
-      expect(output[1].type, LineType.result);
-      expect(output[1].line, commandOutput);
+      expect(result.output.length, 2);
+      expect(result.output[0].type, LineType.command);
+      expect(result.output[0].line, commandName);
+      expect(result.output[1].type, LineType.result);
+      expect(result.output[1].line, commandOutput);
 
       final expectedArguments = <String>[];
       final expectedHistory = [commandName];
@@ -353,13 +353,13 @@ void main() {
       final myArg1 = "myArg1";
       final myArg2 = "myArg2";
       final commandLine = "$commandName $myArg1 $myArg2";
-      await commandsRepository.executeCommandLine(commandLine, output, []);
+      final result = await commandsRepository.executeCommandLine(commandLine, output, []);
 
-      expect(output.length, 2);
-      expect(output[0].type, LineType.command);
-      expect(output[0].line, commandLine);
-      expect(output[1].type, LineType.result);
-      expect(output[1].line, commandOutput);
+      expect(result.output.length, 2);
+      expect(result.output[0].type, LineType.command);
+      expect(result.output[0].line, commandLine);
+      expect(result.output[1].type, LineType.result);
+      expect(result.output[1].line, commandOutput);
 
       final expectedArguments = [myArg1, myArg2];
       final expectedHistory = [commandLine];
@@ -381,9 +381,9 @@ void main() {
 
       final List<TerminalLine> output = [TerminalLine(line: "AnyOutput", type: LineType.result)];
 
-      await commandsRepository.executeCommandLine(commandName, output, []);
+      final result = await commandsRepository.executeCommandLine(commandName, output, []);
 
-      expect(output.length, 0);
+      expect(result.output.length, 0);
 
       final expectedHistory = [commandName];
       verify(command.execute(arguments: [], history: expectedHistory)).called(1);
@@ -405,8 +405,8 @@ void main() {
       final previousHistoryLine = "MyPreviousCommand";
       final List<String> history = [previousHistoryLine];
 
-      await commandsRepository.executeCommandLine(commandName, [], history);
-      expect(history.length, 0);
+      final result = await commandsRepository.executeCommandLine(commandName, [], history);
+      expect(result.history.length, 0);
 
       verify(command.execute(arguments: anyNamed("arguments"), history: anyNamed("history"))).called(1);
     });

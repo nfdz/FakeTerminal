@@ -21,7 +21,7 @@ void main() {
   }) {
     return ProviderScope(
       overrides: [
-        themeProvider.overrideWithProvider(StateNotifierProvider((ref) => themeNotifier ?? MockThemeNotifier())),
+        themeProvider.overrideWith((ref) => themeNotifier ?? MockThemeNotifier()),
       ],
       child: Sizer(
         builder: (context, orientation, screenType) {

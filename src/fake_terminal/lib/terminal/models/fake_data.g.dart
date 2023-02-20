@@ -6,29 +6,23 @@ part of 'fake_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-FakeData _$FakeDataFromJson(Map<String, dynamic> json) {
-  return FakeData(
-    fakeFiles: (json['fake_files'] as List<dynamic>)
-        .map((e) => FakeFile.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    fakeCommands: (json['fake_commands'] as List<dynamic>)
-        .map((e) => FakeCommand.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+FakeData _$FakeDataFromJson(Map<String, dynamic> json) => FakeData(
+      fakeFiles:
+          (json['fake_files'] as List<dynamic>).map((e) => FakeFile.fromJson(e as Map<String, dynamic>)).toList(),
+      fakeCommands:
+          (json['fake_commands'] as List<dynamic>).map((e) => FakeCommand.fromJson(e as Map<String, dynamic>)).toList(),
+    );
 
 Map<String, dynamic> _$FakeDataToJson(FakeData instance) => <String, dynamic>{
       'fake_files': instance.fakeFiles,
       'fake_commands': instance.fakeCommands,
     };
 
-FakeFile _$FakeFileFromJson(Map<String, dynamic> json) {
-  return FakeFile(
-    name: json['name'] as String,
-    contentUrl: json['content_url'] as String?,
-    content: json['content'] as String?,
-  );
-}
+FakeFile _$FakeFileFromJson(Map<String, dynamic> json) => FakeFile(
+      name: json['name'] as String,
+      contentUrl: json['content_url'] as String?,
+      content: json['content'] as String?,
+    );
 
 Map<String, dynamic> _$FakeFileToJson(FakeFile instance) => <String, dynamic>{
       'name': instance.name,
@@ -36,36 +30,29 @@ Map<String, dynamic> _$FakeFileToJson(FakeFile instance) => <String, dynamic>{
       'content': instance.content,
     };
 
-FakeCommand _$FakeCommandFromJson(Map<String, dynamic> json) {
-  return FakeCommand(
-    name: json['name'] as String,
-    description: json['description'] as String,
-    arguments: (json['arguments'] as List<dynamic>)
-        .map((e) => FakeArgument.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    defaultArgument: json['default_argument'] as String,
-  );
-}
+FakeCommand _$FakeCommandFromJson(Map<String, dynamic> json) => FakeCommand(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      arguments:
+          (json['arguments'] as List<dynamic>).map((e) => FakeArgument.fromJson(e as Map<String, dynamic>)).toList(),
+      defaultArgument: json['default_argument'] as String,
+    );
 
-Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FakeCommandToJson(FakeCommand instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'arguments': instance.arguments,
       'default_argument': instance.defaultArgument,
     };
 
-FakeArgument _$FakeArgumentFromJson(Map<String, dynamic> json) {
-  return FakeArgument(
-    name: json['name'] as String,
-    description: json['description'] as String,
-    outputUrl: json['output_url'] as String?,
-    output: json['output'] as String?,
-  );
-}
+FakeArgument _$FakeArgumentFromJson(Map<String, dynamic> json) => FakeArgument(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      outputUrl: json['output_url'] as String?,
+      output: json['output'] as String?,
+    );
 
-Map<String, dynamic> _$FakeArgumentToJson(FakeArgument instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FakeArgumentToJson(FakeArgument instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'output_url': instance.outputUrl,

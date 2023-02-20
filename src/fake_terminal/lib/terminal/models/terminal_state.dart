@@ -5,6 +5,7 @@ import 'package:fake_terminal/terminal/models/terminal_line.dart';
 class TerminalState extends Equatable {
   final List<TerminalLine> output;
   final List<String> historyInput;
+  late final List<TerminalLine> outputReversed = List.unmodifiable(output.reversed.toList());
 
   TerminalState({
     required this.output,
