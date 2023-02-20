@@ -100,12 +100,12 @@ jobs:
     container: cirrusci/flutter:stable
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
       - name: Config Git
         env:
           githubActor: ${{ github.actor }}
-        run: git config --global user.name "$githubActor" && git config --global user.email "$githubActor@github" && git config --global --add safe.directory *
+        run: git config --global user.name "$githubActor" && git config --global user.email "$githubActor@github" && git config --global --add safe.directory /__w/FakeTerminal/FakeTermina
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Checkout release
         run: git fetch origin && git checkout "origin/release/master" && git merge -X theirs "origin/master" --allow-unrelated-histories
       - name: Get dependencies
