@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Clean
         working-directory: ./src/fake_terminal
         run: scripts/clean_all.sh
@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Clean
         working-directory: ./src/fake_terminal
         run: scripts/clean_all.sh
@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
@@ -84,7 +84,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get dependencies
         working-directory: ./src/fake_terminal
         run: flutter pub get
@@ -101,12 +101,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup
+        uses: actions/checkout@v3
+      - name: Config Git
         env:
           githubActor: ${{ github.actor }}
-          githubRepository: ${{ github.repository }}
-        run: git config --global user.name "$githubActor" && git config --global user.email "$githubActor@$githubRepository"
+        run: git config --global user.name "$githubActor" && git config --global user.email "$githubActor@github" && git config --global --add safe.directory .
       - name: Checkout release
         run: git fetch origin && git checkout "origin/release/master" && git merge -X theirs "origin/master" --allow-unrelated-histories
       - name: Get dependencies
@@ -116,9 +115,9 @@ jobs:
         working-directory: ./src/fake_terminal
         run: flutter build web
       - name: Prepare
+        run: rm -rf docs && mv src/fake_terminal/build/web/* docs/
+      - name: Prepare
         run: rm -rf docs/* && mv src/fake_terminal/build/web/* docs/
       - name: Publish
-        env:
-          githubEventName: ${{ github.event_name }}
-        run: git add docs/* && git commit -m "[CD] Release (${githubEventName})" && git push origin HEAD:release/master
+        run: git add docs && git commit -m "[CD] Release" && git push origin HEAD:release/master
         
